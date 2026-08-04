@@ -8,7 +8,7 @@ import {
 
 // Logo Imports
 import {
-  qcu, sfhs, htmllogo, csslogo, jslogo, figmalogo, reactlogo, vuelogo, nextlogo, phplogo, netlogo, gsaplogo, framerlogo, nodelogo, expresslogo, mongodblogo, postmanlogo, vitelogo, vercellogo, gitlogo, githublogo, npmlogo, vscodelogo, vslogo, tailwindlogo, bootstraplogo, FMLogo, fmUILogo,
+  qcu, sfhs, htmllogo, csslogo, jslogo, figmalogo, reactlogo, vuelogo, nextlogo, phplogo, netlogo, gsaplogo, framerlogo, nodelogo, expresslogo, mongodblogo, postmanlogo, vitelogo, vercellogo, gitlogo, githublogo, npmlogo, vscodelogo, vslogo, tailwindlogo, bootstraplogo, FMLogo, fmUILogo, typescriptlogo, rustlogo
 } from '../assets/logos';
 
 // Certification Imports
@@ -17,7 +17,7 @@ import {
 } from '../assets/certifications';
 
 // Profile Imports
-import { FrederickMoreno, LianTorres, KielMariceSerrano } from '../assets/profiles';
+//import { FrederickMoreno, LianTorres, KielMariceSerrano } from '../assets/profiles';
 
 // Graphics Imports
 import {
@@ -161,6 +161,8 @@ export const ExpertiseData = [
       { icon: htmllogo, tooltip: "HyperText Markup Language" },
       { icon: csslogo, tooltip: "Cascading Style Sheet" },
       { icon: jslogo, tooltip: "JavaScript" },
+      { icon: typescriptlogo, tooltip: "TypeScript" },
+      { icon: rustlogo, tooltip: "Rust" },
       { icon: reactlogo, tooltip: "ReactJS" },
       { icon: nodelogo, tooltip: "NodeJS" },
       { icon: expresslogo, tooltip: "ExpressJS" },
@@ -202,78 +204,147 @@ export const ExpertiseData = [
 export const ProjectOverviewData = [
   {
     id: 'pijin',
-    type: '',
-    pageStatus: '',
+    type: 'special',
+    pageStatus: 'Done',
     img: pijinThumbnail,
     title: 'Pijin',
-    desc: '',
-    roles: [],
+    desc: 'Pijin is a Web2.5 data-free unified payment system designed to deliver secure, real-time peer-to-peer (P2P) transactions in zero-data and remote environments. By bridging Stellar blockchain cryptography with ubiquitous GSM/SMS cellular infrastructure, the platform decouples digital finance from broadband internet dependency. Users can fund on-chain escrow vaults online via regulated Stellar Anchors and manage local balances instantly through an offline-first mobile architecture, ensuring full financial accessibility without requiring specialized hardware or continuous data access.',
+    roles: ['Frontend Developer', 'UI/UX Designer'],
     poster: pijinBanner,
-    content: "",
-    siteLink: "",
-    githubLink: "",
-    category: [],
-    tools: [],
+    content: "The system relies on an offline-first mobile design powered by a high-performance local database for immediate user updates, while handling transaction delivery through dynamic cellular transport routing. To initiate an offline transfer, the sender inputs the recipient's details, and the mobile app securely signs the transaction offline. If cellular load is available, the compressed payload is transmitted via direct SMS to a Zero-API Gateway and cloud relayer. In absolute zero-load scenarios, the app generates a dynamic Payload QR code that an authorized bystander can scan to relay the encrypted SMS on the sender's behalf. Upon receipt, a Soroban smart contract mathematically verifies the offline signature, enforces anti-double-spending controls, and settles the funds instantly on-chain.",
+    siteLink: "https://www.pijin.live/",
+    githubLink: "https://github.com/0xreru/Pijin",
+    category: ['Hackathon Project','Fullstack Project', 'Web3 Project','Team Project',],
+    tools:  [
+      { icon: csslogo, tooltip: "Cascading Style Sheet" },
+      { icon: typescriptlogo, tooltip: "Typescript" },
+      { icon: rustlogo, tooltip: "Rust" },
+      { icon: reactlogo, tooltip: "ReactJS" },
+      { icon: nodelogo, tooltip: "NodeJS" },
+      { icon: mongodblogo, tooltip: "MongoDB" },
+      { icon: postmanlogo, tooltip: "Postman" },
+      { icon: tailwindlogo, tooltip: "Tailwind CSS" },
+      { icon: githublogo, tooltip: "GitHub" },
+      { icon: gitlogo, tooltip: "Git" },
+      { icon: vitelogo, tooltip: "Vite" },
+      { icon: vercellogo, tooltip: "Vercel" },
+      { icon: npmlogo, tooltip: "NPM" },
+    ],
     graphics: pijinGraphics,
-    date: '',
-    status: '',
-    contributor: [],
+    date: 'June 2026 - July 2026',
+    status: 'Finished',
+    contributor: [
+       { 
+        name: '0xreru',
+        role: ['Backend Developer', 'Smart Contract Developer']
+      },
+      { 
+        name: 'riXoon',
+        role: ['Frontend Developer', 'UI/UX Designer']
+      },
+      { 
+        name: 'tambayNgOrtigasAvenue',
+        role: ['DevOps', 'Backend Developer']
+      },
+      { 
+        name: 'Kaido147',
+        role: ['Team Leader', 'UI/UX Designer','Frontend Developer']
+      },
+      { 
+        name: 'daeroSys',
+        role: ['System Analyst', 'Pitcher']
+      }
+    ],
     summary: ""
   },
   {
     id: 'zentry',
-    type: '',
-    pageStatus: '',
+    type: 'special',
+    pageStatus: 'Done',
     img: zentryThumbnail,
     title: 'Zentry',
-    desc: '',
-    roles: [],
+    desc: 'This project is an interactive, motion-heavy landing page crafted to clone and showcase the modern visual identity of Zentry. Developed specifically as a hands-on exercise in advanced web animation, the application leverages React, Framer Motion, and Tailwind CSS to translate complex design concepts into fluid browser interactions. By focusing on high-performance layout transitions, dynamic scroll triggers, and sleek UI choreography, the project demonstrates how modern frontend tools can transform static web interfaces into immersive digital experiences.',
+    roles: ['Frontend Developer'],
     poster: zentryBanner,
-    content: "",
-    siteLink: "",
-    githubLink: "",
-    category: [],
-    tools: [],
+    content: "The codebase implements a suite of custom animation patterns inspired by Zentry's signature aesthetics, including smooth page reveals, scroll-linked element transformations, interactive hover states, and staggered micro-interactions. Utilizing Framer Motion's gesture and layout animation engines alongside Tailwind's utility-first styling, the site delivers complex visual sequences—such as floating card layouts, dynamic clip-path reveals, and responsive menu transitions—without sacrificing rendering performance or responsiveness across device viewport sizes.",
+    siteLink: "https://zentry-clone-web.netlify.app/",
+    githubLink: "https://github.com/riXoon/zetry-clone",
+    category: ['Inspired Project', 'Solo Project', 'Animation'],
+    tools: [
+      { icon: csslogo, tooltip: "Cascading Style Sheet" },
+      { icon: reactlogo, tooltip: "ReactJS" },
+      { icon: framerlogo, tooltip: "Framer Motion" },
+      { icon: nodelogo, tooltip: "NodeJS" },
+      { icon: tailwindlogo, tooltip: "Tailwind CSS" },
+      { icon: githublogo, tooltip: "GitHub" },
+      { icon: gitlogo, tooltip: "Git" },
+      { icon: vitelogo, tooltip: "Vite" },
+      { icon: npmlogo, tooltip: "NPM" },
+    ],
     graphics: zentryGraphics,
-    date: '',
-    status: '',
-    contributor: [],
-    summary: ""
+    date: 'January 2025',
+    status: 'Finished',
+    contributor: [
+      { 
+        name: 'riXoon',
+        role: ['Frontend Developer']
+      }
+    ],
+    summary: "By reproducing the polished visual mechanics of Zentry, this project serves as a practical showcase of mastery over Framer Motion, state-driven animations, and high-fidelity frontend engineering."
   },
   {
     id: 'zaproll',
-    type: '',
-    pageStatus: '',
+    type: 'special',
+    pageStatus: 'Done',
     img: zaprollThumbnail,
     title: 'Zaproll',
-    desc: '',
-    roles: [],
+    desc: 'ZapRoll is an end-to-end QR-based event attendance and management system custom-built for Quezon City University’s annual research colloquium, Synergy. The application streamlinies the entire event lifecycle by generating and validating unique QR codes for pre-registration, real-time check-ins across morning and afternoon sessions, and post-event evaluations. Featuring a built-in custom form builder that eliminates reliance on third-party platforms like Google Forms, ZapRoll provides organizers with a centralized ecosystem to manage attendees, track real-time venue capacity, and automatically verify student eligibility for digital certificate issuance.',
+    roles: ['Fulstack Developer', 'UI/UX Designer'],
     poster: zaprollBanner,
-    content: "",
+    content: "The system architecture combines a dynamic form creation module with real-time analytics to monitor student attendance trends and pre-registration rates live during the event. To handle multi-session tracking, ZapRoll uses automated validation logic that correlates morning and afternoon QR scans against submitted evaluation forms to conditionally unlock certificate access for qualifying participants. Built and deployed as a mission-critical application handling real user data in a live production environment, the platform was engineered with strict zero-margin-of-error reliability to maintain seamless data integrity and continuous uptime throughout ongoing, high-volume event sessions.",
     siteLink: "",
-    githubLink: "",
-    category: [],
-    tools: [],
+    githubLink: "https://github.com/riXoon/ZapRoll-V2",
+    category: ['School Project', 'Duo Project', 'Rushed Project'],
+    tools: [
+      { icon: csslogo, tooltip: "Cascading Style Sheet" },
+      { icon: reactlogo, tooltip: "ReactJS" },
+      { icon: nodelogo, tooltip: "NodeJS" },
+      { icon: tailwindlogo, tooltip: "Tailwind CSS" },
+      { icon: githublogo, tooltip: "GitHub" },
+      { icon: gitlogo, tooltip: "Git" },
+      { icon: vitelogo, tooltip: "Vite" },
+      { icon: npmlogo, tooltip: "NPM" },
+    ],
     graphics: zaprollGraphics,
     date: '',
     status: '',
-    contributor: [],
-    summary: ""
+    contributor: [
+      { 
+        name: 'riXoon',
+        role: ['Fullstack Developer']
+      }
+    ],
+    summary: "ZapRoll modernizes institutional event logistics by replacing disconnected third-party tools with an integrated, highly reliable QR attendance and analytics platform that successfully handled live production data at QCU's Synergy colloquium."
   },
   {
     id: 'monito',
     type: '',
-    pageStatus: '',
+    pageStatus: 'Done',
     img: monitoThumbnail,
     title: 'Monito',
     desc: '',
     roles: [],
     poster: monitoBanner,
     content: "",
-    siteLink: "",
-    githubLink: "",
+    siteLink: "https://moonito.netlify.app/",
+    githubLink: "https://github.com/riXoon/monito",
     category: [],
-    tools: [],
+    tools: [
+      { icon: htmllogo, tooltip: "HyperText Markup Language" },
+      { icon: csslogo, tooltip: "Cascading Style Sheet" },
+      { icon: githublogo, tooltip: "GitHub" },
+      { icon: gitlogo, tooltip: "Git" },
+    ],
     graphics: monitoGraphics,
     date: '',
     status: '',

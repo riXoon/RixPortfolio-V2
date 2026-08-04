@@ -26,6 +26,8 @@ import tailwindlogo from './tailwind-logo.png'
 import bootstraplogo from './bootstrap-logo.png'
 import FMLogo from '../rix-logo.png'
 import fmUILogo from './fmUI-logo.png'
+import typescriptlogo from './typescript-logo.png'
+import rustlogo from './rust-logo.png'
 
 export {
   sfhs,
@@ -55,5 +57,7 @@ export {
   tailwindlogo,
   bootstraplogo,
   FMLogo,
-  fmUILogo
+  fmUILogo,
+  typescriptlogo,
+  rustlogo
 }

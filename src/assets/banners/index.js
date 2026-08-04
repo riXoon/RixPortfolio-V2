@@ -1,6 +1,5 @@
-import defaultThumbnail from './FM-Portfolio-default-thumbnail.png'
+import defaultThumbnail from './FM-default-banner.png'
 import defaultBanner from './FM-default-banner.png'
-import FMPortfolioBanner from './FM-Portfolio-banner.png'
 
 import LMSThumbnail from './LMS-thumbnail.jpg'
 import PARMSThumbnail from './PARMS-thumbnail.jpg'
@@ -23,7 +22,6 @@ import zentryBanner from './zentry-banner.png'
 export {
   defaultThumbnail,
   defaultBanner,
-  FMPortfolioBanner,
   LMSThumbnail,
   PARMSThumbnail,
   entriqThumbnail,

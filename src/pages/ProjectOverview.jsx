@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { NoPage } from './index'
 import { motion } from 'framer-motion';
@@ -18,6 +18,72 @@ const ProjectOverview = ({ projects }) => {
   useScrollToTop();
   const { projectId } = useParams();
   const project = projects.find(proj => proj.id === projectId);
+
+  const [contributors, setContributors] = useState([]);
+
+  useEffect(() => {
+    if (project) {
+      setContributors(project.contributor || []);
+
+      if (project.githubLink) {
+        // Extract owner and repo name from GitHub link
+        const match = project.githubLink.match(/github\.com\/([^\/]+)\/([^\/]+)/);
+        if (match) {
+          const owner = match[1];
+          const repo = match[2].replace(/\/$/, '');
+          const cacheKey = `gh_contribs_${owner}_${repo}`;
+
+          const updateContributorsState = (fetchedContributors) => {
+            setContributors(prev => {
+              // Map fetched contributors by lowercase username
+              const fetchedMap = new Map(fetchedContributors.map(c => [c.name.toLowerCase(), c]));
+              
+              // Enrich hardcoded contributors with GitHub avatars if missing
+              const enrichedPrev = prev.map(c => {
+                const fetched = fetchedMap.get(c.name.toLowerCase());
+                return {
+                  ...c,
+                  profile: c.profile || (fetched ? fetched.profile : ''), // Auto-fill avatar
+                };
+              });
+
+              // Add any GitHub contributors that aren't hardcoded yet
+              const existingNames = new Set(prev.map(c => c.name.toLowerCase()));
+              const newContributors = fetchedContributors.filter(c => !existingNames.has(c.name.toLowerCase()));
+              
+              return [...enrichedPrev, ...newContributors];
+            });
+          };
+
+          const cachedData = sessionStorage.getItem(cacheKey);
+          if (cachedData) {
+            try {
+              const parsedContributors = JSON.parse(cachedData);
+              updateContributorsState(parsedContributors);
+            } catch (e) {
+              console.error("Failed to parse cached contributors", e);
+            }
+          } else {
+            fetch(`https://api.github.com/repos/${owner}/${repo}/contributors`)
+              .then(res => res.json())
+              .then(data => {
+                if (Array.isArray(data)) {
+                  const fetchedContributors = data.map(user => ({
+                    name: user.login,
+                    profile: user.avatar_url,
+                    role: ['Contributor']
+                  }));
+                  
+                  sessionStorage.setItem(cacheKey, JSON.stringify(fetchedContributors));
+                  updateContributorsState(fetchedContributors);
+                }
+              })
+              .catch(err => console.error("Failed to fetch contributors:", err));
+          }
+        }
+      }
+    }
+  }, [project]);
   const renderLink = (link) => (
     <Link
       to={`/#${link.id}`}
@@ -36,19 +102,22 @@ const ProjectOverview = ({ projects }) => {
 
   // TODO: GSAP Scroll Animation
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 1.3 }}
-    >
+    <>
+      <img src={project.poster || fallbackPoster} alt={`${project.id} Banner`} className='top-0 left-0 w-full h-screen object-cover object-center fixed z-0' />
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 1.3 }}
+        className="relative w-full min-h-screen"
+      >
       {/* Alert for Page Status */}
       {project.pageStatus === 'Done' ? (
         <Alert styles='lg:hidden md:hidden hidden' />
       ) : (
         <Alert />
       )}
-      <img src={project.poster || fallbackPoster} alt={`${project.id} Banner`} className='w-full h-full object-cover object-center absolute -z-10' id='scroll-animation-' />
+
       <div className='z-20 lg:p-12 p-6 relative overflow-x-hidden'>
         <Link to="/all-projects">
           <img src={FMlogo} alt="FM-logo" className="lg:h-[2.5rem] h-[1.8rem] w-auto object-contain" />
@@ -187,12 +256,12 @@ const ProjectOverview = ({ projects }) => {
               <div className='space-y-1.5'>
                 <h2 className='text-white mb-3 font-semibold text-[12px] lg:text-sm'>Contributor/s:</h2>
                 <div className='flex flex-wrap lg:flex-col flex-row lg:gap-5 gap-8'>
-                  {project.contributor.map((contributor, index) => (
+                  {contributors.map((contributor, index) => (
                     <div className='flex items-start gap-4' key={index}>
                       <img className="size-10 p-[2px] rounded-full ring-[2px] ring-indigo-400" src={contributor.profile} alt={`${contributor.name} Avatar`} />
                       <div>
                         <p className='text-[16px] pb-1'>{contributor.name}</p>
-                        {contributor.role.map((role, roleIndex) => (
+                        {contributor.role && contributor.role.map((role, roleIndex) => (
                           <p className='text-[#a297c5] text-xs block mt-0.5' key={roleIndex}>
                             {role}
                           </p>
@@ -212,7 +281,8 @@ const ProjectOverview = ({ projects }) => {
           <img src={glow05} alt="Glow eclipse" className='absolute bottom-0 -z-10 right-1' id='scroll-animation-' />
         </div>
       </div>
-    </motion.div >
+      </motion.div>
+    </>
   );
 };
 
