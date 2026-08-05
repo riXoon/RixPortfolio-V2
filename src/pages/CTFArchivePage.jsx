@@ -2,15 +2,25 @@ import React, { useState, useEffect, useRef } from 'react';
 import Lenis from 'lenis';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FMlogo, grid01, glow07 } from '../assets';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import GitBookRenderer from '../components/GitBookRenderer';
 import { FiMenu, FiX, FiChevronRight, FiChevronDown } from 'react-icons/fi';
+
+// Simple module-level cache for Table of Contents
+let cachedTocData = null;
 
 // ─── Sidebar Item ─────────────────────────────────────────────────────────────
 const SidebarItem = ({ page, activePageId, onSelectPage }) => {
   const [isOpen, setIsOpen] = useState(false);
   const hasChildren = page.pages && page.pages.length > 0;
   const isActive = activePageId === page.id;
+
+  // Open the folder automatically if its child is active
+  useEffect(() => {
+    if (hasChildren && page.pages.some(p => p.id === activePageId || (p.pages && p.pages.some(child => child.id === activePageId)))) {
+      setIsOpen(true);
+    }
+  }, [activePageId, hasChildren, page.pages]);
 
   return (
     <div className="flex flex-col">
@@ -85,6 +95,7 @@ function usePaneLenis(wrapperRef, contentRef, deps = []) {
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
 const CTFArchivePage = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [toc, setToc] = useState([]);
   const [filesMap, setFilesMap] = useState({});
   const [activePageId, setActivePageId] = useState(null);
@@ -113,25 +124,51 @@ const CTFArchivePage = () => {
   useEffect(() => {
     const fetchTOC = async () => {
       try {
+        if (cachedTocData) {
+          setToc(cachedTocData.pages);
+          setFilesMap(cachedTocData.filesMap);
+          setLoadingToc(false);
+          
+          const idFromQuery = searchParams.get('id');
+          if (idFromQuery) {
+            setActivePageId(idFromQuery);
+          } else if (cachedTocData.pages.length > 0) {
+            setActivePageId(cachedTocData.pages[0].id);
+          }
+          return;
+        }
+
         const res  = await fetch('/api/gitbook');
         const data = await res.json();
 
         if (!res.ok) throw new Error(data.error || 'Failed to fetch TOC');
 
         const pages = data.pages || [];
-        setToc(pages);
-
+        
+        let newFilesMap = {};
         // Convert files array → map keyed by file ID for O(1) lookup
         if (Array.isArray(data.files)) {
-          const map = {};
-          data.files.forEach(f => { map[f.id] = f; });
-          setFilesMap(map);
+          data.files.forEach(f => { newFilesMap[f.id] = f; });
         } else if (data.files && typeof data.files === 'object') {
-          setFilesMap(data.files);
+          newFilesMap = data.files;
         }
 
-        if (pages.length > 0) setActivePageId(pages[0].id);
+        cachedTocData = {
+          pages,
+          filesMap: newFilesMap
+        };
+
+        setToc(pages);
+        setFilesMap(newFilesMap);
+
+        const idFromQuery = searchParams.get('id');
+        if (idFromQuery) {
+          setActivePageId(idFromQuery);
+        } else if (pages.length > 0) {
+          setActivePageId(pages[0].id);
+        }
       } catch (err) {
+        console.error('Error fetching TOC:', err);
         setError(err.message);
       } finally {
         setLoadingToc(false);
@@ -139,6 +176,13 @@ const CTFArchivePage = () => {
     };
     fetchTOC();
   }, []);
+
+  // Update the URL when the active page changes
+  const handleSelectPage = (id) => {
+    setActivePageId(id);
+    setSearchParams({ id });
+    setIsMobileSidebarOpen(false); // Close mobile sidebar on select
+  };
 
   // ── Fetch Page Content ───────────────────────────────────────────────────
   useEffect(() => {
@@ -174,10 +218,7 @@ const CTFArchivePage = () => {
     fetchPage();
   }, [activePageId]);
 
-  const handleSelectPage = (id) => {
-    setActivePageId(id);
-    setIsMobileSidebarOpen(false);
-  };
+
 
   // ── Render ───────────────────────────────────────────────────────────────
   return (

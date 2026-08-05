@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { motion } from 'framer-motion'
 import { TestimonialData } from '../constants'
 
 const TestimonialCard = ({ item }) => {
@@ -79,15 +80,33 @@ const Testimonials = () => {
   return (
     <div className='flex flex-col lg:gap-8 gap-6 py-20 lg:py-32 w-full overflow-hidden border-t border-[#3B2B6A]/30 bg-gradient-to-b from-transparent to-[#1A1625]/20'>
       <div className='w-full z-10 flex flex-col items-center justify-center mb-8 px-4'>
-        <h1 className='uppercase text-white font-black text-[3rem] lg:text-[7rem] text-center md:text-nowrap text-wrap leading-none'>
+        <motion.h1 
+          initial={{ opacity: 0.1, x: -70 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: false, amount: 0.5 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className='uppercase text-white font-black text-[3rem] lg:text-[7rem] text-center md:text-nowrap text-wrap leading-none'
+        >
           Testimonial<span className='text-[#9B72EF]'>s</span>
-        </h1>
-        <p className="text-white text-center px-[2rem] mt-4 max-w-3xl">
+        </motion.h1>
+        <motion.p 
+          initial={{ opacity: 0.1 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: false, amount: 0.5 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="text-white text-center px-[2rem] mt-4 max-w-3xl"
+        >
           Here's what people I've worked with have to say about my skills, dedication, and collaborative spirit.
-        </p>
+        </motion.p>
       </div>
       
-      <div className='relative w-full'>
+      <motion.div 
+        initial={{ opacity: 0.1 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: false, amount: 0.2 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className='relative w-full'
+      >
         {/* Left Shadow Overlay */}
         <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 lg:w-[15%] bg-gradient-to-r from-[#0C0A12] via-[#0C0A12]/80 to-transparent z-20 pointer-events-none"></div>
         
@@ -109,8 +128,8 @@ const Testimonials = () => {
             </li>
           ))}
         </ul>
-      </div>
-      </div>
+        </div>
+      </motion.div>
     </div>
   )
 }

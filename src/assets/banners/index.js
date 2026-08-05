@@ -1,5 +1,6 @@
 import defaultThumbnail from './FM-default-banner.png'
 import defaultBanner from './FM-default-banner.png'
+import ctfBanner from './ctf-banner.png'
 
 import LMSThumbnail from './LMS-thumbnail.jpg'
 import PARMSThumbnail from './PARMS-thumbnail.jpg'
@@ -44,5 +45,6 @@ export {
   pijinBanner,
   zaprollBanner,
   zentryBanner,
-  PARMSBanner
+  PARMSBanner,
+  ctfBanner
 }
