@@ -26,6 +26,7 @@ const Sidebar = ({ activeSection }) => {
 
 const ToggleButton = ({ onClick }) => (
   <button
+    aria-label="Toggle Menu"
     className="lg:hidden fixed z-40 ml-[0.8rem] mt-[0.8rem] text-white hover:text-[#9B72EF] transition duration-300 ease-in-out  bg-transparent backdrop-blur-lg rounded-[4px] py-[2px] px-[1px]"
     onClick={onClick}
   >
@@ -37,10 +38,11 @@ const ToggleButton = ({ onClick }) => (
 
 const HeaderLogo = ({ onClick }) => (
   <div className="flex justify-between items-center">
-    <a href="/#home">
+    <a href="/#home" aria-label="Go to Home">
       <img src={FMlogo} alt="FM-logo" className="lg:h-[2.5rem] h-[1.8rem] w-auto object-contain" />
     </a>
     <button
+      aria-label="Close Menu"
       className="lg:hidden text-white hover:text-[#9B72EF] transition duration-300 ease-in-out"
       onClick={onClick}
     >
@@ -52,24 +54,26 @@ const HeaderLogo = ({ onClick }) => (
 );
 
 const NavLinks = ({ activeSection }) => (
-  <ul className="text-white uppercase space-y-[8px]">
-    {navLinks.map((nav, index) => (
-      <li key={index}>
-        <a
-          href={`#${nav.id}`}
-          className={`nav-link text-[12px] lg:text-sm ${activeSection === nav.id ? 'active-nav-link' : ''}`}
-        >
-          {nav.title}
-        </a>
-      </li>
-    ))}
-  </ul>
+  <nav aria-label="Main Navigation">
+    <ul className="text-white uppercase space-y-[8px]">
+      {navLinks.map((nav, index) => (
+        <li key={index}>
+          <a
+            href={`#${nav.id}`}
+            className={`nav-link text-[12px] lg:text-sm ${activeSection === nav.id ? 'active-nav-link' : ''}`}
+          >
+            {nav.title}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
 );
 
 const SocialLinks = () => (
   <div className="flex flex-col gap-4 mt-auto">
     {Socials.map((social, index) => (
-      <a key={index} href={social.link} target="_blank" rel="noopener noreferrer" className='self-start transition duration-300 ease-in-out hover:bg-[#1A1625] hover:text-[#9B72EF] hover:scale-110 p-[2px] rounded-md'>
+      <a key={index} href={social.link} aria-label={social.name} target="_blank" rel="noopener noreferrer" className='self-start transition duration-300 ease-in-out hover:bg-[#1A1625] hover:text-[#9B72EF] hover:scale-110 p-[2px] rounded-md'>
         <svg className="size-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
           {Array.isArray(social.svg) ? social.svg.map((p, idx) => (
             <path d={p} key={idx} />

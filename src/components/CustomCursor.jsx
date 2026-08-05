@@ -16,19 +16,6 @@ const CustomCursor = () => {
   const cursorYSpring = useSpring(cursorY, springConfig);
 
   useEffect(() => {
-    // Helper to check if an element is actually visible
-    const isElementVisible = (el) => {
-      let current = el;
-      while (current && current !== document.body) {
-        const style = window.getComputedStyle(current);
-        if (style.opacity === '0' || style.visibility === 'hidden' || style.display === 'none') {
-          return false;
-        }
-        current = current.parentElement;
-      }
-      return true;
-    };
-
     const moveCursor = (e) => {
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
@@ -41,14 +28,17 @@ const CustomCursor = () => {
         'a, button, img, p, h1, h2, h3, h4, h5, h6, span, li, .cursor-pointer'
       );
 
-      if (interestingElement && isElementVisible(interestingElement)) {
+      // Removed expensive isElementVisible and getComputedStyle checks to eliminate layout thrashing
+      if (interestingElement) {
         setIsHovering(true);
-        try {
-          const computedStyle = window.getComputedStyle(interestingElement);
-          const fontSize = parseFloat(computedStyle.fontSize) || 16;
-          const calculatedScale = Math.max(4.5, (fontSize / 8) + 2);
-          setHoverScale(Math.min(calculatedScale, 15));
-        } catch (err) {
+        const tagName = interestingElement.tagName.toLowerCase();
+        
+        // Simple heuristic for hover scale instead of reading computed font-size
+        if (['h1', 'h2', 'h3'].includes(tagName)) {
+          setHoverScale(8);
+        } else if (tagName === 'img') {
+          setHoverScale(6);
+        } else {
           setHoverScale(4.5);
         }
       } else {

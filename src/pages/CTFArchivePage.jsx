@@ -8,6 +8,8 @@ import { FiMenu, FiX, FiChevronRight, FiChevronDown } from 'react-icons/fi';
 
 // Simple module-level cache for Table of Contents
 let cachedTocData = null;
+// Cache for individual pages
+const cachedPages = new Map();
 
 // ─── Sidebar Item ─────────────────────────────────────────────────────────────
 const SidebarItem = ({ page, activePageId, onSelectPage }) => {
@@ -64,6 +66,7 @@ const SidebarItem = ({ page, activePageId, onSelectPage }) => {
 // pair so the Lenis feel applies to an inner pane rather than the window.
 function usePaneLenis(wrapperRef, contentRef, deps = []) {
   useEffect(() => {
+    if (window.innerWidth < 768) return;
     const wrapper = wrapperRef.current;
     const content = contentRef.current;
     if (!wrapper || !content) return;
@@ -189,6 +192,19 @@ const CTFArchivePage = () => {
     if (!activePageId) return;
 
     const fetchPage = async () => {
+      // Check cache first
+      if (cachedPages.has(activePageId)) {
+        const cached = cachedPages.get(activePageId);
+        setDocumentContent(cached.document);
+        setPageData(cached.pageData);
+        // Optionally cache the files map updates too if there are any new files
+        if (cached.files) {
+          setFilesMap(prev => ({ ...prev, ...cached.files }));
+        }
+        setLoadingPage(false);
+        return;
+      }
+
       setLoadingPage(true);
       setDocumentContent(null);
       setPageData(null);
@@ -202,15 +218,28 @@ const CTFArchivePage = () => {
         setDocumentContent(data.document);
         setPageData(data);
 
-        if (Array.isArray(data.files) && data.files.length > 0) {
-          setFilesMap(prev => {
-            const merged = { ...prev };
-            data.files.forEach(f => { merged[f.id] = f; });
-            return merged;
-          });
+        let newFiles = {};
+        if (data.files) {
+          if (Array.isArray(data.files)) {
+            const map = {};
+            data.files.forEach(f => { map[f.id] = f; });
+            newFiles = map;
+            setFilesMap(prev => ({ ...prev, ...map }));
+          } else if (typeof data.files === 'object') {
+            newFiles = data.files;
+            setFilesMap(prev => ({ ...prev, ...data.files }));
+          }
         }
+
+        cachedPages.set(activePageId, {
+          document: data.document,
+          pageData: data,
+          files: newFiles
+        });
+
       } catch (err) {
         console.error('Failed to fetch page:', err);
+        setError(err.message);
       } finally {
         setLoadingPage(false);
       }
@@ -348,7 +377,7 @@ const CTFArchivePage = () => {
         <main
           ref={mainWrapperRef}
           data-lenis-prevent
-          className="flex-1 min-h-0 overflow-hidden"
+          className="flex-1 min-h-0 overflow-y-auto md:overflow-hidden"
         >
           {/* mainContentRef is the element Lenis translates */}
           <div ref={mainContentRef}>

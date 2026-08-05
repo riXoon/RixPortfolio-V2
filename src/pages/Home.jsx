@@ -55,7 +55,7 @@ const Home = () => {
       <section ref={(el) => (sectionsRef.current[6] = el)} className='h-screen w-full relative' id='projects'>
         <Project />
       </section>
-      <section ref={(el) => (sectionsRef.current[7] = el)} className='h-screen w-full relative' id='ctf-writeups'>
+      <section ref={(el) => (sectionsRef.current[7] = el)} className='min-h-screen lg:h-screen w-full relative' id='ctf-writeups'>
         <CTFWriteups />
       </section>
       <section ref={(el) => (sectionsRef.current[8] = el)} className='w-full relative' id='testimonials'>

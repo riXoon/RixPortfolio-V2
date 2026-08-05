@@ -43,6 +43,8 @@ const TestimonialCard = ({ item }) => {
         {isOverflowing && !isExpanded && (
           <button 
             onClick={() => setIsExpanded(true)} 
+            aria-expanded={false}
+            aria-label={`Read more of ${item.name}'s testimonial`}
             className="text-[#9B72EF] hover:text-[#B794F6] text-xs lg:text-sm text-left mt-2 font-semibold transition-colors shrink-0"
           >
             Read more...
@@ -51,6 +53,8 @@ const TestimonialCard = ({ item }) => {
         {isExpanded && (
           <button 
             onClick={() => setIsExpanded(false)} 
+            aria-expanded={true}
+            aria-label={`Show less of ${item.name}'s testimonial`}
             className="text-[#9B72EF] hover:text-[#B794F6] text-xs lg:text-sm text-left mt-2 font-semibold transition-colors shrink-0"
           >
             Show less
@@ -85,7 +89,7 @@ const Testimonials = () => {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: false, amount: 0.5 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className='uppercase text-white font-black text-[3rem] lg:text-[7rem] text-center md:text-nowrap text-wrap leading-none'
+          className='uppercase text-white font-black text-[2.5rem] sm:text-[3rem] lg:text-[7rem] text-center md:text-nowrap text-wrap leading-none break-words'
         >
           Testimonial<span className='text-[#9B72EF]'>s</span>
         </motion.h1>
@@ -116,14 +120,14 @@ const Testimonials = () => {
         <div className='w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)] py-8 mt-2 z-10 group/ticker'>
           <ul className='flex items-center justify-center md:justify-start flex-none w-max [&_li]:shrink-0 [&_li]:mx-4 lg:[&_li]:mx-6 animate-infinite-scroll-slow group-hover/ticker:[animation-play-state:paused]'>
           {[...TestimonialData, ...TestimonialData, ...TestimonialData].map((item, index) => (
-            <li className="relative flex items-center w-[320px] lg:w-[450px] h-[280px] lg:h-[320px] shrink-0" key={index}>
+            <li className="relative flex items-center w-[280px] sm:w-[320px] lg:w-[450px] h-[280px] lg:h-[320px] shrink-0" key={index}>
               <TestimonialCard item={item} />
             </li>
           ))}
         </ul>
         <ul className='flex items-center justify-center md:justify-start flex-none w-max [&_li]:shrink-0 [&_li]:mx-4 lg:[&_li]:mx-6 animate-infinite-scroll-slow group-hover/ticker:[animation-play-state:paused]' aria-hidden="true">
           {[...TestimonialData, ...TestimonialData, ...TestimonialData].map((item, index) => (
-            <li className="relative flex items-center w-[320px] lg:w-[450px] h-[280px] lg:h-[320px] shrink-0" key={index}>
+            <li className="relative flex items-center w-[280px] sm:w-[320px] lg:w-[450px] h-[280px] lg:h-[320px] shrink-0" key={index}>
               <TestimonialCard item={item} />
             </li>
           ))}

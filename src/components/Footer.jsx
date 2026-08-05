@@ -9,9 +9,9 @@ const Footer = ({ link }) => {
   const contacts = ContactData[0];
 
   return (
-    <div className='grid lg:grid-cols-4 grid-cols-1 gap-8 w-full' id='scroll-animation-'>
+    <footer className='grid lg:grid-cols-4 grid-cols-1 gap-8 w-full' id='scroll-animation-'>
       <div className="col-span-1 flex justify-center lg:justify-start items-end">
-        <a href='/#home'>
+        <a href='/#home' aria-label="Go to Home">
           <img src={FMlogo} alt="FM-logo" className="lg:h-[3.5rem] h-[2.5rem] w-auto object-contain" />
         </a>
       </div>
@@ -53,7 +53,7 @@ const Footer = ({ link }) => {
             ©{currentYear} <span className='text-[#9B72EF]'>{contacts.name}</span>
           </h2>
         </div>
-      </div>
+      </footer>
   );
 };
 

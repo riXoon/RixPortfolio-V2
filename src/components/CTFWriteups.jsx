@@ -70,7 +70,7 @@ const CTFWriteups = () => {
       {/* Gradient overlay to ensure text remains readable */}
       <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-[#0A0710] via-[#0A0710]/80 to-transparent z-20 pointer-events-none" />
 
-      <div className='lg:pl-[13.5rem] pl-[2rem] flex flex-col justify-center h-full absolute z-30 w-full pr-[2rem]'>
+      <div className='lg:pl-[13.5rem] pl-[2rem] flex flex-col justify-center min-h-screen lg:h-full relative z-30 w-full pr-[2rem] py-24 lg:py-0'>
         <div className='flex flex-col h-full justify-center'>
           <div className="relative">
             {/* Glowing circle behind the heading */}
@@ -81,7 +81,7 @@ const CTFWriteups = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: false, amount: 0.2 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className='uppercase text-white font-black text-[3rem] lg:text-[7rem] whitespace-nowrap leading-none md:ml-[4rem] mb-4'
+              className='uppercase text-white font-black text-[2.5rem] sm:text-[3rem] lg:text-[7rem] leading-none md:ml-[4rem] mb-4 break-words'
             >
               CTF WRITEUPS
             </motion.h1>
@@ -126,7 +126,8 @@ const CTFWriteups = () => {
                 return (
                   <Link 
                     to={`/ctf-archive?id=${writeup.id}`} 
-                    key={index} 
+                    key={index}
+                    aria-label={`Read writeup: ${writeup.title}`}
                     className='bg-[#1A1625] border border-[#3B2B6A] p-6 rounded-lg flex flex-col justify-between hover:scale-105 transition-transform duration-300 relative overflow-hidden text-left'
                   >
                     <div className="absolute top-0 right-0 bg-[#7B4FD0] text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-widest shadow-md z-10">
@@ -161,9 +162,9 @@ const CTFWriteups = () => {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className='flex mt-10 md:ml-[4rem]'
           >
-            <Link to='/ctf-archive'>
+            <Link to='/ctf-archive' aria-label="View all CTF writeups archive">
               <Button text={'View Archive'} styles={'bg-[#7B4FD0] hover:bg-[#6A3FBF]'}>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-4">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-4" aria-hidden="true">
                   <path fillRule="evenodd" d="M8.25 3.75H19.5a.75.75 0 0 1 .75.75v11.25a.75.75 0 0 1-1.5 0V6.31L5.03 20.03a.75.75 0 0 1-1.06-1.06L17.69 5.25H8.25a.75.75 0 0 1 0-1.5Z" clipRule="evenodd" />
                 </svg>
               </Button>
