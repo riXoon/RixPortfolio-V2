@@ -138,10 +138,10 @@ const Hero = () => {
               </div>
               {/* ZSH prompt above the big heading */}
               <TerminalPrompt
-                command={<>echo <span>BUILDER</span></>}
-                commandStr="echo BUILDER"
+                command={<>echo <span>builder</span></>}
+                commandStr="echo builder"
                 onComplete={() => setHeadingDone(true)}
-                className='lg:mb-2 mb-1 lg:ml-2.5'
+                className='normal-case lg:mb-2 mb-1 lg:ml-2.5'
               />
               {/* Big heading reveals after echo command finishes */}
               <TerminalOutput visible={headingDone}>

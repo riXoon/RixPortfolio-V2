@@ -21,13 +21,13 @@ import {
 
 // Graphics Imports
 import {
-  LMSGraphics, PARMSGraphics, entriqGraphics, furniroGraphics, gothamgainsGraphics, monitoGraphics, pijinGraphics, zaprollGraphics, zentryGraphics
+  LMSGraphics, PARMSGraphics, entriqGraphics, furniroGraphics, gothamgainsGraphics, monitoGraphics, pijinGraphics, zaprollGraphics, zentryGraphics, picpacGraphics
 } from '../assets/graphics';
 
 // Banner and Thumbnail Imports
 import {
-  LMSThumbnail, PARMSThumbnail, entriqThumbnail, furniroThumbnail, gothamgainsThumbnail, monitoThumbnail, pijinThumbnail, zaprollThumbnail, zentryThumbnail,
-  LMSBanner, entriqBanner, furniroBanner, gothamgainsBanner, monitoBanner, pijinBanner, zaprollBanner, zentryBanner
+  LMSThumbnail, PARMSThumbnail, entriqThumbnail, furniroThumbnail, gothamgainsThumbnail, monitoThumbnail, picpacThumbnail, pijinThumbnail, zaprollThumbnail, zentryThumbnail,
+  LMSBanner, entriqBanner, furniroBanner, gothamgainsBanner, monitoBanner, picpacBanner, pijinBanner, zaprollBanner, zentryBanner, PARMSBanner
 } from '../assets/banners';
 
 // Navigation Links Data
@@ -273,6 +273,7 @@ export const ProjectOverviewData = [
     tools: [
       { icon: csslogo, tooltip: "Cascading Style Sheet" },
       { icon: reactlogo, tooltip: "ReactJS" },
+      { icon: figmalogo, tooltip: "Figma" },
       { icon: framerlogo, tooltip: "Framer Motion" },
       { icon: nodelogo, tooltip: "NodeJS" },
       { icon: tailwindlogo, tooltip: "Tailwind CSS" },
@@ -308,6 +309,7 @@ export const ProjectOverviewData = [
     tools: [
       { icon: csslogo, tooltip: "Cascading Style Sheet" },
       { icon: reactlogo, tooltip: "ReactJS" },
+      { icon: figmalogo, tooltip: "Figma" },
       { icon: nodelogo, tooltip: "NodeJS" },
       { icon: tailwindlogo, tooltip: "Tailwind CSS" },
       { icon: githublogo, tooltip: "GitHub" },
@@ -326,129 +328,263 @@ export const ProjectOverviewData = [
     ],
     summary: "ZapRoll modernizes institutional event logistics by replacing disconnected third-party tools with an integrated, highly reliable QR attendance and analytics platform that successfully handled live production data at QCU's Synergy colloquium."
   },
-  {
-    id: 'monito',
-    type: '',
-    pageStatus: 'Done',
-    img: monitoThumbnail,
-    title: 'Monito',
-    desc: '',
-    roles: [],
-    poster: monitoBanner,
-    content: "",
-    siteLink: "https://moonito.netlify.app/",
-    githubLink: "https://github.com/riXoon/monito",
-    category: [],
-    tools: [
-      { icon: htmllogo, tooltip: "HyperText Markup Language" },
-      { icon: csslogo, tooltip: "Cascading Style Sheet" },
-      { icon: githublogo, tooltip: "GitHub" },
-      { icon: gitlogo, tooltip: "Git" },
-    ],
-    graphics: monitoGraphics,
-    date: '',
-    status: '',
-    contributor: [],
-    summary: ""
-  },
-  {
+   {
     id: 'PARMS',
-    type: '',
-    pageStatus: '',
+    type: 'school',
+    pageStatus: 'Done',
     img: PARMSThumbnail,
     title: 'PARMS',
-    desc: '',
-    roles: [],
-    poster: '',
-    content: "",
-    siteLink: "",
-    githubLink: "",
-    category: [],
-    tools: [],
+    desc: 'The Patient Appointment & Record Management System (PARMS) is a secure, web-based healthcare platform engineered to streamline clinical scheduling and centralize patient record management. Designed to eliminate manual filing errors and overlapping bookings, the system unifies patient profiles, medical histories, and provider availability into a single digital ecosystem. By integrating appointment scheduling directly with electronic health records, PARMS provides healthcare clinics with an organized framework that enhances data accessibility, optimizes operational workflows, and maintains rigorous data integrity.',
+    roles: ['Project Manager', 'Fullstack Developer', 'System Analyst'],
+    poster: PARMSBanner,
+    content: "The application features an intelligent appointment management module with conflict-detection logic to block double-bookings on a first-come, first-served basis, paired with a search-indexed database that links personal details, medications, and clinical histories to a unique Patient ID. To ensure high security and reliability, PARMS incorporates Role-Based Access Control (RBAC), password encryption, email-based Two-Factor Authentication (2FA), and a specialized data archival module capable of restoring deleted records. Evaluated against the ISO 25010 standard across functional suitability, security, reliability, usability, and performance efficiency, the standalone system operates securely without requiring third-party payment, pharmacy, or external lab integrations.",
+    siteLink: "https://parms.vercel.app",
+    githubLink: "https://github.com/riXoon/PARMS",
+    category: ['SIA 102','Team Project'],
+    tools: [
+      { icon: csslogo, tooltip: "Cascading Style Sheet" },
+      { icon: typescriptlogo, tooltip: "Typescript" },
+      { icon: jslogo, tooltip: "Javascript" },
+      { icon: figmalogo, tooltip: "Figma" },
+      { icon: reactlogo, tooltip: "ReactJS" },
+      { icon: nodelogo, tooltip: "NodeJS" },
+      { icon: mongodblogo, tooltip: "MongoDB" },
+      { icon: postmanlogo, tooltip: "Postman" },
+      { icon: tailwindlogo, tooltip: "Tailwind CSS" },
+      { icon: githublogo, tooltip: "GitHub" },
+      { icon: gitlogo, tooltip: "Git" },
+      { icon: vitelogo, tooltip: "Vite" },
+      { icon: vercellogo, tooltip: "Vercel" },
+      { icon: npmlogo, tooltip: "NPM" },
+    ],
     graphics: PARMSGraphics,
-    date: '',
-    status: '',
-    contributor: [],
-    summary: ""
+    date: 'February 2026 - May 2026',
+    status: 'Done',
+    contributor: [
+      {
+        name: 'riXoon',
+        role: ['Project Manager', 'Fullstack Developer', 'System Analyst']
+      },
+      {
+        name: 'shodetoku',
+        role: ['UI/UX Designer', 'Frontend Developer', 'Documentation']
+      },
+      {
+        name: 'Piotr-0-Sys',
+        role: ['Frontend Developer', 'Documentation']
+      },
+      {
+        name: 'Jhonas2005',
+        role: ['Frontend Developer', 'Documentation']
+      }
+    ],
+    summary: "PARMS modernizes clinical workflows by replacing manual record-keeping with an ISO 25010-evaluated, RBAC-secured web platform that unifies patient scheduling and digital medical histories."
   },
   {
     id: 'LMS',
-    type: '',
-    pageStatus: '',
+    type: 'school',
+    pageStatus: 'Done',
     img: LMSThumbnail,
     title: 'LMS',
-    desc: '',
-    roles: [],
+    desc: 'The Library Management System (LMS) is an enterprise-grade backend and system integration project developed as part of a enterprise portal architecture (QCU Portal). Built to unify disparate library operations into a single scalable platform, the system replaces traditional, siloed library setups with an automated digital ecosystem. As Lead and Backend Developer, I architected the platform to streamline physical resource tracking, digital book access, room bookings, and fee enforcement while adhering to a strict security-first framework.',
+    roles: ['Lead Developer', 'Backend Developer'],
     poster: LMSBanner,
-    content: "",
+    content: "The core platform integrates physical catalog management, journal tracking, and external e-book access via the Open Library API alongside a real-time room reservation engine and an automated fines calculator. Serving a multi-role hierarchy (Students, Faculty, Librarians, and Head Librarians), the backend features JWT authentication, bcrypt password hashing, Arcjet rate limiting, strict CORS policies, and server-side input validation. The system also delivers live analytics dashboards, automated email/real-time notifications, a user feedback module, and comprehensive, immutable audit logging for full operational accountability within the larger QCU Portal network.",
     siteLink: "",
-    githubLink: "",
-    category: [],
-    tools: [],
+    githubLink: "https://github.com/riXoon/QCU-Library-Management-System-Public",
+    category: ['SIA 101', 'Team Project'],
+    tools: [
+      { icon: htmllogo, tooltip: "HyperText Markup Language" },
+      { icon: csslogo, tooltip: "Cascading Style Sheet" },
+      { icon: typescriptlogo, tooltip: "Typescript" },
+      { icon: jslogo, tooltip: "Javascript" },
+      { icon: reactlogo, tooltip: "ReactJS" },
+      { icon: figmalogo, tooltip: "Figma" },
+      { icon: nodelogo, tooltip: "NodeJS" },
+      { icon: mongodblogo, tooltip: "MongoDB" },
+      { icon: postmanlogo, tooltip: "Postman" },
+      { icon: tailwindlogo, tooltip: "Tailwind CSS" },
+      { icon: githublogo, tooltip: "GitHub" },
+      { icon: gitlogo, tooltip: "Git" },
+      { icon: vitelogo, tooltip: "Vite" },
+      { icon: vercellogo, tooltip: "Vercel" },
+      { icon: npmlogo, tooltip: "NPM" },
+    ],
     graphics: LMSGraphics,
     date: '',
     status: '',
     contributor: [],
-    summary: ""
+    summary: "LMS modernizes campus library operations by uniting physical/digital cataloging, room reservations, and automated fines into a secure, RBAC-protected backend integrated with the QCU Portal."
   },
   {
+    id: 'picpac',
+    type: 'personal',
+    pageStatus: 'Done',
+    img: picpacThumbnail,
+    title: 'PicPac',
+    desc: 'P!CPAC is a web-based, personalized digital photobooth application designed to bring the traditional photobooth experience directly to modern web browsers. Accessible across mobile, tablet, and desktop viewports without requiring any app downloads or installations, the platform enables users to capture and customize personal memories in real-time. By providing interactive photo customization tools directly within a responsive web interface, P!CPAC delivers a fun, low-friction digital media experience for casual users.',
+    roles: ['Frontend Developer'],
+    poster: picpacBanner,
+    content: "The application features a browser-based camera capture interface integrated with a creative customization canvas. Users can capture live photos and instantly personalize their image strips using a custom selection of visual filters, dynamic background templates, and original, in-house designed stickers. Engineered for cross-device compatibility, the responsive frontend layout adapts seamlessly across different screen sizes, ensuring fluid touch interactions on mobile devices as well as precise cursor manipulation on desktop displays.",
+    siteLink: "https://picpac.netlify.app/",
+    githubLink: "https://github.com/riXoon/PICPAC",
+    category: ['Personal Project', 'Team Project', 'Summer Project'],
+    tools: [
+      { icon: htmllogo, tooltip: "HyperText Markup Language" },
+      { icon: csslogo, tooltip: "Cascading Style Sheet" },
+      { icon: jslogo, tooltip: "Javascript" },
+      { icon: figmalogo, tooltip: "Figma" },
+      { icon: reactlogo, tooltip: "ReactJS" },
+      { icon: tailwindlogo, tooltip: "Tailwind CSS" },
+      { icon: githublogo, tooltip: "GitHub" },
+      { icon: gitlogo, tooltip: "Git" },
+      { icon: vercellogo, tooltip: "Vercel" },
+      { icon: npmlogo, tooltip: "NPM" },
+    ],
+    graphics: picpacGraphics,
+    date: 'May 2026 - June 2026',
+    status: 'In Progress',
+    contributor: [
+      {
+        name: 'riXoon',
+        role: ['Frontend Developer']
+      }
+    ],
+    summary: "P!CPAC modernizes the digital photobooth experience by delivering a responsive, app-free web platform featuring live photo capture and customizable overlays, stickers, and backgrounds."
+  },
+  {
+    id: 'monito',
+    type: 'personal',
+    pageStatus: 'Done',
+    img: monitoThumbnail,
+    title: 'Monito',
+    desc: 'Monito is a responsive pet adoption showcase website built from scratch using semantic HTML5 and custom CSS3. Designed during the early stages of frontend development, the project served as a foundational playground for mastering responsive web design (RWD) principles without relying on external UI frameworks. The platform replicates a modern pet marketplace interface, organizing adoption listings, pet details, and promotional content into a clean, accessible web experience.',
+    roles: ['Frontend Developer'],
+    poster: monitoBanner,
+    content: "The site features a mobile-first, multi-device layout implemented using pure CSS layout techniques, including Flexbox, CSS Grid, and fluid media queries. The codebase focuses on building structured HTML document trees alongside responsive UI components—such as dynamic navigation bars, adaptive image grids, and flexible card components—ensuring the design seamlessly scales from mobile viewports to desktop screens while maintaining consistent typography and spatial alignment.",
+    siteLink: "https://moonito.netlify.app/",
+    githubLink: "https://github.com/riXoon/monito",
+    category: ['Solo Project', 'Side Project'],
+    tools: [
+      { icon: htmllogo, tooltip: "HyperText Markup Language" },
+      { icon: csslogo, tooltip: "Cascading Style Sheet" },
+      { icon: figmalogo, tooltip: "Figma" },
+      { icon: githublogo, tooltip: "GitHub" },
+      { icon: gitlogo, tooltip: "Git" },
+    ],
+    graphics: monitoGraphics,
+    date: 'June 2024',
+    status: 'Finished',
+    contributor: [
+      {
+        name: 'riXoon',
+        role: ['Frontend Developer']
+      }
+    ],
+    summary: "Monito marks as my foundational milestone in mobile-first frontend engineering, demonstrating practical application of core web standards, raw CSS layout engines, and cross-device responsiveness."
+  },
+
+  {
     id: 'gothamgains',
-    type: '',
-    pageStatus: '',
+    type: 'personal',
+    pageStatus: 'Done',
     img: gothamgainsThumbnail,
     title: 'GothamGains',
-    desc: '',
-    roles: [],
+    desc: 'GothamGains is a Batman-themed fitness web application engineered to deliver custom workout routines tailored to individual training preferences. Combining a dark, immersive visual identity with interactive fitness logic, the platform provides gym enthusiasts with a uniquely styled interface to plan and optimize their strength training regimens. By allowing users to select specific workout splits and targeted muscle groups, GothamGains transforms routine fitness planning into an engaging, theme-driven digital experience.',
+    roles: ['Frontend Developer'],
     poster: gothamgainsBanner,
-    content: "",
-    siteLink: "",
-    githubLink: "",
-    category: [],
-    tools: [],
+    content: "The core functionality centers on an automated plan generation engine that processes user inputs—such as workout splits (e.g., Push/Pull/Legs, Upper/Lower) and specific muscle focus areas—to construct tailored exercise routines. Designed around the iconic Gotham aesthetic, the frontend features dark-mode UI components, thematic typography, and dynamic workout cards that organize target sets, reps, and exercise variations. The application focuses on intuitive user navigation and responsive layout design to ensure seamless access to customized training programs on both mobile and desktop devices.",
+    siteLink: "https://gothamgains.netlify.app/",
+    githubLink: "https://github.com/riXoon/GothamGains",
+    category: ['Solo Project', 'Side Project'],
+    tools: [
+      { icon: htmllogo, tooltip: "HyperText Markup Language" },
+      { icon: csslogo, tooltip: "Cascading Style Sheet" },
+      { icon: jslogo, tooltip: "Javascript" },
+      { icon: reactlogo, tooltip: "ReactJS" },
+      { icon: tailwindlogo, tooltip: "Tailwind CSS" },
+      { icon: figmalogo, tooltip: "Figma" },
+      { icon: githublogo, tooltip: "GitHub" },
+      { icon: gitlogo, tooltip: "Git" },
+      { icon: vitelogo, tooltip: "Vite" },
+    ],
     graphics: gothamgainsGraphics,
-    date: '',
-    status: '',
-    contributor: [],
-    summary: ""
+    date: 'August 2024',
+    status: 'Finished',
+    contributor: [
+      {
+        name: 'riXoon',
+        role: ['Frontend Developer']
+      }
+    ],
+    summary: "GothamGains merges a distinct Batman-inspired visual theme with dynamic workout generation logic, offering fitness enthusiasts a personalized and visually captivating approach to routine planning."
   },
   {
     id: 'furniro',
-    type: '',
-    pageStatus: '',
+    type: 'personal',
+    pageStatus: 'Done',
     img: furniroThumbnail,
     title: 'Furniro',
-    desc: '',
-    roles: [],
+    desc: 'Furniro is a modern furniture e-commerce showcase website built from the ground up to refine core web development skills. Designed as a hands-on frontend practice project using standard HTML5 and CSS3, the application replicates the look and feel of a sleek digital storefront. The platform organizes home decor, furniture collections, and promotional layouts into an intuitive visual shopping experience.',
+    roles: ['Frontend Developer'],
     poster: furniroBanner,
-    content: "",
-    siteLink: "",
-    githubLink: "",
-    category: [],
-    tools: [],
+    content: "The project focuses on structuring clean, semantic markup alongside custom CSS styling to construct essential e-commerce UI components. Key interface elements include product display grids, hero promotional banners, category navigation cards, and product details previews. By building the layout without external UI libraries, the project emphasizes mastery over fundamental styling concepts—such as Flexbox, CSS Grid, spatial alignment, custom typography, and responsive media queries across various screen sizes.",
+    siteLink: "https://furnir0.netlify.app/#",
+    githubLink: "https://github.com/riXoon/furniro",
+    category: ['Solo Project', 'Side Project'],
+    tools: [
+      { icon: htmllogo, tooltip: "HyperText Markup Language" },
+      { icon: csslogo, tooltip: "Cascading Style Sheet" },
+      { icon: figmalogo, tooltip: "Figma" },
+      { icon: githublogo, tooltip: "GitHub" },
+      { icon: gitlogo, tooltip: "Git" },
+    ],
     graphics: furniroGraphics,
-    date: '',
-    status: '',
-    contributor: [],
-    summary: ""
+    date: 'September 2024',
+    status: 'Finished',
+    contributor: [
+      {
+        name: 'riXoon',
+        role: ['Frontend Developer']
+      }
+    ],
+    summary: "Furniro demonstrates my practical application of core HTML and CSS by translating modern e-commerce visual design patterns into a responsive, framework-free frontend interface."
   },
   {
     id: 'entriq',
-    type: '',
-    pageStatus: '',
+    type: 'school',
+    pageStatus: 'Done',
     img: entriqThumbnail,
     title: 'Entriq',
-    desc: '',
-    roles: [],
+    desc: 'Entriq is a centralized web platform designed specifically for student entrepreneurs at Quezon City University (QCU). Developed as a core Human-Computer Interaction (HCI) project, the platform serves as an accessible digital hub for showcasing student-led businesses, products, and campus ventures. By prioritizing user-centered design principles, Entriq provides local student founders with a unified showcase interface while giving the QCU community a seamless way to discover and support campus-born initiatives.',
+    roles: ['Project Manager', 'Frontend Developer', 'UI/UX Design'],
     poster: entriqBanner,
-    content: "",
-    siteLink: "",
-    githubLink: "",
-    category: [],
-    tools: [],
+    content: "As a static web application built with a strong focus on UI/UX research and execution, Entriq emphasizes visual hierarchy, intuitive navigation, and low-friction user journeys. The interface includes custom-designed storefront grids, entrepreneur directory cards, search and filter layouts, and dedicated vendor profile pages. The project lifecycle involved translating user workflows into wireframes, high-fidelity prototypes, and clean frontend components—ensuring accessibility, consistent visual branding, and optimal responsive layouts across both mobile and desktop screens.",
+    siteLink: "https://entriq.netlify.app",
+    githubLink: "https://github.com/riXoon/EntriqV4",
+    category: ['HCI 101', 'Team Project', 'UI/UX'],
+    tools: [
+      { icon: htmllogo, tooltip: "HyperText Markup Language" },
+      { icon: csslogo, tooltip: "Cascading Style Sheet" },
+      { icon: jslogo, tooltip: "Javascript" },
+      { icon: figmalogo, tooltip: "Figma" },
+      { icon: githublogo, tooltip: "GitHub" },
+      { icon: gitlogo, tooltip: "Git" },
+    ],
     graphics: entriqGraphics,
-    date: '',
-    status: '',
-    contributor: [],
-    summary: ""
+    date: 'February 2025 - March 2026',
+    status: 'Finished',
+    contributor: [
+      {
+        name: 'riXoon',
+        role: ['Project Manager', 'Frontend Developer', 'UI/U Designer']
+      },
+      {
+        name: 'derkunn',
+        role: ['Frontend Developer', 'UI/U Designer']
+      }
+    ],
+    summary: "Entriq addresses campus entrepreneurship by combining Human-Computer Interaction principles with tailored UI/UX design to deliver a clean, user-focused showcase platform for QCU student businesses."
   },
+  
 ];

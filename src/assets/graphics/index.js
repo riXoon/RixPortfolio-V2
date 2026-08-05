@@ -8,6 +8,7 @@ import monitoGraphics from './monito-graphics.jpg'
 import pijinGraphics from './pijin-graphics.jpg'
 import zaprollGraphics from './zaproll-graphics.jpg'
 import zentryGraphics from './zentry-graphics.jpg'
+import picpacGraphics from './picpac-graphics.jpg'
 
 export {
   defaultGraphics,
@@ -19,5 +20,6 @@ export {
   monitoGraphics,
   pijinGraphics,
   zaprollGraphics,
-  zentryGraphics
+  zentryGraphics,
+  picpacGraphics
 }
