@@ -1,19 +1,28 @@
 import Lenis from 'lenis'
+import { useEffect } from 'react'
 
 const useLenisScroll = () => {
-  // Lenis Library for smooth scroll
-  const lenis = new Lenis()
+  useEffect(() => {
+    // Lenis Library for smooth scroll
+    const lenis = new Lenis()
 
-  lenis.on('scroll', (e) => {
-    console.log(e)
-  })
+    // Expose globally so pages with inner-scroll layouts (e.g. CTFArchivePage)
+    // can call window.__lenis?.stop() / window.__lenis?.start()
+    window.__lenis = lenis
 
-  function raf(time) {
-    lenis.raf(time)
-    requestAnimationFrame(raf)
-  }
+    function raf(time) {
+      lenis.raf(time)
+      requestAnimationFrame(raf)
+    }
 
-  requestAnimationFrame(raf)
+    const rafId = requestAnimationFrame(raf)
+
+    return () => {
+      lenis.destroy()
+      window.__lenis = null
+      cancelAnimationFrame(rafId)
+    }
+  }, [])
 }
 
 export default useLenisScroll

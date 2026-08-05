@@ -1,0 +1,29 @@
+{
+  "object": "document",
+  "data": {
+    "schemaVersion": 9
+  },
+  "nodes": [
+    {
+      "object": "block",
+      "type": "paragraph",
+      "isVoid": false,
+      "data": {},
+      "nodes": [
+        {
+          "object": "text",
+          "leaves": [
+            {
+              "object": "leaf",
+              "text": "",
+              "marks": []
+            }
+          ],
+          "key": "initial_xE39l55fdNq9F3EeLADo_text"
+        }
+      ],
+      "key": "initial_xE39l55fdNq9F3EeLADo_block"
+    }
+  ],
+  "key": "iUZ5NPHDBpJu"
+}

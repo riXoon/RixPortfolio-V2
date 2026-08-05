@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Sidebar, Hero, About, Education, Skills, Project, Contact, Certifications, Stats } from '../components';
+import { Sidebar, Hero, About, Education, Skills, Project, Contact, Certifications, Stats, Testimonials, CTFWriteups } from '../components';
 import { motion } from 'framer-motion'
 import useActivateLink from '../hooks/useActivateLink';
 import useScrollRestoration from '../hooks/useScrollRestoration'
@@ -55,7 +55,13 @@ const Home = () => {
       <section ref={(el) => (sectionsRef.current[6] = el)} className='h-screen w-full relative' id='projects'>
         <Project />
       </section>
-      <section ref={(el) => (sectionsRef.current[7] = el)} className='h-screen kali-grid relative w-full' id='contact'>
+      <section ref={(el) => (sectionsRef.current[7] = el)} className='h-screen w-full relative' id='ctf-writeups'>
+        <CTFWriteups />
+      </section>
+      <section ref={(el) => (sectionsRef.current[8] = el)} className='w-full relative' id='testimonials'>
+        <Testimonials />
+      </section>
+      <section ref={(el) => (sectionsRef.current[9] = el)} className='h-screen kali-grid relative w-full' id='contact'>
         <Contact />
       </section>
     </motion.div>

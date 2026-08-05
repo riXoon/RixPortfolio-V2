@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { NoPage, Home, AllProjects, ProjectOverview, CertificationsPage } from './pages/index.js';
+import { NoPage, Home, AllProjects, ProjectOverview, CertificationsPage, CTFArchivePage } from './pages/index.js';
 import { ProjectOverviewData } from './constants/index.js';
 import App from './App.jsx'
 import './index.css'
@@ -28,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: "/certifications",
         element: <CertificationsPage />,
+      },
+      {
+        path: "/ctf-archive",
+        element: <CTFArchivePage />,
       },
       {
         path: "*",

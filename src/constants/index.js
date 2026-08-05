@@ -17,7 +17,7 @@ import {
 } from '../assets/certifications';
 
 // Profile Imports
-//import { FrederickMoreno, LianTorres, KielMariceSerrano } from '../assets/profiles';
+import { lianProfile, merylProfile, carlProfile, vienProfile, frivsProfile  } from '../assets/profiles';
 
 // Graphics Imports
 import {
@@ -37,6 +37,8 @@ export const navLinks = [
   { id: 'education', title: 'EDUCATION', },
   { id: 'expertise', title: 'EXPERTISE', },
   { id: 'projects', title: 'PROJECTS', },
+  { id: 'ctf-writeups', title: 'CTF WRITEUPS', },
+  { id: 'testimonials', title: 'TESTIMONIALS', },
   { id: 'contact', title: 'CONTACT', },
 ]
 
@@ -149,7 +151,6 @@ export const ContactData = [
     name: "Erickson Guhilde",
     contacts: [
       { icon: mail, alt: "mail", name: "rixon.code@gmail.com" },
-      { icon: phone, alt: "phone", name: "+63 9943440309" },
       { icon: location, alt: "location", name: "Quezon City, Philippines" }
     ]
   }
@@ -587,4 +588,61 @@ export const ProjectOverviewData = [
     summary: "Entriq addresses campus entrepreneurship by combining Human-Computer Interaction principles with tailored UI/UX design to deliver a clean, user-focused showcase platform for QCU student businesses."
   },
   
+];
+
+export const CTFWriteupData = [
+  {
+    title: "Web Exploitation: Bypassing Advanced WAFs",
+    category: "Web Exploitation",
+    desc: "A detailed walkthrough on how to identify and exploit misconfigured Web Application Firewalls in modern web architectures.",
+    date: "July 2026",
+    link: "https://senec4.gitbook.io/ctf-archive"
+  },
+  {
+    title: "Cryptography: Cracking Custom RSA Implementation",
+    category: "Cryptography",
+    desc: "Analyzing and breaking a custom RSA implementation with weak prime generation during the latest international CTF.",
+    date: "June 2026",
+    link: "https://senec4.gitbook.io/ctf-archive"
+  },
+  {
+    title: "OSINT: Tracking Digital Footprints",
+    category: "OSINT",
+    desc: "A comprehensive guide on utilizing open-source intelligence tools to trace digital footprints across multiple social platforms.",
+    date: "May 2026",
+    link: "https://senec4.gitbook.io/ctf-archive"
+  }
+];
+
+export const TestimonialData = [
+  {
+    profile: lianProfile,
+    name: "Lian Torres",
+    role: "Technical Implementation Specialist",
+    testimonial: "Erick is a progressive programmer and a potential leader. I have witnessed his growth through various events that will make him successful one day."
+  },
+  {
+    profile: frivsProfile,
+    name: "Adrian Frivaldo",
+    role: "Frontend Developer",
+    testimonial: "It's been a while since we've known each other and worked together on many projects. Throughout that time, he has consistently proven himself to be trustworthy, hardworking, and responsible in every task he takes on. His dedication, professionalism, and willingness to support others make him an outstanding teammate, and there's no doubt that he'll be a valuable asset to any organization."
+  },
+  {
+    profile: vienProfile,
+    name: "Steffani Vienne Carcer",
+    role: "UI/UX Designer",
+    testimonial: "I worked with Erickson on a summer project as the UI designer. His dedication and superb programming skills really brought the designs to life. He is constantly learning and developing, and I can proudly say that Erickson is a reliable and talented collaborator. Working with him throughout the project was both fun and rewarding."
+  },
+  {
+    profile: carlProfile,
+    name: "Carl Arbolado",
+    role: "Stellar Ambassador",
+    testimonial: "Working with him was seamless. His communication throughout development was outstanding, and I definitely look forward to our next collaboration!"
+  },
+  {
+    profile: merylProfile,
+    name: "Meryl Alcantara",
+    role: "IT Student",
+    testimonial: "I had the opportunity to collaborate with Erickson on a recent project, and I can confidently say that his skills in front-end development are exceptional. Even within a short period, we managed to complete our project successfully, largely due to his expertise and dedication. Erickson was one of the key programmers, and his attention to detail, problem-solving ability, and proficiency in using modern technologies really stood out."
+  }
 ];

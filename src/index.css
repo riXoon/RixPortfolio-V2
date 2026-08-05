@@ -5,8 +5,13 @@
 
 @layer base {
   /* ------- Base & Typography ------- */
+  html, body {
+    overflow-x: hidden;
+    /* Pairing overflow-x:hidden on BOTH html AND body prevents browsers from
+       re-routing all scroll to the html element (which would break any inner
+       overflow-y:auto / overflow-y:scroll containers like the CTF sidebar). */
+  }
   html {
-    @apply overflow-x-hidden;
     font-family: "Inter", sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
@@ -44,6 +49,45 @@
     background: linear-gradient(to bottom, #7B4FD0, #3B2B6A);
     border: 1px solid #3B2B6A;
   }
+  
+  /* ------- Minimal Custom Scrollbar (for cards/modals) ------- */
+  .custom-scrollbar-minimal::-webkit-scrollbar {
+    width: 4px;
+  }
+  .custom-scrollbar-minimal::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar-minimal::-webkit-scrollbar-thumb {
+    background: #3B2B6A;
+    border-radius: 4px;
+  }
+  .custom-scrollbar-minimal::-webkit-scrollbar-thumb:hover {
+    background: #7B4FD0;
+  }
+  /* ------- //Minimal Custom Scrollbar ------- */
+
+  /* ------- CTF Scroll Area (sidebar + main content panes) ------- */
+  /* Used on overflow-y:auto containers inside the CTF archive layout.  */
+  .ctf-scroll-area {
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+  .ctf-scroll-area::-webkit-scrollbar {
+    width: 4px;
+  }
+  .ctf-scroll-area::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .ctf-scroll-area::-webkit-scrollbar-thumb {
+    background: #3B2B6A;
+    border-radius: 4px;
+  }
+  .ctf-scroll-area::-webkit-scrollbar-thumb:hover {
+    background: #7B4FD0;
+  }
+  /* ------- //CTF Scroll Area ------- */
   /* ------- //Custom Scrollbar ------- */
 }
 

@@ -9,7 +9,8 @@ import Certifications from './Certifications'
 import Stats from './Stats'
 import TerminalPrompt from './TerminalPrompt'
 import TerminalOutput from './TerminalOutput'
-
+import Testimonials from './Testimonials'
+import CTFWriteups from './CTFWriteups'
 export {
   Sidebar,
   Hero,
@@ -22,4 +23,6 @@ export {
   Stats,
   TerminalPrompt,
   TerminalOutput,
+  Testimonials,
+  CTFWriteups,
 }
