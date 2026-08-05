@@ -111,13 +111,13 @@ const Hero = () => {
               <div className='flex flex-col items-end justify-start gap-6'>
                 {/* Buttons also reveal after intro command */}
                 <TerminalOutput visible={introDone} delay={100} className='flex justify-end items-start gap-4'>
-                  <a href={'https://fm-linktree.vercel.app/'} target="_blank" rel="noopener noreferrer">
+                 {/*  <a href={'https://fm-linktree.vercel.app/'} target="_blank" rel="noopener noreferrer">
                     <Button text={'Linktree'} styles={'hover:bg-kali-dim'}>
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-3 lg:size-4">
                         <path fillRule="evenodd" d="M8.25 3.75H19.5a.75.75 0 0 1 .75.75v11.25a.75.75 0 0 1-1.5 0V6.31L5.03 20.03a.75.75 0 0 1-1.06-1.06L17.69 5.25H8.25a.75.75 0 0 1 0-1.5Z" clipRule="evenodd" />
                       </svg>
                     </Button>
-                  </a>
+                  </a> */}
                   <a href={`mailto:${contacts.contacts[0].name}`}>
                     <Button text={'Get in touch'} styles={'bg-[#7B4FD0] hover:bg-[#6A3FBF]'} round={'rounded-md lg:rounded-tr-[1.5rem]'}>
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-3 lg:size-4">

@@ -18,9 +18,9 @@ const Contact = () => {
 
 
   // Nobody cares for these keys, right? 😅
-  const serviceId = "service_mulg8rj";
-  const templateId = "template_sqgu5v6";
-  const publicUser = "CuwmRaHiSJOHr1v13";
+  const serviceId = "service_hsx69mi";
+  const templateId = "template_ec4yiyh";
+  const publicUser = "zFtFqpBpQuHsEmvYz";
 
   const [isOpen, setIsOpen] = useState(false);
 
