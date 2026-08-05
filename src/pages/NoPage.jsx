@@ -1,6 +1,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import Footer from '../components/Footer'
+import SEO from '../components/SEO'
 import { Link } from 'react-router-dom'
 import { glow05 } from '../assets'
 
@@ -20,6 +21,7 @@ const NoPage = () => {
       exit={{ opacity: 0 }}
       transition={{ duration: 1.5 }}
     >
+      <SEO title="404 - Page Not Found | Erickson Guhilde" description="The page you are looking for does not exist." />
       <div className='lg:p-8 p-6 h-screen flex flex-col justify-between bg-grid-2 bg-contain bg-center bg-no-repeat'>
         <div className='flex-grow flex flex-col justify-center items-center z-20'>
           <h1 className='uppercase text-white font-black text-[13rem] lg:text-[25rem] whitespace-nowrap leading-none text-center' id='scroll-animation-'>404</h1>

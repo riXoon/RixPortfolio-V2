@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FMlogo, grid01, glow07 } from '../assets';
 import { Link, useSearchParams } from 'react-router-dom';
 import GitBookRenderer from '../components/GitBookRenderer';
+import SEO from '../components/SEO';
 import { FiMenu, FiX, FiChevronRight, FiChevronDown } from 'react-icons/fi';
 
 // Simple module-level cache for Table of Contents
@@ -255,6 +256,7 @@ const CTFArchivePage = () => {
       style={{ height: '100dvh', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}
       className="bg-[#0A0710]"
     >
+      <SEO title="CTF Archive | Erickson Guhilde" description="Archive of my Capture The Flag (CTF) writeups and cybersecurity challenges." />
       {/* Background decorations */}
       <img src={glow07} alt="" aria-hidden="true" className="-z-10 fixed inset-0 w-full h-full object-cover opacity-40 pointer-events-none" />
       <img src={grid01} alt="" aria-hidden="true" className="-z-20 fixed inset-0 w-full h-full object-cover opacity-20 pointer-events-none" />

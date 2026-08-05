@@ -5,6 +5,7 @@ import { defaultThumbnail } from '../assets/banners';
 import Badge from '../components/Badge';
 import Card from '../components/Card';
 import Footer from '../components/Footer';
+import SEO from '../components/SEO';
 import { Link } from 'react-router-dom';
 import useScrollToTop from '../hooks/useScrollToTop';
 
@@ -26,6 +27,7 @@ const AllProjects = ({ projects }) => {
       exit={{ opacity: 0 }}
       transition={{ duration: 1.5 }}
     >
+      <SEO title="Projects | Erickson Guhilde" description="Explore my innovative web development and collaborative projects." />
       <img src={glow07} alt="Glow eclipse" className='-z-10 fixed' id='scroll-animation-' />
       <img src={grid01} alt="Grid" className='w-full h-full object-contain -z-20 object-center fixed' id='scroll-animation-' />
       <div className='lg:p-8 p-6 z-10'>

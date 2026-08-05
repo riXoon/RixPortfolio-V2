@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { FMlogo, grid01, glow07 } from '../assets';
 import { ExpertiseData } from '../constants';
 import Footer from '../components/Footer';
+import SEO from '../components/SEO';
 import { Link } from 'react-router-dom';
 import useScrollToTop from '../hooks/useScrollToTop';
 
@@ -33,6 +34,7 @@ const CertificationsPage = () => {
       exit={{ opacity: 0 }}
       transition={{ duration: 1.5 }}
     >
+      <SEO title="Certifications | Erickson Guhilde" description="View my certifications and continuous learning achievements." />
       <img src={glow07} alt="Glow eclipse" className='-z-10 fixed' id='scroll-animation-' />
       <img src={grid01} alt="Grid" className='w-full h-full object-contain -z-20 object-center fixed' id='scroll-animation-' />
       

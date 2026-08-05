@@ -10,6 +10,7 @@ import Button from '../components/Button';
 import Alert from '../components/Alert';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
+import SEO from '../components/SEO';
 import useScrollToTop from '../hooks/useScrollToTop';
 
 
@@ -103,6 +104,7 @@ const ProjectOverview = ({ projects }) => {
   // TODO: GSAP Scroll Animation
   return (
     <>
+      <SEO title={`${project.title} | Erickson Guhilde`} description={project.summary} image={project.poster || fallbackPoster} />
       <img src={project.poster || fallbackPoster} alt={`${project.id} Banner`} className='top-0 left-0 w-full h-screen object-cover object-center fixed z-0' />
       <motion.div
         initial={{ opacity: 0 }}

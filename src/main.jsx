@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { HelmetProvider } from 'react-helmet-async';
 import { ProjectOverviewData } from './constants/index.js';
 import App from './App.jsx'
 import './index.css'
@@ -56,8 +57,10 @@ const LoadingFallback = () => (
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Suspense fallback={<LoadingFallback />}>
-      <RouterProvider router={router} />
-    </Suspense>
+    <HelmetProvider>
+      <Suspense fallback={<LoadingFallback />}>
+        <RouterProvider router={router} />
+      </Suspense>
+    </HelmetProvider>
   </React.StrictMode>,
 )
