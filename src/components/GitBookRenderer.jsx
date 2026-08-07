@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import 'katex/dist/katex.min.css';
+import { InlineMath, BlockMath } from 'react-katex';
 
 // ─── Shared animation variants ────────────────────────────────────────────────
 const revealVariants = {
@@ -256,6 +258,28 @@ const renderNode = (node, index, filesMap) => {
 
     case 'code-line':
       return <div key={index}>{children}</div>;
+
+    // ── Math ───────────────────────────────────────────────────────────────
+    case 'inline-math': {
+      let formula = (node.data?.formula || node.data?.tex || '').trim();
+      if (formula.startsWith('$$') && formula.endsWith('$$')) formula = formula.slice(2, -2).trim();
+      else if (formula.startsWith('$') && formula.endsWith('$')) formula = formula.slice(1, -1).trim();
+      
+      return <InlineMath key={index} math={formula} />;
+    }
+    
+    case 'math-block':
+    case 'math': {
+      let formula = (node.data?.formula || node.data?.tex || '').trim();
+      if (formula.startsWith('$$') && formula.endsWith('$$')) formula = formula.slice(2, -2).trim();
+      else if (formula.startsWith('$') && formula.endsWith('$')) formula = formula.slice(1, -1).trim();
+      
+      return (
+        <motion.div key={index} {...revealProps} className="my-5 overflow-x-auto ctf-terminal-window p-4 bg-[#080611] flex items-center justify-center">
+          <BlockMath math={formula} />
+        </motion.div>
+      );
+    }
 
     // ── Link ───────────────────────────────────────────────────────────────
     case 'link': {

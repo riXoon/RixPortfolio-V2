@@ -1,0 +1,2763 @@
+{
+  "id": "d5LGI6nyXsrJgNQQY06H",
+  "title": "bingo - Cryptography",
+  "kind": "sheet",
+  "type": "document",
+  "urls": {
+    "app": "https://app.gitbook.com/s/lkLAmi5p2JStWSgB8VVS/tsg-ctf-2025/bingo-cryptography"
+  },
+  "description": "Difficulty: Easy",
+  "path": "tsg-ctf-2025/bingo-cryptography",
+  "slug": "bingo-cryptography",
+  "createdAt": "2025-12-21T11:33:46.802Z",
+  "updatedAt": "2025-12-21T11:33:46.802Z",
+  "pages": [],
+  "layout": {
+    "cover": true,
+    "coverMask": "none",
+    "coverSize": "full",
+    "width": "default",
+    "title": true,
+    "description": true,
+    "tableOfContents": true,
+    "outline": true,
+    "pagination": true,
+    "metadata": true,
+    "tags": true,
+    "actions": true
+  },
+  "documentId": "rdTtdAmtkd7dyOYSPq59",
+  "tags": [],
+  "document": {
+    "object": "document",
+    "data": {
+      "schemaVersion": 9,
+      "documentId": "rdTtdAmtkd7dyOYSPq59"
+    },
+    "nodes": [
+      {
+        "object": "block",
+        "type": "heading-3",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "Description:",
+                "marks": []
+              }
+            ],
+            "key": "initial_d5LGI6nyXsrJgNQQY06H_text"
+          }
+        ],
+        "key": "initial_d5LGI6nyXsrJgNQQY06H_block",
+        "meta": {
+          "id": "description"
+        }
+      },
+      {
+        "object": "block",
+        "type": "paragraph",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "Trying things at random and hitting bingo might be about as difficult as getting a dog to find treasure.",
+                "marks": []
+              }
+            ],
+            "key": "M4CjyQhZY06h"
+          }
+        ],
+        "key": "hZzdJt022VLP"
+      },
+      {
+        "object": "block",
+        "type": "blockquote",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "block",
+            "type": "paragraph",
+            "isVoid": false,
+            "data": {},
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "nc 35.194.98.181 10961",
+                    "marks": []
+                  }
+                ],
+                "key": "CJ5cAnMN2VBU"
+              }
+            ],
+            "key": "FQL7TTkIZT0G"
+          }
+        ],
+        "key": "5OQMVP72maCs"
+      },
+      {
+        "object": "block",
+        "type": "heading-3",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "Challenge Overview:",
+                "marks": []
+              }
+            ],
+            "key": "03Bo68Gx9ZP1"
+          }
+        ],
+        "key": "05jvlPUsdNQF",
+        "meta": {
+          "id": "challenge-overview"
+        }
+      },
+      {
+        "object": "block",
+        "type": "paragraph",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "This challenge involves bypassing an RSA-based signature verification system by exploiting a custom hash function, ",
+                "marks": []
+              }
+            ],
+            "key": "caWwZ77uQfDw"
+          },
+          {
+            "object": "inline",
+            "type": "inline-math",
+            "isVoid": true,
+            "data": {
+              "formula": "cvhp\\_hash"
+            },
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "",
+                    "marks": []
+                  }
+                ],
+                "key": "6RdCVgseYkQV"
+              }
+            ],
+            "key": "H4sZSwQj5xly"
+          },
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": ".",
+                "marks": []
+              }
+            ],
+            "key": "1dO5ux4mQuo1"
+          }
+        ],
+        "key": "DDa4VJr9WDY7"
+      },
+      {
+        "object": "block",
+        "type": "heading-3",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "Challenge Analysis",
+                "marks": []
+              }
+            ],
+            "key": "JnI6Pz9ohGer"
+          }
+        ],
+        "key": "mV1LFnVa78es",
+        "meta": {
+          "id": "challenge-analysis"
+        }
+      },
+      {
+        "object": "block",
+        "type": "paragraph",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "The server provides several parameters: ",
+                "marks": []
+              }
+            ],
+            "key": "22r4YBZpkbuT"
+          },
+          {
+            "object": "inline",
+            "type": "inline-math",
+            "isVoid": true,
+            "data": {
+              "formula": "N"
+            },
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "",
+                    "marks": []
+                  }
+                ],
+                "key": "0ip65zMnyAFn"
+              }
+            ],
+            "key": "I6gje33GuJKu"
+          },
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": ", ",
+                "marks": []
+              }
+            ],
+            "key": "mvCSX8khjEVt"
+          },
+          {
+            "object": "inline",
+            "type": "inline-math",
+            "isVoid": true,
+            "data": {
+              "formula": "e"
+            },
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "",
+                    "marks": []
+                  }
+                ],
+                "key": "4jgvLE46rEen"
+              }
+            ],
+            "key": "hN7LqWEz1rIJ"
+          },
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": ", ",
+                "marks": []
+              }
+            ],
+            "key": "XtKDCEwuuhrQ"
+          },
+          {
+            "object": "inline",
+            "type": "inline-math",
+            "isVoid": true,
+            "data": {
+              "formula": "hash\\_p"
+            },
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "",
+                    "marks": []
+                  }
+                ],
+                "key": "KSdNLfMZCxxV"
+              }
+            ],
+            "key": "YZ9HW5LxDrKz"
+          },
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": ", ",
+                "marks": []
+              }
+            ],
+            "key": "kKD1sHVddgM8"
+          },
+          {
+            "object": "inline",
+            "type": "inline-math",
+            "isVoid": true,
+            "data": {
+              "formula": "\\alpha"
+            },
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "",
+                    "marks": []
+                  }
+                ],
+                "key": "wmHI4Q3IFqHY"
+              }
+            ],
+            "key": "WDn5jRrAybvu"
+          },
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": ", and ",
+                "marks": []
+              }
+            ],
+            "key": "2tkw4gFiQrzP"
+          },
+          {
+            "object": "inline",
+            "type": "inline-math",
+            "isVoid": true,
+            "data": {
+              "formula": "\\beta"
+            },
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "",
+                    "marks": []
+                  }
+                ],
+                "key": "3hTXU9E9CDMg"
+              }
+            ],
+            "key": "XBLIRf766Ao5"
+          },
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": ". To get the flag, we must provide a message and a signature such that:",
+                "marks": []
+              }
+            ],
+            "key": "sqVeeNxepbU1"
+          }
+        ],
+        "key": "gGLhUErsAcah"
+      },
+      {
+        "object": "block",
+        "type": "list-ordered",
+        "isVoid": false,
+        "data": {
+          "start": 1
+        },
+        "nodes": [
+          {
+            "object": "block",
+            "type": "list-item",
+            "isVoid": false,
+            "data": {},
+            "nodes": [
+              {
+                "object": "block",
+                "type": "paragraph",
+                "isVoid": false,
+                "data": {},
+                "nodes": [
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": "The message starts with the byte string ",
+                        "marks": []
+                      },
+                      {
+                        "object": "leaf",
+                        "text": "Get Flag.",
+                        "marks": [
+                          {
+                            "object": "mark",
+                            "type": "code",
+                            "data": {}
+                          }
+                        ]
+                      },
+                      {
+                        "object": "leaf",
+                        "text": ".",
+                        "marks": []
+                      }
+                    ],
+                    "key": "DB8xF56s1FBN"
+                  }
+                ],
+                "key": "Vucd9N4S4EIN"
+              }
+            ],
+            "key": "4PbMpWJet9lR"
+          },
+          {
+            "object": "block",
+            "type": "list-item",
+            "isVoid": false,
+            "data": {},
+            "nodes": [
+              {
+                "object": "block",
+                "type": "paragraph",
+                "isVoid": false,
+                "data": {},
+                "nodes": [
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": "The signature is valid for the message's hash under the RSA public key ",
+                        "marks": []
+                      }
+                    ],
+                    "key": "Uzv5Ke2SxKrl"
+                  },
+                  {
+                    "object": "inline",
+                    "type": "inline-math",
+                    "isVoid": true,
+                    "data": {
+                      "formula": "(N, e)"
+                    },
+                    "nodes": [
+                      {
+                        "object": "text",
+                        "leaves": [
+                          {
+                            "object": "leaf",
+                            "text": "",
+                            "marks": []
+                          }
+                        ],
+                        "key": "yPNTWVP9TfvM"
+                      }
+                    ],
+                    "key": "9n18ZvidmTtm"
+                  },
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": ".",
+                        "marks": []
+                      }
+                    ],
+                    "key": "0dwI7lsGmUF0"
+                  }
+                ],
+                "key": "igdLIUYUxrWW"
+              }
+            ],
+            "key": "AioJTVunHGam"
+          }
+        ],
+        "key": "vFlJ5rBzerJd"
+      },
+      {
+        "object": "block",
+        "type": "paragraph",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "The Hash Function (",
+                "marks": [
+                  {
+                    "object": "mark",
+                    "type": "bold",
+                    "data": {}
+                  }
+                ]
+              }
+            ],
+            "key": "CcRxifxX1wZZ"
+          },
+          {
+            "object": "inline",
+            "type": "inline-math",
+            "isVoid": true,
+            "data": {
+              "formula": "$cvhp\\_hash$"
+            },
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "",
+                    "marks": []
+                  }
+                ],
+                "key": "9gfAJJ3mZ5gg"
+              }
+            ],
+            "key": "uHDjNbBDmK0b"
+          },
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": ")",
+                "marks": [
+                  {
+                    "object": "mark",
+                    "type": "bold",
+                    "data": {}
+                  }
+                ]
+              }
+            ],
+            "key": "uxXVuJEdjCCc"
+          }
+        ],
+        "key": "YLrgvFknXZXH"
+      },
+      {
+        "object": "block",
+        "type": "paragraph",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "The hash ",
+                "marks": []
+              }
+            ],
+            "key": "WxuxjIpeu8OH"
+          },
+          {
+            "object": "inline",
+            "type": "inline-math",
+            "isVoid": true,
+            "data": {
+              "formula": "$H$"
+            },
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "",
+                    "marks": []
+                  }
+                ],
+                "key": "6xXzxtydsOak"
+              }
+            ],
+            "key": "WxdvNsNl4u7r"
+          },
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": " for a message ",
+                "marks": []
+              }
+            ],
+            "key": "UEjiNKsHW4Ia"
+          },
+          {
+            "object": "inline",
+            "type": "inline-math",
+            "isVoid": true,
+            "data": {
+              "formula": "$m$"
+            },
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "",
+                    "marks": []
+                  }
+                ],
+                "key": "espHOpagzcT4"
+              }
+            ],
+            "key": "NwY2oW2jMiyb"
+          },
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": " is calculated as:",
+                "marks": []
+              }
+            ],
+            "key": "gEB98g5T4xcS"
+          }
+        ],
+        "key": "geE0n6RD6oT1"
+      },
+      {
+        "object": "block",
+        "type": "list-ordered",
+        "isVoid": false,
+        "data": {
+          "start": 1
+        },
+        "nodes": [
+          {
+            "object": "block",
+            "type": "list-item",
+            "isVoid": false,
+            "data": {},
+            "nodes": [
+              {
+                "object": "block",
+                "type": "paragraph",
+                "isVoid": false,
+                "data": {},
+                "nodes": [
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": "",
+                        "marks": []
+                      }
+                    ],
+                    "key": "veTCbtNxPAew"
+                  },
+                  {
+                    "object": "inline",
+                    "type": "inline-math",
+                    "isVoid": true,
+                    "data": {
+                      "formula": "m_1 = m \\pmod{hash\\_p - 1}"
+                    },
+                    "nodes": [
+                      {
+                        "object": "text",
+                        "leaves": [
+                          {
+                            "object": "leaf",
+                            "text": "",
+                            "marks": []
+                          }
+                        ],
+                        "key": "FGF6xVYkFMld"
+                      }
+                    ],
+                    "key": "22BPVuzlLwz7"
+                  },
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": "",
+                        "marks": []
+                      }
+                    ],
+                    "key": "1HXX1y1CFH2f"
+                  }
+                ],
+                "key": "jIMxAhRYwDjC"
+              }
+            ],
+            "key": "uFhT0zvIGol3"
+          },
+          {
+            "object": "block",
+            "type": "list-item",
+            "isVoid": false,
+            "data": {},
+            "nodes": [
+              {
+                "object": "block",
+                "type": "paragraph",
+                "isVoid": false,
+                "data": {},
+                "nodes": [
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": "",
+                        "marks": []
+                      }
+                    ],
+                    "key": "frVqe97bEeCW"
+                  },
+                  {
+                    "object": "inline",
+                    "type": "inline-math",
+                    "isVoid": true,
+                    "data": {
+                      "formula": "m_2 = m // (hash\\_p - 1)"
+                    },
+                    "nodes": [
+                      {
+                        "object": "text",
+                        "leaves": [
+                          {
+                            "object": "leaf",
+                            "text": "",
+                            "marks": []
+                          }
+                        ],
+                        "key": "G7nRhsSCO9BI"
+                      }
+                    ],
+                    "key": "gbpvnDKCrI2P"
+                  },
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": "",
+                        "marks": []
+                      }
+                    ],
+                    "key": "CLwfmQtauWtq"
+                  }
+                ],
+                "key": "duCdrNJ1xlK7"
+              }
+            ],
+            "key": "taO2vUHXTiwx"
+          },
+          {
+            "object": "block",
+            "type": "list-item",
+            "isVoid": false,
+            "data": {},
+            "nodes": [
+              {
+                "object": "block",
+                "type": "paragraph",
+                "isVoid": false,
+                "data": {},
+                "nodes": [
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": "",
+                        "marks": []
+                      }
+                    ],
+                    "key": "g2fsHqtYvKXq"
+                  },
+                  {
+                    "object": "inline",
+                    "type": "inline-math",
+                    "isVoid": true,
+                    "data": {
+                      "formula": "H = (\\alpha^{m_1} \\cdot \\beta^{m_2}) \\pmod{hash\\_p}"
+                    },
+                    "nodes": [
+                      {
+                        "object": "text",
+                        "leaves": [
+                          {
+                            "object": "leaf",
+                            "text": "",
+                            "marks": []
+                          }
+                        ],
+                        "key": "T288rm2r0l6i"
+                      }
+                    ],
+                    "key": "r2XQ45lWykVq"
+                  },
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": "",
+                        "marks": []
+                      }
+                    ],
+                    "key": "CquLfQJJ0jaE"
+                  }
+                ],
+                "key": "FrJrgxZ2k6nA"
+              }
+            ],
+            "key": "sqO2qFwBQVvs"
+          }
+        ],
+        "key": "V2adi5eYBXVJ"
+      },
+      {
+        "object": "block",
+        "type": "paragraph",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "The RSA Verification",
+                "marks": [
+                  {
+                    "object": "mark",
+                    "type": "bold",
+                    "data": {}
+                  }
+                ]
+              }
+            ],
+            "key": "STDOVpvtl1TH"
+          }
+        ],
+        "key": "63lByVTbCdVk"
+      },
+      {
+        "object": "block",
+        "type": "paragraph",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "The signature is verified by checking:",
+                "marks": []
+              }
+            ],
+            "key": "ywSr8SNzYZRu"
+          }
+        ],
+        "key": "my9at1ECZRqZ"
+      },
+      {
+        "object": "block",
+        "type": "paragraph",
+        "isVoid": false,
+        "data": {
+          "align": "center"
+        },
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "",
+                "marks": []
+              }
+            ],
+            "key": "xzTnAKOEMO7A"
+          },
+          {
+            "object": "inline",
+            "type": "inline-math",
+            "isVoid": true,
+            "data": {
+              "formula": "sig^e \\equiv H \\pmod N"
+            },
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "",
+                    "marks": []
+                  }
+                ],
+                "key": "mWtLEhiy8yYK"
+              }
+            ],
+            "key": "IHF0aHLl8UcA"
+          },
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "",
+                "marks": []
+              }
+            ],
+            "key": "nlWArypJFjcP"
+          }
+        ],
+        "key": "IEdiIV4CBU1S"
+      },
+      {
+        "object": "block",
+        "type": "heading-3",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "2. The Vulnerability: Hash Collision to Unity",
+                "marks": []
+              }
+            ],
+            "key": "TNIGxF8Mxm6b"
+          }
+        ],
+        "key": "nMGoWAxdudrX",
+        "meta": {
+          "id": "id-2.-the-vulnerability-hash-collision-to-unity"
+        }
+      },
+      {
+        "object": "block",
+        "type": "paragraph",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "We do not know the private key ",
+                "marks": []
+              }
+            ],
+            "key": "dAENl7Ug6PWY"
+          },
+          {
+            "object": "inline",
+            "type": "inline-math",
+            "isVoid": true,
+            "data": {
+              "formula": "d"
+            },
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "",
+                    "marks": []
+                  }
+                ],
+                "key": "U9L5WgYXIzRM"
+              }
+            ],
+            "key": "jekHADgpCgl0"
+          },
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": ", so we cannot generate a signature for a random hash value. However, we can control the message ",
+                "marks": []
+              }
+            ],
+            "key": "kRdUcPpnS56s"
+          },
+          {
+            "object": "inline",
+            "type": "inline-math",
+            "isVoid": true,
+            "data": {
+              "formula": "m"
+            },
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "",
+                    "marks": []
+                  }
+                ],
+                "key": "IfiHqMvhDOjh"
+              }
+            ],
+            "key": "S7KQJLSDAJuL"
+          },
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": ", which determines ",
+                "marks": []
+              }
+            ],
+            "key": "ulvxILigcgVh"
+          },
+          {
+            "object": "inline",
+            "type": "inline-math",
+            "isVoid": true,
+            "data": {
+              "formula": "H"
+            },
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "",
+                    "marks": []
+                  }
+                ],
+                "key": "qbmy1TYZigZX"
+              }
+            ],
+            "key": "2VT4wQTaddjM"
+          },
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": ".",
+                "marks": []
+              }
+            ],
+            "key": "i5qk9cJwKujB"
+          }
+        ],
+        "key": "7gbN3eUQsMj3"
+      },
+      {
+        "object": "block",
+        "type": "paragraph",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "If we can force ",
+                "marks": []
+              }
+            ],
+            "key": "Hnj2D7su00Un"
+          },
+          {
+            "object": "inline",
+            "type": "inline-math",
+            "isVoid": true,
+            "data": {
+              "formula": "H = 1"
+            },
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "",
+                    "marks": []
+                  }
+                ],
+                "key": "unuD1Dwi9TCs"
+              }
+            ],
+            "key": "opGtzDEzp8YK"
+          },
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": ", the verification becomes ",
+                "marks": []
+              }
+            ],
+            "key": "xwiMqJswyHnn"
+          },
+          {
+            "object": "inline",
+            "type": "inline-math",
+            "isVoid": true,
+            "data": {
+              "formula": "sig^e \\equiv 1 \\pmod N"
+            },
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "",
+                    "marks": []
+                  }
+                ],
+                "key": "1gBy6hqDJ011"
+              }
+            ],
+            "key": "0YytFphP4xAa"
+          },
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": ". Since ",
+                "marks": []
+              }
+            ],
+            "key": "zTXVCFY6EC3m"
+          },
+          {
+            "object": "inline",
+            "type": "inline-math",
+            "isVoid": true,
+            "data": {
+              "formula": "1"
+            },
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "",
+                    "marks": []
+                  }
+                ],
+                "key": "w2WEYnaXu4Nx"
+              }
+            ],
+            "key": "RSAjeW6TUX1E"
+          },
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": " raised to any power is always ",
+                "marks": []
+              }
+            ],
+            "key": "ukiKFRcShrlq"
+          },
+          {
+            "object": "inline",
+            "type": "inline-math",
+            "isVoid": true,
+            "data": {
+              "formula": "1"
+            },
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "",
+                    "marks": []
+                  }
+                ],
+                "key": "oEmX2ZccAmed"
+              }
+            ],
+            "key": "JMKmpp96nByZ"
+          },
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": ", a signature of 1 will always be valid, regardless of the private key.",
+                "marks": []
+              }
+            ],
+            "key": "1Xb12eU08szZ"
+          }
+        ],
+        "key": "XOQMJVlv7LVg"
+      },
+      {
+        "object": "block",
+        "type": "paragraph",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "To make ",
+                "marks": []
+              }
+            ],
+            "key": "IZTcLywHld8x"
+          },
+          {
+            "object": "inline",
+            "type": "inline-math",
+            "isVoid": true,
+            "data": {
+              "formula": "H = 1"
+            },
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "",
+                    "marks": []
+                  }
+                ],
+                "key": "Cq6CT17G8tRV"
+              }
+            ],
+            "key": "LqKEHGdUdFge"
+          },
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": ", we use Fermat's Little Theorem, which states that for any integer ",
+                "marks": []
+              }
+            ],
+            "key": "HQpi3SQ0zeIE"
+          },
+          {
+            "object": "inline",
+            "type": "inline-math",
+            "isVoid": true,
+            "data": {
+              "formula": "a"
+            },
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "",
+                    "marks": []
+                  }
+                ],
+                "key": "23lKoWtTFsf4"
+              }
+            ],
+            "key": "cxpbK6Kju5yZ"
+          },
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": " and prime ",
+                "marks": []
+              }
+            ],
+            "key": "15nRLKK3tpv4"
+          },
+          {
+            "object": "inline",
+            "type": "inline-math",
+            "isVoid": true,
+            "data": {
+              "formula": "p"
+            },
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "",
+                    "marks": []
+                  }
+                ],
+                "key": "tVG9sfZfVZOw"
+              }
+            ],
+            "key": "VyWvKNe8QG5l"
+          },
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": ":",
+                "marks": []
+              }
+            ],
+            "key": "NYZfY6xQlx78"
+          }
+        ],
+        "key": "O3AE3fw1898E"
+      },
+      {
+        "object": "block",
+        "type": "paragraph",
+        "isVoid": false,
+        "data": {
+          "align": "center"
+        },
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "",
+                "marks": []
+              }
+            ],
+            "key": "CHFDffF4Ysi0"
+          },
+          {
+            "object": "inline",
+            "type": "inline-math",
+            "isVoid": true,
+            "data": {
+              "formula": "a^{p-1} \\equiv 1 \\pmod p"
+            },
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "",
+                    "marks": []
+                  }
+                ],
+                "key": "8kYrx5uDNdhn"
+              }
+            ],
+            "key": "u6W0fPJwnnMJ"
+          },
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "",
+                "marks": []
+              }
+            ],
+            "key": "k9DoduENi4vi"
+          }
+        ],
+        "key": "9tUOrRhxHF6y"
+      },
+      {
+        "object": "block",
+        "type": "list-unordered",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "block",
+            "type": "list-item",
+            "isVoid": false,
+            "data": {},
+            "nodes": [
+              {
+                "object": "block",
+                "type": "paragraph",
+                "isVoid": false,
+                "data": {},
+                "nodes": [
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": "To make ",
+                        "marks": []
+                      }
+                    ],
+                    "key": "0RSlurWOoMyw"
+                  },
+                  {
+                    "object": "inline",
+                    "type": "inline-math",
+                    "isVoid": true,
+                    "data": {
+                      "formula": "\\alpha^{m_1} \\equiv 1"
+                    },
+                    "nodes": [
+                      {
+                        "object": "text",
+                        "leaves": [
+                          {
+                            "object": "leaf",
+                            "text": "",
+                            "marks": []
+                          }
+                        ],
+                        "key": "LZB6AzdPPFv5"
+                      }
+                    ],
+                    "key": "d6ZDdq6QapF9"
+                  },
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": ", we can set ",
+                        "marks": []
+                      }
+                    ],
+                    "key": "aljJBYGYm0KH"
+                  },
+                  {
+                    "object": "inline",
+                    "type": "inline-math",
+                    "isVoid": true,
+                    "data": {
+                      "formula": "m_1 = 0"
+                    },
+                    "nodes": [
+                      {
+                        "object": "text",
+                        "leaves": [
+                          {
+                            "object": "leaf",
+                            "text": "",
+                            "marks": []
+                          }
+                        ],
+                        "key": "hPVjSf8uNKTj"
+                      }
+                    ],
+                    "key": "HYB711OZFgNH"
+                  },
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": ". This happens if ",
+                        "marks": []
+                      }
+                    ],
+                    "key": "H3m3gaJFqI2c"
+                  },
+                  {
+                    "object": "inline",
+                    "type": "inline-math",
+                    "isVoid": true,
+                    "data": {
+                      "formula": "m"
+                    },
+                    "nodes": [
+                      {
+                        "object": "text",
+                        "leaves": [
+                          {
+                            "object": "leaf",
+                            "text": "",
+                            "marks": []
+                          }
+                        ],
+                        "key": "IDU93S3JQYnQ"
+                      }
+                    ],
+                    "key": "XJhSlXSI3w8t"
+                  },
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": " is a multiple of ",
+                        "marks": []
+                      }
+                    ],
+                    "key": "M3ubTdZeuCMD"
+                  },
+                  {
+                    "object": "inline",
+                    "type": "inline-math",
+                    "isVoid": true,
+                    "data": {
+                      "formula": "(hash\\_p - 1)"
+                    },
+                    "nodes": [
+                      {
+                        "object": "text",
+                        "leaves": [
+                          {
+                            "object": "leaf",
+                            "text": "",
+                            "marks": []
+                          }
+                        ],
+                        "key": "ZvlC0kNdfWiK"
+                      }
+                    ],
+                    "key": "ZEOxWcghvkPu"
+                  },
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": ".",
+                        "marks": []
+                      }
+                    ],
+                    "key": "tjJtDkpv3NQQ"
+                  }
+                ],
+                "key": "gCuk8Z7Acx5t"
+              }
+            ],
+            "key": "8QyF6kTu6zw9"
+          },
+          {
+            "object": "block",
+            "type": "list-item",
+            "isVoid": false,
+            "data": {},
+            "nodes": [
+              {
+                "object": "block",
+                "type": "paragraph",
+                "isVoid": false,
+                "data": {},
+                "nodes": [
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": "To make ",
+                        "marks": []
+                      }
+                    ],
+                    "key": "LCEC9KdFsyNM"
+                  },
+                  {
+                    "object": "inline",
+                    "type": "inline-math",
+                    "isVoid": true,
+                    "data": {
+                      "formula": "\\beta^{m_2} \\equiv 1"
+                    },
+                    "nodes": [
+                      {
+                        "object": "text",
+                        "leaves": [
+                          {
+                            "object": "leaf",
+                            "text": "",
+                            "marks": []
+                          }
+                        ],
+                        "key": "j4d1Ept6C8pX"
+                      }
+                    ],
+                    "key": "zyVcDDuGeznu"
+                  },
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": ", we need ",
+                        "marks": []
+                      }
+                    ],
+                    "key": "xJtXQOEqwJes"
+                  },
+                  {
+                    "object": "inline",
+                    "type": "inline-math",
+                    "isVoid": true,
+                    "data": {
+                      "formula": "m_2"
+                    },
+                    "nodes": [
+                      {
+                        "object": "text",
+                        "leaves": [
+                          {
+                            "object": "leaf",
+                            "text": "",
+                            "marks": []
+                          }
+                        ],
+                        "key": "PJkeRdsIZZuR"
+                      }
+                    ],
+                    "key": "u7OOwIJlFAl0"
+                  },
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": " to be a multiple of ",
+                        "marks": []
+                      }
+                    ],
+                    "key": "YOMk0zQyWsjr"
+                  },
+                  {
+                    "object": "inline",
+                    "type": "inline-math",
+                    "isVoid": true,
+                    "data": {
+                      "formula": "(hash\\_p - 1)"
+                    },
+                    "nodes": [
+                      {
+                        "object": "text",
+                        "leaves": [
+                          {
+                            "object": "leaf",
+                            "text": "",
+                            "marks": []
+                          }
+                        ],
+                        "key": "ttxg1Ar5V28u"
+                      }
+                    ],
+                    "key": "PiF56pVKhdiR"
+                  },
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": ". Since ",
+                        "marks": []
+                      }
+                    ],
+                    "key": "9hIsdEYJbdbR"
+                  },
+                  {
+                    "object": "inline",
+                    "type": "inline-math",
+                    "isVoid": true,
+                    "data": {
+                      "formula": "m_2 = m // (hash\\_p - 1)"
+                    },
+                    "nodes": [
+                      {
+                        "object": "text",
+                        "leaves": [
+                          {
+                            "object": "leaf",
+                            "text": "",
+                            "marks": []
+                          }
+                        ],
+                        "key": "OdhZjnxE4kY3"
+                      }
+                    ],
+                    "key": "Nd5GX1HuKkCL"
+                  },
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": ", this happens if ",
+                        "marks": []
+                      }
+                    ],
+                    "key": "k2XgbJieebFb"
+                  },
+                  {
+                    "object": "inline",
+                    "type": "inline-math",
+                    "isVoid": true,
+                    "data": {
+                      "formula": "$m$"
+                    },
+                    "nodes": [
+                      {
+                        "object": "text",
+                        "leaves": [
+                          {
+                            "object": "leaf",
+                            "text": "",
+                            "marks": []
+                          }
+                        ],
+                        "key": "KfTUtXKn3fxd"
+                      }
+                    ],
+                    "key": "hIJ8WJBVmu1V"
+                  },
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": " is a multiple of ",
+                        "marks": []
+                      }
+                    ],
+                    "key": "NuraoM9UEhFm"
+                  },
+                  {
+                    "object": "inline",
+                    "type": "inline-math",
+                    "isVoid": true,
+                    "data": {
+                      "formula": "(hash\\_p - 1)^2"
+                    },
+                    "nodes": [
+                      {
+                        "object": "text",
+                        "leaves": [
+                          {
+                            "object": "leaf",
+                            "text": "",
+                            "marks": []
+                          }
+                        ],
+                        "key": "Z2WjOnh3Vhss"
+                      }
+                    ],
+                    "key": "sugHzXudoWc6"
+                  },
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": ".",
+                        "marks": []
+                      }
+                    ],
+                    "key": "cGAMV0BLY5BX"
+                  }
+                ],
+                "key": "OwCK3vIy5VOI"
+              }
+            ],
+            "key": "4efnLSlePf1z"
+          }
+        ],
+        "key": "B1N7ecn6jNuC"
+      },
+      {
+        "object": "block",
+        "type": "heading-3",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "3. Exploitation Strategy",
+                "marks": []
+              }
+            ],
+            "key": "Iy8BtC5TEag1"
+          }
+        ],
+        "key": "9C5aHlAhYm9m",
+        "meta": {
+          "id": "id-3.-exploitation-strategy"
+        }
+      },
+      {
+        "object": "block",
+        "type": "paragraph",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "We need to construct a message ",
+                "marks": []
+              }
+            ],
+            "key": "NZXKeXyUeJy9"
+          },
+          {
+            "object": "inline",
+            "type": "inline-math",
+            "isVoid": true,
+            "data": {
+              "formula": "$m$"
+            },
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "",
+                    "marks": []
+                  }
+                ],
+                "key": "RX6t64Eb5Rf9"
+              }
+            ],
+            "key": "oxv0qAac3ERx"
+          },
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": " that satisfies two conditions:",
+                "marks": []
+              }
+            ],
+            "key": "1f8mdMCkJmXp"
+          }
+        ],
+        "key": "XRVYDhiNKIkd"
+      },
+      {
+        "object": "block",
+        "type": "list-ordered",
+        "isVoid": false,
+        "data": {
+          "start": 1
+        },
+        "nodes": [
+          {
+            "object": "block",
+            "type": "list-item",
+            "isVoid": false,
+            "data": {},
+            "nodes": [
+              {
+                "object": "block",
+                "type": "paragraph",
+                "isVoid": false,
+                "data": {},
+                "nodes": [
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": "",
+                        "marks": []
+                      }
+                    ],
+                    "key": "I6cMZqxJk4AS"
+                  },
+                  {
+                    "object": "inline",
+                    "type": "inline-math",
+                    "isVoid": true,
+                    "data": {
+                      "formula": "m \\equiv 0 \\pmod{(hash\\_p - 1)^2}"
+                    },
+                    "nodes": [
+                      {
+                        "object": "text",
+                        "leaves": [
+                          {
+                            "object": "leaf",
+                            "text": "",
+                            "marks": []
+                          }
+                        ],
+                        "key": "QrtQmmqfK0Ab"
+                      }
+                    ],
+                    "key": "RbFgKtnXf3ln"
+                  },
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": "",
+                        "marks": []
+                      }
+                    ],
+                    "key": "9rOAdBddUkg6"
+                  },
+                  {
+                    "object": "inline",
+                    "type": "inline-math",
+                    "isVoid": true,
+                    "data": {
+                      "formula": "$m \\equiv 0 \\pmod{(hash\\_p - 1)^2}$"
+                    },
+                    "nodes": [
+                      {
+                        "object": "text",
+                        "leaves": [
+                          {
+                            "object": "leaf",
+                            "text": "",
+                            "marks": []
+                          }
+                        ],
+                        "key": "QAYGQpuZNP1T"
+                      }
+                    ],
+                    "key": "XasH7pPfBxtA"
+                  },
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": "",
+                        "marks": []
+                      }
+                    ],
+                    "key": "F2gxKaecUQf3"
+                  }
+                ],
+                "key": "ze7Ow0q9EGpm"
+              }
+            ],
+            "key": "OcHqoEeC0kqh"
+          },
+          {
+            "object": "block",
+            "type": "list-item",
+            "isVoid": false,
+            "data": {},
+            "nodes": [
+              {
+                "object": "block",
+                "type": "paragraph",
+                "isVoid": false,
+                "data": {},
+                "nodes": [
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": "",
+                        "marks": []
+                      }
+                    ],
+                    "key": "ydy5hWikOvQD"
+                  },
+                  {
+                    "object": "inline",
+                    "type": "inline-math",
+                    "isVoid": true,
+                    "data": {
+                      "formula": "$\\text{long\\_to\\_bytes}(m)$"
+                    },
+                    "nodes": [
+                      {
+                        "object": "text",
+                        "leaves": [
+                          {
+                            "object": "leaf",
+                            "text": "",
+                            "marks": []
+                          }
+                        ],
+                        "key": "AKaKelGAqh2f"
+                      }
+                    ],
+                    "key": "HdYypSlvv8en"
+                  },
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": " starts with ",
+                        "marks": []
+                      },
+                      {
+                        "object": "leaf",
+                        "text": "b\"Get Flag.\"",
+                        "marks": [
+                          {
+                            "object": "mark",
+                            "type": "code",
+                            "data": {}
+                          }
+                        ]
+                      },
+                      {
+                        "object": "leaf",
+                        "text": ".",
+                        "marks": []
+                      }
+                    ],
+                    "key": "o4xQv7AFcUvi"
+                  }
+                ],
+                "key": "NAOJmAyk1SVg"
+              }
+            ],
+            "key": "dcp4FRtCgjU8"
+          }
+        ],
+        "key": "hDJt6wEgdEL1"
+      },
+      {
+        "object": "block",
+        "type": "paragraph",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "We can achieve this by:",
+                "marks": []
+              }
+            ],
+            "key": "9BogTwxaShx8"
+          }
+        ],
+        "key": "aatTZyuKSO9R"
+      },
+      {
+        "object": "block",
+        "type": "list-ordered",
+        "isVoid": false,
+        "data": {
+          "start": 1
+        },
+        "nodes": [
+          {
+            "object": "block",
+            "type": "list-item",
+            "isVoid": false,
+            "data": {},
+            "nodes": [
+              {
+                "object": "block",
+                "type": "paragraph",
+                "isVoid": false,
+                "data": {},
+                "nodes": [
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": "Taking the integer value of ",
+                        "marks": []
+                      },
+                      {
+                        "object": "leaf",
+                        "text": "b\"Get Flag.\"",
+                        "marks": [
+                          {
+                            "object": "mark",
+                            "type": "code",
+                            "data": {}
+                          }
+                        ]
+                      },
+                      {
+                        "object": "leaf",
+                        "text": ".",
+                        "marks": []
+                      }
+                    ],
+                    "key": "wQoJTiO03Xft"
+                  }
+                ],
+                "key": "n1jjtYhhHNF9"
+              }
+            ],
+            "key": "OtDL2jbJiRRV"
+          },
+          {
+            "object": "block",
+            "type": "list-item",
+            "isVoid": false,
+            "data": {},
+            "nodes": [
+              {
+                "object": "block",
+                "type": "paragraph",
+                "isVoid": false,
+                "data": {},
+                "nodes": [
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": "Shifting it left (padding with zeros) until it is significantly larger than ",
+                        "marks": []
+                      }
+                    ],
+                    "key": "40kLq2kkzlZ9"
+                  },
+                  {
+                    "object": "inline",
+                    "type": "inline-math",
+                    "isVoid": true,
+                    "data": {
+                      "formula": "$(hash\\_p - 1)^2$"
+                    },
+                    "nodes": [
+                      {
+                        "object": "text",
+                        "leaves": [
+                          {
+                            "object": "leaf",
+                            "text": "",
+                            "marks": []
+                          }
+                        ],
+                        "key": "0mLCq43SDD2h"
+                      }
+                    ],
+                    "key": "gelcLyJnLtQ6"
+                  },
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": ".",
+                        "marks": []
+                      }
+                    ],
+                    "key": "88G0VX1XPthN"
+                  }
+                ],
+                "key": "Z31Y6yB1FM2H"
+              }
+            ],
+            "key": "VsrAmCNHSDG4"
+          },
+          {
+            "object": "block",
+            "type": "list-item",
+            "isVoid": false,
+            "data": {},
+            "nodes": [
+              {
+                "object": "block",
+                "type": "paragraph",
+                "isVoid": false,
+                "data": {},
+                "nodes": [
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": "Finding the next multiple of ",
+                        "marks": []
+                      }
+                    ],
+                    "key": "MEuR0yBd8wSY"
+                  },
+                  {
+                    "object": "inline",
+                    "type": "inline-math",
+                    "isVoid": true,
+                    "data": {
+                      "formula": "$(hash\\_p - 1)^2$"
+                    },
+                    "nodes": [
+                      {
+                        "object": "text",
+                        "leaves": [
+                          {
+                            "object": "leaf",
+                            "text": "",
+                            "marks": []
+                          }
+                        ],
+                        "key": "IlIZUIUE2JWe"
+                      }
+                    ],
+                    "key": "FnbmEeFPYo6W"
+                  },
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": " larger than our shifted prefix.",
+                        "marks": []
+                      }
+                    ],
+                    "key": "81S2UUQsjuxk"
+                  }
+                ],
+                "key": "7pb1F1mYHUkF"
+              }
+            ],
+            "key": "FDgdtuuMf0Dy"
+          }
+        ],
+        "key": "0vkLSvTotGVm"
+      },
+      {
+        "object": "block",
+        "type": "paragraph",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "This ensures the high-order bytes remain the \"Get Flag.\" prefix while the entire number becomes a multiple of the target modulus.",
+                "marks": []
+              }
+            ],
+            "key": "wxKCUZKwaP4o"
+          }
+        ],
+        "key": "pr7k0WEI1wwR"
+      },
+      {
+        "object": "block",
+        "type": "heading-3",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "4. Solution Script",
+                "marks": []
+              }
+            ],
+            "key": "wczj6xcyu2Kl"
+          }
+        ],
+        "key": "APTKvjRuS834",
+        "meta": {
+          "id": "id-4.-solution-script"
+        }
+      },
+      {
+        "object": "block",
+        "type": "paragraph",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "Python",
+                "marks": []
+              }
+            ],
+            "key": "rY5zZy5ygNLI"
+          }
+        ],
+        "key": "B71ZBx7D3GsP"
+      },
+      {
+        "object": "block",
+        "type": "code",
+        "isVoid": false,
+        "data": {
+          "syntax": "python"
+        },
+        "nodes": [
+          {
+            "object": "block",
+            "type": "code-line",
+            "isVoid": false,
+            "data": {},
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "from Crypto.Util.number import bytes_to_long, long_to_bytes",
+                    "marks": []
+                  }
+                ],
+                "key": "esU7vIxpcEYH"
+              }
+            ],
+            "key": "Bdiygkey49Ub"
+          },
+          {
+            "object": "block",
+            "type": "code-line",
+            "isVoid": false,
+            "data": {},
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "",
+                    "marks": []
+                  }
+                ],
+                "key": "2sbz3ZT6yLtf"
+              }
+            ],
+            "key": "tjsb85gnbpTW"
+          },
+          {
+            "object": "block",
+            "type": "code-line",
+            "isVoid": false,
+            "data": {},
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "# Parameters from server",
+                    "marks": []
+                  }
+                ],
+                "key": "UOPq7rgDeX6F"
+              }
+            ],
+            "key": "62zxABo9GA1a"
+          },
+          {
+            "object": "block",
+            "type": "code-line",
+            "isVoid": false,
+            "data": {},
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "hash_p = ... ",
+                    "marks": []
+                  }
+                ],
+                "key": "9KkPz6ecVtK3"
+              }
+            ],
+            "key": "ct7niwlc6nM9"
+          },
+          {
+            "object": "block",
+            "type": "code-line",
+            "isVoid": false,
+            "data": {},
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "prefix = b\"Get Flag.\"",
+                    "marks": []
+                  }
+                ],
+                "key": "8xjIgT9CXWVI"
+              }
+            ],
+            "key": "6NK4r7ButWek"
+          },
+          {
+            "object": "block",
+            "type": "code-line",
+            "isVoid": false,
+            "data": {},
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "modulus = (hash_p - 1)**2",
+                    "marks": []
+                  }
+                ],
+                "key": "wfq6E8Q4gWwR"
+              }
+            ],
+            "key": "ib8cxh9huaY3"
+          },
+          {
+            "object": "block",
+            "type": "code-line",
+            "isVoid": false,
+            "data": {},
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "",
+                    "marks": []
+                  }
+                ],
+                "key": "Tn4p7c5SENRQ"
+              }
+            ],
+            "key": "jFLjntEoC99g"
+          },
+          {
+            "object": "block",
+            "type": "code-line",
+            "isVoid": false,
+            "data": {},
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "# Convert prefix to a large enough starting number",
+                    "marks": []
+                  }
+                ],
+                "key": "ebRhE1DUVHYC"
+              }
+            ],
+            "key": "zAKrxmOiqz91"
+          },
+          {
+            "object": "block",
+            "type": "code-line",
+            "isVoid": false,
+            "data": {},
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "m_start = bytes_to_long(prefix)",
+                    "marks": []
+                  }
+                ],
+                "key": "WuI8gHQCSUQl"
+              }
+            ],
+            "key": "NSnpXkXmvssE"
+          },
+          {
+            "object": "block",
+            "type": "code-line",
+            "isVoid": false,
+            "data": {},
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "# Shift left to ensure room for the modulus math",
+                    "marks": []
+                  }
+                ],
+                "key": "OUemv6oh7yGX"
+              }
+            ],
+            "key": "4KW1LYaHoY53"
+          },
+          {
+            "object": "block",
+            "type": "code-line",
+            "isVoid": false,
+            "data": {},
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "m_shifted = m_start << (modulus.bit_length() + 64)",
+                    "marks": []
+                  }
+                ],
+                "key": "o6hdEDJYnLhH"
+              }
+            ],
+            "key": "wSzjECAKO33l"
+          },
+          {
+            "object": "block",
+            "type": "code-line",
+            "isVoid": false,
+            "data": {},
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "",
+                    "marks": []
+                  }
+                ],
+                "key": "Zb3XzKuQONZ5"
+              }
+            ],
+            "key": "OU1oKOZZS5ot"
+          },
+          {
+            "object": "block",
+            "type": "code-line",
+            "isVoid": false,
+            "data": {},
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "# Find the next multiple of (hash_p - 1)^2",
+                    "marks": []
+                  }
+                ],
+                "key": "qvVqCJmtYoUK"
+              }
+            ],
+            "key": "nFsbofTfjJ8Q"
+          },
+          {
+            "object": "block",
+            "type": "code-line",
+            "isVoid": false,
+            "data": {},
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "# This ensures m % (hash_p - 1) == 0 AND (m // (hash_p - 1)) % (hash_p - 1) == 0",
+                    "marks": []
+                  }
+                ],
+                "key": "vOA1kVcwMOsm"
+              }
+            ],
+            "key": "PVmf6h5JVhgZ"
+          },
+          {
+            "object": "block",
+            "type": "code-line",
+            "isVoid": false,
+            "data": {},
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "payload_m = ((m_shifted // modulus) + 1) * modulus",
+                    "marks": []
+                  }
+                ],
+                "key": "Br3lmPAEd4A7"
+              }
+            ],
+            "key": "JDQotu42gwUf"
+          },
+          {
+            "object": "block",
+            "type": "code-line",
+            "isVoid": false,
+            "data": {},
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "",
+                    "marks": []
+                  }
+                ],
+                "key": "Wws8hco4iW8Y"
+              }
+            ],
+            "key": "WE5TUS3l6c0Q"
+          },
+          {
+            "object": "block",
+            "type": "code-line",
+            "isVoid": false,
+            "data": {},
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "print(f\"Message (hex): {long_to_bytes(payload_m).hex()}\")",
+                    "marks": []
+                  }
+                ],
+                "key": "2zQKyD40IiqK"
+              }
+            ],
+            "key": "ht5qpwncgAbn"
+          },
+          {
+            "object": "block",
+            "type": "code-line",
+            "isVoid": false,
+            "data": {},
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "print(f\"Signature (int): 1\")",
+                    "marks": []
+                  }
+                ],
+                "key": "OogOzRz9BrZ0"
+              }
+            ],
+            "key": "Wr0SuOHoGubl"
+          }
+        ],
+        "key": "dkH1tjodUKha"
+      },
+      {
+        "object": "block",
+        "type": "paragraph",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "",
+                "marks": []
+              }
+            ],
+            "key": "n0NPXO6dHWhp"
+          }
+        ],
+        "key": "LPGh7BPliysJ"
+      },
+      {
+        "object": "block",
+        "type": "paragraph",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "FLAG: TSGCTF{[REDACTED]}",
+                "marks": []
+              }
+            ],
+            "key": "h9nehOXvn7Lk"
+          }
+        ],
+        "key": "9TpktJXbirHb"
+      }
+    ],
+    "key": "kDDTCbibVW9C"
+  }
+}

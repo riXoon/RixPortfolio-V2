@@ -1,0 +1,1942 @@
+{
+  "id": "sWIxAmI5jjsqVUjTm0Tk",
+  "title": "Corridor Loop Protocol — Cryptography",
+  "kind": "sheet",
+  "type": "document",
+  "urls": {
+    "app": "https://app.gitbook.com/s/lkLAmi5p2JStWSgB8VVS/signal-lost-jissa-ctf-2026/corridor-loop-protocol-cryptography"
+  },
+  "path": "signal-lost-jissa-ctf-2026/corridor-loop-protocol-cryptography",
+  "slug": "corridor-loop-protocol-cryptography",
+  "createdAt": "2026-03-29T02:58:50.381Z",
+  "updatedAt": "2026-03-29T02:58:50.381Z",
+  "pages": [],
+  "layout": {
+    "cover": true,
+    "coverMask": "none",
+    "coverSize": "full",
+    "width": "default",
+    "title": true,
+    "description": true,
+    "tableOfContents": true,
+    "outline": true,
+    "pagination": true,
+    "metadata": true,
+    "tags": true,
+    "actions": true
+  },
+  "documentId": "U5RIpsLQsa8tXFlxoYQf",
+  "tags": [],
+  "document": {
+    "object": "document",
+    "data": {
+      "schemaVersion": 9,
+      "documentId": "U5RIpsLQsa8tXFlxoYQf"
+    },
+    "nodes": [
+      {
+        "object": "block",
+        "type": "images",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "block",
+            "type": "image",
+            "isVoid": true,
+            "data": {
+              "alt": "",
+              "ref": {
+                "kind": "file",
+                "file": "yyEX2ks0umSqpo5t2yrA"
+              }
+            },
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "",
+                    "marks": []
+                  }
+                ],
+                "key": "whLefZMPVFpT"
+              }
+            ],
+            "key": "oDCW9b0gX1lV",
+            "fragments": [
+              {
+                "object": "fragment",
+                "nodes": [
+                  {
+                    "object": "block",
+                    "type": "paragraph",
+                    "isVoid": false,
+                    "data": {},
+                    "nodes": [
+                      {
+                        "object": "text",
+                        "leaves": [
+                          {
+                            "object": "leaf",
+                            "text": "",
+                            "marks": []
+                          }
+                        ],
+                        "key": "wYESAKFB3zlp"
+                      }
+                    ],
+                    "key": "4MH3Uff1PYJ0"
+                  }
+                ],
+                "key": "lLzDy9E0YFBT",
+                "fragment": "caption"
+              }
+            ]
+          }
+        ],
+        "key": "euhERu6af1yC"
+      },
+      {
+        "object": "block",
+        "type": "divider",
+        "isVoid": true,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "",
+                "marks": []
+              }
+            ],
+            "key": "vlgCP8lncaqf"
+          }
+        ],
+        "key": "ZQhbSjT8nBAg"
+      },
+      {
+        "object": "block",
+        "type": "heading-2",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "Challenge Overview & Initial Impressions",
+                "marks": []
+              }
+            ],
+            "key": "4Uy9aeAicHyI"
+          }
+        ],
+        "key": "pd5uqqisJlGw",
+        "meta": {
+          "id": "challenge-overview-and-initial-impressions"
+        }
+      },
+      {
+        "object": "block",
+        "type": "paragraph",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "The challenge provided a text file named ",
+                "marks": []
+              },
+              {
+                "object": "leaf",
+                "text": "loop_protocol_7734.txt",
+                "marks": [
+                  {
+                    "object": "mark",
+                    "type": "code",
+                    "data": {}
+                  }
+                ]
+              },
+              {
+                "object": "leaf",
+                "text": ". Upon opening, it presented a string of characters that immediately looked familiar: ",
+                "marks": []
+              },
+              {
+                "object": "leaf",
+                "text": "AZJJR{pfl_riv_efk_rcfev_yviv}",
+                "marks": [
+                  {
+                    "object": "mark",
+                    "type": "code",
+                    "data": {}
+                  }
+                ]
+              },
+              {
+                "object": "leaf",
+                "text": ".",
+                "marks": []
+              }
+            ],
+            "key": "40uprXvHEph1"
+          }
+        ],
+        "key": "8pDY6ZP7OhDs"
+      },
+      {
+        "object": "block",
+        "type": "paragraph",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "The Goal",
+                "marks": [
+                  {
+                    "object": "mark",
+                    "type": "bold",
+                    "data": {}
+                  }
+                ]
+              },
+              {
+                "object": "leaf",
+                "text": ": Decrypt the \"protocol\" message to retrieve the flag.",
+                "marks": []
+              }
+            ],
+            "key": "sx6F0TSm2IgY"
+          }
+        ],
+        "key": "3fvxUd55Cv0V"
+      },
+      {
+        "object": "block",
+        "type": "paragraph",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "Initial Thoughts",
+                "marks": [
+                  {
+                    "object": "mark",
+                    "type": "bold",
+                    "data": {}
+                  }
+                ]
+              },
+              {
+                "object": "leaf",
+                "text": ": The structure—specifically the five characters followed by curly braces—matched the ",
+                "marks": []
+              },
+              {
+                "object": "leaf",
+                "text": "JISSA{...}",
+                "marks": [
+                  {
+                    "object": "mark",
+                    "type": "code",
+                    "data": {}
+                  }
+                ]
+              },
+              {
+                "object": "leaf",
+                "text": " flag format perfectly. Given my previous experience with the \"No_Signal\" challenge, I suspected another Caesar Cipher. However, I noticed that ",
+                "marks": []
+              },
+              {
+                "object": "leaf",
+                "text": "A",
+                "marks": [
+                  {
+                    "object": "mark",
+                    "type": "code",
+                    "data": {}
+                  }
+                ]
+              },
+              {
+                "object": "leaf",
+                "text": " (the first letter of the ciphertext) would need to map to ",
+                "marks": []
+              },
+              {
+                "object": "leaf",
+                "text": "J",
+                "marks": [
+                  {
+                    "object": "mark",
+                    "type": "code",
+                    "data": {}
+                  }
+                ]
+              },
+              {
+                "object": "leaf",
+                "text": " (the first letter of the flag), which meant a simple ROT13 shift wouldn't work this time.",
+                "marks": []
+              }
+            ],
+            "key": "9eD8IrnRrOh6"
+          }
+        ],
+        "key": "KfHNyEzp8lsH"
+      },
+      {
+        "object": "block",
+        "type": "divider",
+        "isVoid": true,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "",
+                "marks": []
+              }
+            ],
+            "key": "3GS022GkNlb2"
+          }
+        ],
+        "key": "lIcVhfuagzB0"
+      },
+      {
+        "object": "block",
+        "type": "heading-2",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "Technical Deep Dive: Beyond ROT13 (The Caesar Shift)",
+                "marks": []
+              }
+            ],
+            "key": "VAW6uGQqrXMv"
+          }
+        ],
+        "key": "2lJo5hOGRDID",
+        "meta": {
+          "id": "technical-deep-dive-beyond-rot13-the-caesar-shift"
+        }
+      },
+      {
+        "object": "block",
+        "type": "paragraph",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "The Caesar Cipher is a mathematical rotation of the alphabet. The formula for encryption is:",
+                "marks": []
+              }
+            ],
+            "key": "uQ1DUfNOAQ5b"
+          }
+        ],
+        "key": "uZqUgCqmCHjS"
+      },
+      {
+        "object": "block",
+        "type": "paragraph",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "$$C = (P + k) \\pmod{26}$$",
+                "marks": []
+              }
+            ],
+            "key": "1J0vIEZK2R6K"
+          }
+        ],
+        "key": "u0IWlqEifpuz"
+      },
+      {
+        "object": "block",
+        "type": "paragraph",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "Where ",
+                "marks": []
+              }
+            ],
+            "key": "IRIgvUigdcQJ"
+          },
+          {
+            "object": "inline",
+            "type": "inline-math",
+            "isVoid": true,
+            "data": {
+              "formula": "P"
+            },
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "",
+                    "marks": []
+                  }
+                ],
+                "key": "1uI2SWgrVNPa"
+              }
+            ],
+            "key": "WWjz6wi1a3KA"
+          },
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": " is the plaintext letter, ",
+                "marks": []
+              }
+            ],
+            "key": "9MWly9DRQNjI"
+          },
+          {
+            "object": "inline",
+            "type": "inline-math",
+            "isVoid": true,
+            "data": {
+              "formula": "$k$"
+            },
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "",
+                    "marks": []
+                  }
+                ],
+                "key": "zdoCbw9xDGzQ"
+              }
+            ],
+            "key": "hjGzDhSkC2I2"
+          },
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": " is the shift (key), and ",
+                "marks": []
+              }
+            ],
+            "key": "ydz6qyyPWjdS"
+          },
+          {
+            "object": "inline",
+            "type": "inline-math",
+            "isVoid": true,
+            "data": {
+              "formula": "C"
+            },
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "",
+                    "marks": []
+                  }
+                ],
+                "key": "WPWihupXFduh"
+              }
+            ],
+            "key": "v1tAFmzuU6bv"
+          },
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": " is the resulting ciphertext.",
+                "marks": []
+              }
+            ],
+            "key": "dOALwU085gzh"
+          }
+        ],
+        "key": "QIM8qsJLU4Q5"
+      },
+      {
+        "object": "block",
+        "type": "paragraph",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "While ROT13 is the most famous version because it is its own inverse (",
+                "marks": []
+              }
+            ],
+            "key": "liQsDH0Ssoyz"
+          },
+          {
+            "object": "inline",
+            "type": "inline-math",
+            "isVoid": true,
+            "data": {
+              "formula": "k=13"
+            },
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "",
+                    "marks": []
+                  }
+                ],
+                "key": "2joeZumwVXa6"
+              }
+            ],
+            "key": "RUSom5ItRTMc"
+          },
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "), any value for ",
+                "marks": []
+              }
+            ],
+            "key": "AD4SAJM7RfbR"
+          },
+          {
+            "object": "inline",
+            "type": "inline-math",
+            "isVoid": true,
+            "data": {
+              "formula": "k"
+            },
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "",
+                    "marks": []
+                  }
+                ],
+                "key": "Zbkw9TOTssde"
+              }
+            ],
+            "key": "MFfakasAppIZ"
+          },
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": " between 1 and 25 is a valid Caesar Cipher. In CTFs, when ROT13 fails, the next logical step is a Brute Force attack—trying all 25 possible rotations until the text becomes human-readable.",
+                "marks": []
+              }
+            ],
+            "key": "Z1W0FsFvL6I4"
+          }
+        ],
+        "key": "OHBFh3fd0Tav"
+      },
+      {
+        "object": "block",
+        "type": "divider",
+        "isVoid": true,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "",
+                "marks": []
+              }
+            ],
+            "key": "2zuBr1O6ViI0"
+          }
+        ],
+        "key": "1FboEIjKDPLC"
+      },
+      {
+        "object": "block",
+        "type": "heading-2",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "The Journey: Reconnaissance & Discovery",
+                "marks": []
+              }
+            ],
+            "key": "gbwVAidhaZrM"
+          }
+        ],
+        "key": "VDj42wnwo3bF",
+        "meta": {
+          "id": "the-journey-reconnaissance-and-discovery"
+        }
+      },
+      {
+        "object": "block",
+        "type": "paragraph",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "I followed a similar workflow to my previous cryptography solve but had to adapt when the \"standard\" method failed.",
+                "marks": []
+              }
+            ],
+            "key": "1L0tg3BBAUh5"
+          }
+        ],
+        "key": "JDF0FsovVYYv"
+      },
+      {
+        "object": "block",
+        "type": "paragraph",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "Step 1",
+                "marks": [
+                  {
+                    "object": "mark",
+                    "type": "bold",
+                    "data": {}
+                  }
+                ]
+              },
+              {
+                "object": "leaf",
+                "text": ": Initial Analysis",
+                "marks": []
+              }
+            ],
+            "key": "GMPVO0o8t33M"
+          }
+        ],
+        "key": "kcbSDjjKb2fP"
+      },
+      {
+        "object": "block",
+        "type": "images",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "block",
+            "type": "image",
+            "isVoid": true,
+            "data": {
+              "alt": "",
+              "ref": {
+                "kind": "file",
+                "file": "xstO9A24jiLkQCc7gcgD"
+              }
+            },
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "",
+                    "marks": []
+                  }
+                ],
+                "key": "o0m2Pc8KH2qj"
+              }
+            ],
+            "key": "0WeByfgs1Me1",
+            "fragments": [
+              {
+                "object": "fragment",
+                "nodes": [
+                  {
+                    "object": "block",
+                    "type": "paragraph",
+                    "isVoid": false,
+                    "data": {},
+                    "nodes": [
+                      {
+                        "object": "text",
+                        "leaves": [
+                          {
+                            "object": "leaf",
+                            "text": "",
+                            "marks": []
+                          }
+                        ],
+                        "key": "8B1YKbwDzyGi"
+                      }
+                    ],
+                    "key": "SC0miuK3O4pu"
+                  }
+                ],
+                "key": "vfOH6ZkFimzS",
+                "fragment": "caption"
+              }
+            ]
+          }
+        ],
+        "key": "lG5sSq8Dred5"
+      },
+      {
+        "object": "block",
+        "type": "paragraph",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "I examined the ciphertext ",
+                "marks": []
+              },
+              {
+                "object": "leaf",
+                "text": "AZJJR",
+                "marks": [
+                  {
+                    "object": "mark",
+                    "type": "code",
+                    "data": {}
+                  }
+                ]
+              },
+              {
+                "object": "leaf",
+                "text": ". If the flag prefix is ",
+                "marks": []
+              },
+              {
+                "object": "leaf",
+                "text": "JISSA",
+                "marks": [
+                  {
+                    "object": "mark",
+                    "type": "code",
+                    "data": {}
+                  }
+                ]
+              },
+              {
+                "object": "leaf",
+                "text": ":",
+                "marks": []
+              }
+            ],
+            "key": "EGNuRpoDgk8l"
+          }
+        ],
+        "key": "wkPRLZHyn7C5"
+      },
+      {
+        "object": "block",
+        "type": "list-unordered",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "block",
+            "type": "list-item",
+            "isVoid": false,
+            "data": {},
+            "nodes": [
+              {
+                "object": "block",
+                "type": "paragraph",
+                "isVoid": false,
+                "data": {},
+                "nodes": [
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": "A",
+                        "marks": [
+                          {
+                            "object": "mark",
+                            "type": "code",
+                            "data": {}
+                          }
+                        ]
+                      },
+                      {
+                        "object": "leaf",
+                        "text": " (1st letter) ",
+                        "marks": []
+                      }
+                    ],
+                    "key": "kJCUtqLCi2VB"
+                  },
+                  {
+                    "object": "inline",
+                    "type": "inline-math",
+                    "isVoid": true,
+                    "data": {
+                      "formula": "\\rightarrow"
+                    },
+                    "nodes": [
+                      {
+                        "object": "text",
+                        "leaves": [
+                          {
+                            "object": "leaf",
+                            "text": "",
+                            "marks": []
+                          }
+                        ],
+                        "key": "2aM7ykDHsZA4"
+                      }
+                    ],
+                    "key": "VncyzrnhrDBJ"
+                  },
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": " ",
+                        "marks": []
+                      },
+                      {
+                        "object": "leaf",
+                        "text": "J",
+                        "marks": [
+                          {
+                            "object": "mark",
+                            "type": "code",
+                            "data": {}
+                          }
+                        ]
+                      },
+                      {
+                        "object": "leaf",
+                        "text": " (10th letter) = +9 shift",
+                        "marks": []
+                      }
+                    ],
+                    "key": "B8AVvbEbrLv7"
+                  }
+                ],
+                "key": "UxOBSvurB4HC"
+              }
+            ],
+            "key": "uocgb1bPiaUS"
+          },
+          {
+            "object": "block",
+            "type": "list-item",
+            "isVoid": false,
+            "data": {},
+            "nodes": [
+              {
+                "object": "block",
+                "type": "paragraph",
+                "isVoid": false,
+                "data": {},
+                "nodes": [
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": "Z",
+                        "marks": [
+                          {
+                            "object": "mark",
+                            "type": "code",
+                            "data": {}
+                          }
+                        ]
+                      },
+                      {
+                        "object": "leaf",
+                        "text": " (26th letter) ",
+                        "marks": []
+                      }
+                    ],
+                    "key": "mSXaVFZ40eiE"
+                  },
+                  {
+                    "object": "inline",
+                    "type": "inline-math",
+                    "isVoid": true,
+                    "data": {
+                      "formula": "\\rightarrow"
+                    },
+                    "nodes": [
+                      {
+                        "object": "text",
+                        "leaves": [
+                          {
+                            "object": "leaf",
+                            "text": "",
+                            "marks": []
+                          }
+                        ],
+                        "key": "8Fe2q8sBmNCz"
+                      }
+                    ],
+                    "key": "kwiakc4I9746"
+                  },
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": " ",
+                        "marks": []
+                      },
+                      {
+                        "object": "leaf",
+                        "text": "I",
+                        "marks": [
+                          {
+                            "object": "mark",
+                            "type": "code",
+                            "data": {}
+                          }
+                        ]
+                      },
+                      {
+                        "object": "leaf",
+                        "text": " (9th letter) = +9 shift (wrapping around the alphabet)",
+                        "marks": []
+                      }
+                    ],
+                    "key": "iH0u1m6rvZhm"
+                  }
+                ],
+                "key": "WdaRbHq6QNGq"
+              }
+            ],
+            "key": "Gguc1atDIBtB"
+          }
+        ],
+        "key": "8kSxejuUpMM2"
+      },
+      {
+        "object": "block",
+        "type": "paragraph",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "Step 2: The \"Rabbit Hole\"",
+                "marks": []
+              }
+            ],
+            "key": "lkaEwFFFCBSI"
+          }
+        ],
+        "key": "jKtb41K76w5P"
+      },
+      {
+        "object": "block",
+        "type": "images",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "block",
+            "type": "image",
+            "isVoid": true,
+            "data": {
+              "alt": "",
+              "ref": {
+                "kind": "file",
+                "file": "HppYwwtfcjDV98RRrezG"
+              }
+            },
+            "nodes": [
+              {
+                "object": "text",
+                "leaves": [
+                  {
+                    "object": "leaf",
+                    "text": "",
+                    "marks": []
+                  }
+                ],
+                "key": "5m6OXatts6Mk"
+              }
+            ],
+            "key": "clZ7lnf6JLUu",
+            "fragments": [
+              {
+                "object": "fragment",
+                "nodes": [
+                  {
+                    "object": "block",
+                    "type": "paragraph",
+                    "isVoid": false,
+                    "data": {},
+                    "nodes": [
+                      {
+                        "object": "text",
+                        "leaves": [
+                          {
+                            "object": "leaf",
+                            "text": "",
+                            "marks": []
+                          }
+                        ],
+                        "key": "vpJNrqK2ZcxS"
+                      }
+                    ],
+                    "key": "88JNmAn5dscO"
+                  }
+                ],
+                "key": "kDWZFG1FElC7",
+                "fragment": "caption"
+              }
+            ]
+          }
+        ],
+        "key": "aexj91fQ7xKT"
+      },
+      {
+        "object": "block",
+        "type": "paragraph",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "I initially plugged the string into CyberChef and applied the ROT13 recipe by habit. The output was ",
+                "marks": []
+              },
+              {
+                "object": "leaf",
+                "text": "NMWWE{csy_evi_rsx_epsri_livi}",
+                "marks": [
+                  {
+                    "object": "mark",
+                    "type": "code",
+                    "data": {}
+                  }
+                ]
+              },
+              {
+                "object": "leaf",
+                "text": ", which clearly wasn't English. This confirmed that the shift value was different from the previous challenge.",
+                "marks": []
+              }
+            ],
+            "key": "FO2c4EIFtsR0"
+          }
+        ],
+        "key": "H7upuwoYi1N5"
+      },
+      {
+        "object": "block",
+        "type": "divider",
+        "isVoid": true,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "",
+                "marks": []
+              }
+            ],
+            "key": "DttJleQ8qW5b"
+          }
+        ],
+        "key": "V6bqWLE8v1lw"
+      },
+      {
+        "object": "block",
+        "type": "heading-2",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "Exploitation (The \"Aha!\" Moment)",
+                "marks": []
+              }
+            ],
+            "key": "uTluFrd7HkWa"
+          }
+        ],
+        "key": "8iFj4XgizS0n",
+        "meta": {
+          "id": "exploitation-the-aha-moment"
+        }
+      },
+      {
+        "object": "block",
+        "type": "paragraph",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "Instead of guessing, I used the sliding scale in CyberChef to find the \"Aha!\" moment.",
+                "marks": []
+              }
+            ],
+            "key": "4VGQdqjyzFq5"
+          }
+        ],
+        "key": "7xs82q5x8IVo"
+      },
+      {
+        "object": "block",
+        "type": "list-unordered",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "block",
+            "type": "list-item",
+            "isVoid": false,
+            "data": {},
+            "nodes": [
+              {
+                "object": "block",
+                "type": "paragraph",
+                "isVoid": false,
+                "data": {},
+                "nodes": [
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": "Step 1",
+                        "marks": [
+                          {
+                            "object": "mark",
+                            "type": "bold",
+                            "data": {}
+                          }
+                        ]
+                      },
+                      {
+                        "object": "leaf",
+                        "text": ": I kept the ROT13 recipe in the column but noticed it has an \"Amount\" toggle.",
+                        "marks": []
+                      }
+                    ],
+                    "key": "8HdJQQYdkJFj"
+                  }
+                ],
+                "key": "7qdCVySmhaHA"
+              }
+            ],
+            "key": "lE4TncrVTzg6"
+          },
+          {
+            "object": "block",
+            "type": "list-item",
+            "isVoid": false,
+            "data": {},
+            "nodes": [
+              {
+                "object": "block",
+                "type": "paragraph",
+                "isVoid": false,
+                "data": {},
+                "nodes": [
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": "Step 2",
+                        "marks": [
+                          {
+                            "object": "mark",
+                            "type": "bold",
+                            "data": {}
+                          }
+                        ]
+                      },
+                      {
+                        "object": "leaf",
+                        "text": ": I manually adjusted the rotation amount.",
+                        "marks": []
+                      }
+                    ],
+                    "key": "zVQE7ceT1wu0"
+                  }
+                ],
+                "key": "x4nNAMbwlAzL"
+              }
+            ],
+            "key": "AhlDrP4RXP7i"
+          },
+          {
+            "object": "block",
+            "type": "list-item",
+            "isVoid": false,
+            "data": {},
+            "nodes": [
+              {
+                "object": "block",
+                "type": "paragraph",
+                "isVoid": false,
+                "data": {},
+                "nodes": [
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": "Step 3",
+                        "marks": [
+                          {
+                            "object": "mark",
+                            "type": "bold",
+                            "data": {}
+                          }
+                        ]
+                      },
+                      {
+                        "object": "leaf",
+                        "text": ": When the rotation hit 9, the \"gibberish\" transformed into a clear, haunting English sentence.",
+                        "marks": []
+                      }
+                    ],
+                    "key": "2RK1ceLrVvdv"
+                  }
+                ],
+                "key": "7xZ6gPAgsJcm"
+              }
+            ],
+            "key": "YL7XQpyfzsP1"
+          }
+        ],
+        "key": "QmupZ3IWMjR5"
+      },
+      {
+        "object": "block",
+        "type": "paragraph",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "The Payload:",
+                "marks": []
+              }
+            ],
+            "key": "iwuuUOxqOyv4"
+          }
+        ],
+        "key": "whIo7VWVl5XW"
+      },
+      {
+        "object": "block",
+        "type": "paragraph",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "The transformation for the entire string using a +9 shift:",
+                "marks": []
+              }
+            ],
+            "key": "t0kvEIT3Tcgx"
+          }
+        ],
+        "key": "RFgd6U5C8SiA"
+      },
+      {
+        "object": "block",
+        "type": "list-unordered",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "block",
+            "type": "list-item",
+            "isVoid": false,
+            "data": {},
+            "nodes": [
+              {
+                "object": "block",
+                "type": "paragraph",
+                "isVoid": false,
+                "data": {},
+                "nodes": [
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": "A",
+                        "marks": [
+                          {
+                            "object": "mark",
+                            "type": "code",
+                            "data": {}
+                          }
+                        ]
+                      },
+                      {
+                        "object": "leaf",
+                        "text": " ",
+                        "marks": []
+                      }
+                    ],
+                    "key": "agmW9NRNSuRB"
+                  },
+                  {
+                    "object": "inline",
+                    "type": "inline-math",
+                    "isVoid": true,
+                    "data": {
+                      "formula": "+ 9 \\rightarrow"
+                    },
+                    "nodes": [
+                      {
+                        "object": "text",
+                        "leaves": [
+                          {
+                            "object": "leaf",
+                            "text": "",
+                            "marks": []
+                          }
+                        ],
+                        "key": "W4DtxckKOduc"
+                      }
+                    ],
+                    "key": "p9qU5Rjf2u7d"
+                  },
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": " ",
+                        "marks": []
+                      },
+                      {
+                        "object": "leaf",
+                        "text": "J",
+                        "marks": [
+                          {
+                            "object": "mark",
+                            "type": "code",
+                            "data": {}
+                          }
+                        ]
+                      }
+                    ],
+                    "key": "qB5EjES4VkVu"
+                  }
+                ],
+                "key": "osATWSVm7m9K"
+              }
+            ],
+            "key": "hqhfMDBvhL1x"
+          },
+          {
+            "object": "block",
+            "type": "list-item",
+            "isVoid": false,
+            "data": {},
+            "nodes": [
+              {
+                "object": "block",
+                "type": "paragraph",
+                "isVoid": false,
+                "data": {},
+                "nodes": [
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": "Z",
+                        "marks": [
+                          {
+                            "object": "mark",
+                            "type": "code",
+                            "data": {}
+                          }
+                        ]
+                      },
+                      {
+                        "object": "leaf",
+                        "text": " ",
+                        "marks": []
+                      }
+                    ],
+                    "key": "fvytALgeHdt7"
+                  },
+                  {
+                    "object": "inline",
+                    "type": "inline-math",
+                    "isVoid": true,
+                    "data": {
+                      "formula": "+ 9 \\rightarrow"
+                    },
+                    "nodes": [
+                      {
+                        "object": "text",
+                        "leaves": [
+                          {
+                            "object": "leaf",
+                            "text": "",
+                            "marks": []
+                          }
+                        ],
+                        "key": "WBhMbM2mOpAK"
+                      }
+                    ],
+                    "key": "JygJBfo4xs9Y"
+                  },
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": " ",
+                        "marks": []
+                      },
+                      {
+                        "object": "leaf",
+                        "text": "I",
+                        "marks": [
+                          {
+                            "object": "mark",
+                            "type": "code",
+                            "data": {}
+                          }
+                        ]
+                      }
+                    ],
+                    "key": "wYmlV9Gp7pDM"
+                  }
+                ],
+                "key": "GrRPN3hJpKt5"
+              }
+            ],
+            "key": "jCod7HAmqrOE"
+          },
+          {
+            "object": "block",
+            "type": "list-item",
+            "isVoid": false,
+            "data": {},
+            "nodes": [
+              {
+                "object": "block",
+                "type": "paragraph",
+                "isVoid": false,
+                "data": {},
+                "nodes": [
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": "J",
+                        "marks": [
+                          {
+                            "object": "mark",
+                            "type": "code",
+                            "data": {}
+                          }
+                        ]
+                      },
+                      {
+                        "object": "leaf",
+                        "text": " ",
+                        "marks": []
+                      }
+                    ],
+                    "key": "y4XMj05tqdn6"
+                  },
+                  {
+                    "object": "inline",
+                    "type": "inline-math",
+                    "isVoid": true,
+                    "data": {
+                      "formula": "+ 9 \\rightarrow"
+                    },
+                    "nodes": [
+                      {
+                        "object": "text",
+                        "leaves": [
+                          {
+                            "object": "leaf",
+                            "text": "",
+                            "marks": []
+                          }
+                        ],
+                        "key": "5N7BRiKAQTqW"
+                      }
+                    ],
+                    "key": "CJIIWprioqYz"
+                  },
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": " ",
+                        "marks": []
+                      },
+                      {
+                        "object": "leaf",
+                        "text": "S",
+                        "marks": [
+                          {
+                            "object": "mark",
+                            "type": "code",
+                            "data": {}
+                          }
+                        ]
+                      }
+                    ],
+                    "key": "gjKRCaPALF4M"
+                  }
+                ],
+                "key": "54eKAOZFXRsM"
+              }
+            ],
+            "key": "1R4jGGnlEv3c"
+          },
+          {
+            "object": "block",
+            "type": "list-item",
+            "isVoid": false,
+            "data": {},
+            "nodes": [
+              {
+                "object": "block",
+                "type": "paragraph",
+                "isVoid": false,
+                "data": {},
+                "nodes": [
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": "J",
+                        "marks": [
+                          {
+                            "object": "mark",
+                            "type": "code",
+                            "data": {}
+                          }
+                        ]
+                      },
+                      {
+                        "object": "leaf",
+                        "text": " ",
+                        "marks": []
+                      }
+                    ],
+                    "key": "uA6E511SVPof"
+                  },
+                  {
+                    "object": "inline",
+                    "type": "inline-math",
+                    "isVoid": true,
+                    "data": {
+                      "formula": "+ 9 \\rightarrow"
+                    },
+                    "nodes": [
+                      {
+                        "object": "text",
+                        "leaves": [
+                          {
+                            "object": "leaf",
+                            "text": "",
+                            "marks": []
+                          }
+                        ],
+                        "key": "0Rm4FA4gtQdt"
+                      }
+                    ],
+                    "key": "UicnLHIXcxfu"
+                  },
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": " ",
+                        "marks": []
+                      },
+                      {
+                        "object": "leaf",
+                        "text": "S",
+                        "marks": [
+                          {
+                            "object": "mark",
+                            "type": "code",
+                            "data": {}
+                          }
+                        ]
+                      }
+                    ],
+                    "key": "kxyNA6Xz1tkn"
+                  }
+                ],
+                "key": "9EHoc4VbOSyR"
+              }
+            ],
+            "key": "xtA6IrS3rzWO"
+          },
+          {
+            "object": "block",
+            "type": "list-item",
+            "isVoid": false,
+            "data": {},
+            "nodes": [
+              {
+                "object": "block",
+                "type": "paragraph",
+                "isVoid": false,
+                "data": {},
+                "nodes": [
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": "R",
+                        "marks": [
+                          {
+                            "object": "mark",
+                            "type": "code",
+                            "data": {}
+                          }
+                        ]
+                      },
+                      {
+                        "object": "leaf",
+                        "text": " ",
+                        "marks": []
+                      }
+                    ],
+                    "key": "fVDF4juZb6AK"
+                  },
+                  {
+                    "object": "inline",
+                    "type": "inline-math",
+                    "isVoid": true,
+                    "data": {
+                      "formula": "+ 9 \\rightarrow"
+                    },
+                    "nodes": [
+                      {
+                        "object": "text",
+                        "leaves": [
+                          {
+                            "object": "leaf",
+                            "text": "",
+                            "marks": []
+                          }
+                        ],
+                        "key": "qX8LNi0GycA1"
+                      }
+                    ],
+                    "key": "jIr8MgwK4ERT"
+                  },
+                  {
+                    "object": "text",
+                    "leaves": [
+                      {
+                        "object": "leaf",
+                        "text": " ",
+                        "marks": []
+                      },
+                      {
+                        "object": "leaf",
+                        "text": "A",
+                        "marks": [
+                          {
+                            "object": "mark",
+                            "type": "code",
+                            "data": {}
+                          }
+                        ]
+                      }
+                    ],
+                    "key": "R9y6YyIebiPZ"
+                  }
+                ],
+                "key": "UFq3lT98LLkb"
+              }
+            ],
+            "key": "fIyWhzJEKzbX"
+          }
+        ],
+        "key": "eb67HpveOf3i"
+      },
+      {
+        "object": "block",
+        "type": "paragraph",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "Captured Flag:",
+                "marks": []
+              }
+            ],
+            "key": "6YIv2JS6rY5D"
+          }
+        ],
+        "key": "MaE81lwo2z03"
+      },
+      {
+        "object": "block",
+        "type": "paragraph",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "JISSA{you_are_not_alone_here}",
+                "marks": [
+                  {
+                    "object": "mark",
+                    "type": "code",
+                    "data": {}
+                  }
+                ]
+              }
+            ],
+            "key": "8eGQUGdE4DPk"
+          }
+        ],
+        "key": "PTHFM5G36me9"
+      },
+      {
+        "object": "block",
+        "type": "divider",
+        "isVoid": true,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "",
+                "marks": []
+              }
+            ],
+            "key": "VIUiUbOYRXDe"
+          }
+        ],
+        "key": "B8cZJnP5x8F8"
+      },
+      {
+        "object": "block",
+        "type": "heading-2",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "Remediation & Key Takeaways",
+                "marks": []
+              }
+            ],
+            "key": "wi7ZDxEkHDYR"
+          }
+        ],
+        "key": "PFGRlSjeZ1ow",
+        "meta": {
+          "id": "remediation-and-key-takeaways"
+        }
+      },
+      {
+        "object": "block",
+        "type": "paragraph",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "Why",
+                "marks": [
+                  {
+                    "object": "mark",
+                    "type": "bold",
+                    "data": {}
+                  }
+                ]
+              },
+              {
+                "object": "leaf",
+                "text": " ",
+                "marks": []
+              },
+              {
+                "object": "leaf",
+                "text": "this works",
+                "marks": [
+                  {
+                    "object": "mark",
+                    "type": "bold",
+                    "data": {}
+                  }
+                ]
+              },
+              {
+                "object": "leaf",
+                "text": ": Shift ciphers are \"Security through Obscurity.\" They aren't meant to stop an attacker; they are meant to test if the investigator knows how to recognize patterns.",
+                "marks": []
+              }
+            ],
+            "key": "2XedjpfKkdAm"
+          }
+        ],
+        "key": "bqLdpsS36Awg"
+      },
+      {
+        "object": "block",
+        "type": "paragraph",
+        "isVoid": false,
+        "data": {},
+        "nodes": [
+          {
+            "object": "text",
+            "leaves": [
+              {
+                "object": "leaf",
+                "text": "Personal Lesson",
+                "marks": [
+                  {
+                    "object": "mark",
+                    "type": "bold",
+                    "data": {}
+                  }
+                ]
+              },
+              {
+                "object": "leaf",
+                "text": ": Don't get complacent with ROT13. In the future, I can use the \"ROT13 Brute Force\" recipe in CyberChef, which outputs all 25 possible rotations at once, allowing me to spot the correct flag in seconds without manual adjustment.",
+                "marks": []
+              }
+            ],
+            "key": "H1A0H1W9X0lE"
+          }
+        ],
+        "key": "zPyIlmRmBouD"
+      }
+    ],
+    "key": "uQS6SxNPEvSA"
+  }
+}

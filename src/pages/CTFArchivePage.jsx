@@ -5,7 +5,18 @@ import { FMlogo, grid01, glow07 } from '../assets';
 import { Link, useSearchParams } from 'react-router-dom';
 import GitBookRenderer from '../components/GitBookRenderer';
 import SEO from '../components/SEO';
-import { FiMenu, FiX, FiChevronRight, FiChevronDown } from 'react-icons/fi';
+import { FiMenu, FiX, FiChevronRight, FiChevronDown, FiFile, FiFileText } from 'react-icons/fi';
+import {
+  FiGlobe,
+  FiLock,
+  FiEye,
+  FiImage,
+  FiActivity,
+  FiZap,
+  FiCpu,
+  FiCode,
+  FiSearch,
+} from 'react-icons/fi';
 
 // Simple module-level cache for Table of Contents
 let cachedTocData = null;
@@ -13,22 +24,31 @@ let cachedTocData = null;
 const cachedPages = new Map();
 
 // ─── Challenge Type Detector ──────────────────────────────────────────────────
+// Each entry has:
+//   pattern      — strict match against individual page titles (requires dash prefix)
+//   loosePattern — relaxed match against parent category titles (keyword anywhere)
 const CHALLENGE_TYPES = [
-  { pattern: /[—\-]\s*web\b/i,        label: 'WEB',       icon: '🌐', color: '#60A5FA', bg: 'rgba(96,165,250,0.1)',  border: 'rgba(96,165,250,0.35)'  },
-  { pattern: /[—\-]\s*dfir\b/i,       label: 'DFIR',      icon: '🔬', color: '#34D399', bg: 'rgba(52,211,153,0.1)',  border: 'rgba(52,211,153,0.35)'  },
-  { pattern: /[—\-]\s*crypto\b/i,     label: 'CRYPTO',    icon: '🔐', color: '#FBBF24', bg: 'rgba(251,191,36,0.1)',  border: 'rgba(251,191,36,0.35)'  },
-  { pattern: /[—\-]\s*osint\b/i,      label: 'OSINT',     icon: '👁', color: '#FB923C', bg: 'rgba(251,146,60,0.1)',  border: 'rgba(251,146,60,0.35)'  },
-  { pattern: /[—\-]\s*steg(o|anography)\b/i, label: 'STEGO', icon: '🖼', color: '#F472B6', bg: 'rgba(244,114,182,0.1)', border: 'rgba(244,114,182,0.35)' },
-  { pattern: /[—\-]\s*forensics?\b/i, label: 'FORENSICS', icon: '🧪', color: '#6EE7B7', bg: 'rgba(110,231,183,0.1)', border: 'rgba(110,231,183,0.35)' },
-  { pattern: /[—\-]\s*pwn\b/i,        label: 'PWN',       icon: '💥', color: '#F87171', bg: 'rgba(248,113,113,0.1)', border: 'rgba(248,113,113,0.35)' },
-  { pattern: /[—\-]\s*rev\b/i,        label: 'REV',       icon: '⚙️', color: '#94A3B8', bg: 'rgba(148,163,184,0.1)', border: 'rgba(148,163,184,0.35)' },
-  { pattern: /[—\-]\s*misc\b/i,       label: 'MISC',      icon: '⚡', color: '#A78BFA', bg: 'rgba(167,139,250,0.1)', border: 'rgba(167,139,250,0.35)' },
+  { pattern: /[—\-]\s*web\b/i,              loosePattern: /\bweb\b/i,         label: 'WEB',       Icon: FiGlobe,    color: '#60A5FA', bg: 'rgba(96,165,250,0.1)',  border: 'rgba(96,165,250,0.35)'  },
+  { pattern: /[—\-]\s*dfir\b/i,             loosePattern: /\bdfir\b/i,        label: 'DFIR',      Icon: FiSearch,   color: '#34D399', bg: 'rgba(52,211,153,0.1)',  border: 'rgba(52,211,153,0.35)'  },
+  { pattern: /[—\-]\s*crypto(graphy)?\b/i,  loosePattern: /\bcrypto/i,        label: 'CRYPTO',    Icon: FiLock,     color: '#FBBF24', bg: 'rgba(251,191,36,0.1)',  border: 'rgba(251,191,36,0.35)'  },
+  { pattern: /[—\-]\s*osint\b/i,            loosePattern: /\bosint\b/i,       label: 'OSINT',     Icon: FiEye,      color: '#FB923C', bg: 'rgba(251,146,60,0.1)',  border: 'rgba(251,146,60,0.35)'  },
+  { pattern: /[—\-]\s*steg(o|anography)\b/i, loosePattern: /\bsteg/i,         label: 'STEGO',     Icon: FiImage,    color: '#F472B6', bg: 'rgba(244,114,182,0.1)', border: 'rgba(244,114,182,0.35)' },
+  { pattern: /[—\-]\s*forensics?\b/i,       loosePattern: /\bforensic/i,      label: 'FORENSICS', Icon: FiActivity, color: '#6EE7B7', bg: 'rgba(110,231,183,0.1)', border: 'rgba(110,231,183,0.35)' },
+  { pattern: /[—\-]\s*pwn\b/i,              loosePattern: /\bpwn\b|\bbinary\b|\bexploitation\b/i, label: 'PWN',       Icon: FiZap,      color: '#F87171', bg: 'rgba(248,113,113,0.1)', border: 'rgba(248,113,113,0.35)' },
+  { pattern: /[—\-]\s*rev\b/i,              loosePattern: /\brev(erse)?\b|\breverse\b/i,  label: 'REV',       Icon: FiCpu,      color: '#94A3B8', bg: 'rgba(148,163,184,0.1)', border: 'rgba(148,163,184,0.35)' },
+  { pattern: /[—\-]\s*misc\b/i,             loosePattern: /\bmisc\b/i,        label: 'MISC',      Icon: FiCode,     color: '#A78BFA', bg: 'rgba(167,139,250,0.1)', border: 'rgba(167,139,250,0.35)' },
 ];
-const DEFAULT_TYPE = { label: 'MISC', icon: '📄', color: '#9B72EF', bg: 'rgba(155,114,239,0.1)', border: 'rgba(155,114,239,0.35)' };
+const DEFAULT_TYPE = { label: 'MISC', Icon: FiFile, color: '#9B72EF', bg: 'rgba(155,114,239,0.1)', border: 'rgba(155,114,239,0.35)' };
 
-function getChallengeType(title = '') {
+// Try strict title match first; if no match, fall back to loose category match
+function getChallengeType(title = '', categoryTitle = '') {
   for (const t of CHALLENGE_TYPES) {
     if (t.pattern.test(title)) return t;
+  }
+  if (categoryTitle) {
+    for (const t of CHALLENGE_TYPES) {
+      if (t.loosePattern.test(categoryTitle)) return t;
+    }
   }
   return DEFAULT_TYPE;
 }
@@ -77,12 +97,13 @@ const BootLoader = () => {
 };
 
 // ─── Sidebar Item ─────────────────────────────────────────────────────────────
-const SidebarItem = ({ page, activePageId, onSelectPage, depth = 0 }) => {
+const SidebarItem = ({ page, activePageId, onSelectPage, depth = 0, categoryTitle = '' }) => {
   const [isOpen, setIsOpen] = useState(false);
   const hasChildren = page.pages && page.pages.length > 0;
   const isActive = activePageId === page.id;
   const isTopLevel = depth === 0;
-  const challengeType = getChallengeType(page.title);
+  // Use own title first; if no match, inherit parent category type
+  const challengeType = getChallengeType(page.title, categoryTitle);
 
   // Open folder automatically if a child is active
   useEffect(() => {
@@ -115,11 +136,11 @@ const SidebarItem = ({ page, activePageId, onSelectPage, depth = 0 }) => {
             {hasChildren ? (
               /* Collapsible section — show chevron */
               <span className="font-mono text-[#9B72EF]/60 text-[10px] flex-shrink-0">
-                {isOpen ? '▼' : '▶'}
+                {isOpen ? <FiChevronDown size={11} /> : <FiChevronRight size={11} />}
               </span>
             ) : (
-              /* Leaf page (e.g. intro) — show a subtle page indicator instead */
-              <span className="font-mono text-[#9B72EF]/40 text-[10px] flex-shrink-0">◈</span>
+              /* Leaf page (e.g. intro) — page icon */
+              <span className="text-[#9B72EF]/40 flex-shrink-0"><FiFileText size={11} /></span>
             )}
             <span className="text-[11px] font-bold uppercase tracking-wider truncate leading-snug">
               {page.title}
@@ -136,6 +157,7 @@ const SidebarItem = ({ page, activePageId, onSelectPage, depth = 0 }) => {
                 activePageId={activePageId}
                 onSelectPage={onSelectPage}
                 depth={1}
+                categoryTitle={page.title}
               />
             ))}
           </div>
@@ -144,38 +166,60 @@ const SidebarItem = ({ page, activePageId, onSelectPage, depth = 0 }) => {
     );
   }
 
-
-  // ── Writeup child item ──────────────────────────────────────────────────────
+  // ── Writeup child item (or sub-category for nested CTFs like PicoCTF) ───────────
   return (
     <div className="flex flex-col">
-      <div
-        className={`ctf-sidebar-active flex items-center gap-2 px-2 py-2 cursor-pointer rounded-md transition-all duration-150 ${
-          isActive
-            ? 'bg-[#9B72EF]/15 text-white'
-            : 'text-gray-400 hover:bg-white/5 hover:text-gray-200'
-        }`}
-        onClick={() => {
-          onSelectPage(page.id);
-          if (hasChildren) setIsOpen(o => !o);
-        }}
-      >
-        {/* Challenge type colored dot */}
-        <span
-          className="flex-shrink-0 w-1.5 h-1.5 rounded-full mt-px"
-          style={{ background: challengeType.color, boxShadow: isActive ? `0 0 6px ${challengeType.color}` : 'none' }}
-        />
-        <span className="truncate text-[11px] leading-snug flex-1">{page.title}</span>
-        {/* Type badge — only on active or hover */}
-        <span
-          className="ctf-challenge-badge flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
-          style={{ color: challengeType.color, background: challengeType.bg, borderColor: challengeType.border }}
+      {hasChildren ? (
+        // Sub-category header (e.g. PicoCTF's "Web Exploitation", "Cryptography", etc.)
+        // These act as type-folders; their title IS the challenge type.
+        <button
+          onClick={() => setIsOpen(o => !o)}
+          className={`w-full text-left flex items-center gap-1.5 px-2 py-1.5 rounded-md transition-all duration-150 group ${
+            isActive || (hasChildren && page.pages?.some(p => p.id === activePageId))
+              ? 'text-[#C4A7F5]'
+              : 'text-gray-500 hover:text-gray-300'
+          }`}
         >
-          {challengeType.icon} {challengeType.label}
-        </span>
-      </div>
+          {/* Expand chevron */}
+          <span className="flex-shrink-0 text-[#9B72EF]/50 transition-transform duration-150" style={{ transform: isOpen ? 'rotate(90deg)' : 'rotate(0deg)' }}>
+            <FiChevronRight size={10} />
+          </span>
+          {/* Type color dot */}
+          <span
+            className="flex-shrink-0 w-1 h-1 rounded-full"
+            style={{ background: challengeType.color }}
+          />
+          <span className="text-[10px] font-bold uppercase tracking-wider truncate">{page.title}</span>
+        </button>
+      ) : (
+        // Leaf writeup item
+        <div
+          className={`ctf-sidebar-active group flex items-center gap-2 px-2 py-2 cursor-pointer rounded-md transition-all duration-150 ${
+            isActive
+              ? 'bg-[#9B72EF]/15 text-white'
+              : 'text-gray-400 hover:bg-white/5 hover:text-gray-200'
+          }`}
+          onClick={() => onSelectPage(page.id)}
+        >
+          {/* Challenge type colored dot */}
+          <span
+            className="flex-shrink-0 w-1.5 h-1.5 rounded-full mt-px"
+            style={{ background: challengeType.color, boxShadow: isActive ? `0 0 6px ${challengeType.color}` : 'none' }}
+          />
+          <span className="truncate text-[11px] leading-snug flex-1">{page.title}</span>
+          {/* Type badge — visible on active or hover */}
+          <span
+            className={`ctf-challenge-badge flex-shrink-0 transition-opacity duration-150 ${isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}
+            style={{ color: challengeType.color, background: challengeType.bg, borderColor: challengeType.border }}
+          >
+            <challengeType.Icon size={8} />
+            {challengeType.label}
+          </span>
+        </div>
+      )}
 
       {hasChildren && isOpen && (
-        <div className="ml-4 pl-2 border-l border-white/10 mt-0.5 mb-0.5 flex flex-col gap-0.5">
+      <div className="ml-4 pl-2 border-l border-white/10 mt-0.5 mb-0.5 flex flex-col gap-0.5">
           {page.pages.map(child => (
             <SidebarItem
               key={child.id}
@@ -183,6 +227,7 @@ const SidebarItem = ({ page, activePageId, onSelectPage, depth = 0 }) => {
               activePageId={activePageId}
               onSelectPage={onSelectPage}
               depth={depth + 1}
+              categoryTitle={page.title}
             />
           ))}
         </div>
@@ -614,7 +659,8 @@ const CTFArchivePage = () => {
                                 borderColor: activeChallengeType.border,
                               }}
                             >
-                              {activeChallengeType.icon} {activeChallengeType.label}
+                              <activeChallengeType.Icon size={9} />
+                              {activeChallengeType.label}
                             </span>
                           </div>
 
@@ -623,8 +669,8 @@ const CTFArchivePage = () => {
                             <div className="ctf-scanline opacity-30" aria-hidden="true" />
                             <div className="relative z-10">
                               {pageData.icon && (
-                                <span className="text-2xl mb-2 block">
-                                  {pageData.icon.length > 2 ? '📄' : pageData.icon}
+                                <span className="text-[#9B72EF]/60 mb-2 block">
+                                  <FiFileText size={22} />
                                 </span>
                               )}
                               <h1 className="text-2xl md:text-3xl font-black text-white ctf-glow-heading leading-tight">
