@@ -137,12 +137,12 @@ const Contact = () => {
             <ul className='space-y-1.5 pb-[0.8rem] scroll-animation-19'>
               <li className='block text-[#c4a8ff] font-extrabold lg:text-[1.2rem] text-[0.9rem] uppercase'>{contacts.name}</li>
               <li className='inline-block'>
-                <a href={'https://fm-linktree.vercel.app'} target='_blank' className='flex items-center'>
+              {/*   <a href={'https://fm-linktree.vercel.app'} target='_blank' className='flex items-center'>
                     <p className='text-[#9B72EF] underline'>Linktree</p>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-3.5 mt-1 text-[#9B72EF]">
                     <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
                   </svg>
-                </a>
+                </a> */}
               </li>
               {contacts.contacts.map((contact, index) => (
                 <li key={index} className='flex items-center gap-3'>
