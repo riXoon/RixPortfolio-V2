@@ -9,7 +9,7 @@ export default function App() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    if (window.__lenis) {
+    if (window.__lenis && typeof window.__lenis.scrollTo === 'function') {
       window.__lenis.scrollTo(0, { immediate: true });
     } else {
       window.scrollTo(0, 0);
