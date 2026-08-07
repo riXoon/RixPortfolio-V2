@@ -21,13 +21,13 @@ import { lianProfile, merylProfile, carlProfile, vienProfile, frivsProfile  } fr
 
 // Graphics Imports
 import {
-  LMSGraphics, PARMSGraphics, entriqGraphics, furniroGraphics, gothamgainsGraphics, monitoGraphics, pijinGraphics, zaprollGraphics, zentryGraphics, picpacGraphics
+  LMSGraphics, PARMSGraphics, entriqGraphics, furniroGraphics, gothamgainsGraphics, monitoGraphics, pijinGraphics, zaprollGraphics, zentryGraphics, picpacGraphics, defaultGraphics, erixonGraphics
 } from '../assets/graphics';
 
 // Banner and Thumbnail Imports
 import {
-  LMSThumbnail, PARMSThumbnail, entriqThumbnail, furniroThumbnail, gothamgainsThumbnail, monitoThumbnail, picpacThumbnail, pijinThumbnail, zaprollThumbnail, zentryThumbnail,
-  LMSBanner, entriqBanner, furniroBanner, gothamgainsBanner, monitoBanner, picpacBanner, pijinBanner, zaprollBanner, zentryBanner, PARMSBanner
+  LMSThumbnail, PARMSThumbnail, entriqThumbnail, furniroThumbnail, gothamgainsThumbnail, monitoThumbnail, picpacThumbnail, pijinThumbnail, zaprollThumbnail, zentryThumbnail, erixonThumbnail,
+  LMSBanner, entriqBanner, furniroBanner, gothamgainsBanner, monitoBanner, picpacBanner, pijinBanner, zaprollBanner, zentryBanner, PARMSBanner, erixonBanner
 } from '../assets/banners';
 
 // Navigation Links Data
@@ -203,6 +203,7 @@ export const ExpertiseData = [
 ];
 
 export const ProjectOverviewData = [
+
   {
     id: 'pijin',
     type: 'special',
@@ -329,6 +330,7 @@ export const ProjectOverviewData = [
     ],
     summary: "ZapRoll modernizes institutional event logistics by replacing disconnected third-party tools with an integrated, highly reliable QR attendance and analytics platform that successfully handled live production data at QCU's Synergy colloquium."
   },
+  
    {
     id: 'PARMS',
     type: 'school',
@@ -416,6 +418,42 @@ export const ProjectOverviewData = [
     status: '',
     contributor: [],
     summary: "LMS modernizes campus library operations by uniting physical/digital cataloging, room reservations, and automated fines into a secure, RBAC-protected backend integrated with the QCU Portal."
+  },
+  {
+    id: 'erixon',
+    type: 'personal',
+    pageStatus: 'Done',
+    img: erixonThumbnail,
+    title: 'Erickson Portfolio',
+    desc: 'A modern, interactive developer portfolio built to showcase my projects, skills, and professional journey. The application features a custom UI design with dynamic animations and responsive layouts, demonstrating my expertise in frontend development and UI/UX design.',
+    roles: ['Frontend Developer', 'UI/UX Designer'],
+    poster: erixonBanner,
+    content: "The portfolio is engineered with a strong emphasis on performance and visual storytelling. Built using React and Tailwind CSS, the platform incorporates advanced scrolling effects, staggered layout animations, and optimized asset delivery to provide a premium user experience. It serves as both a resume and a technical sandbox where I implement the latest modern web design practices, from glassmorphism components to complex state-driven interactions, without compromising on accessibility or cross-device compatibility.",
+    siteLink: "https://erixon.dev",
+    githubLink: "https://github.com/riXoon/RixPortfolio",
+    category: ['Personal Project', 'Portfolio', 'UI/UX'],
+    tools:  [
+      { icon: htmllogo, tooltip: "HyperText Markup Language" },
+      { icon: csslogo, tooltip: "Cascading Style Sheet" },
+      { icon: jslogo, tooltip: "Javascript" },
+      { icon: reactlogo, tooltip: "ReactJS" },
+      { icon: tailwindlogo, tooltip: "Tailwind CSS" },
+      { icon: figmalogo, tooltip: "Figma" },
+      { icon: githublogo, tooltip: "GitHub" },
+      { icon: gitlogo, tooltip: "Git" },
+      { icon: vitelogo, tooltip: "Vite" },
+      { icon: vercellogo, tooltip: "Vercel" },
+    ],
+    graphics: erixonGraphics,
+    date: 'August 2026',
+    status: 'Finished',
+    contributor: [
+       { 
+        name: 'riXoon',
+        role: ['Frontend Developer', 'UI/UX Designer']
+      }
+    ],
+    summary: "My personal developer portfolio, crafted to seamlessly merge technical proficiency with modern, interactive web design to highlight my work in the tech industry."
   },
   {
     id: 'picpac',

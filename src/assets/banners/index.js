@@ -12,6 +12,7 @@ import pijinThumbnail from './pijin-thumbnail.jpg'
 import picpacThumbnail from './picpac-thumbnail.jpg'
 import zaprollThumbnail from './zaproll-thumbnail.jpg'
 import zentryThumbnail from './zentry-thumbnail.jpg'
+import erixonThumbnail from './erixon-thumbnail.jpg'
 import LMSBanner from './LMS-banner.png'
 import entriqBanner from './entriq-banner.png'
 import furniroBanner from './furniro-banner.png'
@@ -22,6 +23,7 @@ import picpacBanner from './picpac-banner.png'
 import zaprollBanner from './zaproll-banner.png'
 import zentryBanner from './zentry-banner.png'
 import PARMSBanner from './PARMS-banner.png'
+import erixonBanner from './erixon-banner.png'
 
 export {
   defaultThumbnail,
@@ -46,5 +48,7 @@ export {
   zaprollBanner,
   zentryBanner,
   PARMSBanner,
-  ctfBanner
+  ctfBanner,
+  erixonThumbnail,
+  erixonBanner
 }

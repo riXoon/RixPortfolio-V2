@@ -40,7 +40,12 @@ const SEO = ({ title, description, name = 'Erickson Guhilde', type = 'website', 
           'worksFor': {
             '@type': 'Organization',
             'name': 'Freelance'
-          }
+          },
+          'sameAs': [
+            'https://www.github.com/riXoon',
+            'https://www.linkedin.com/in/erickson-guhilde/',
+            'https://www.tiktok.com/@rixdev'
+          ]
         })}
       </script>
     </Helmet>
