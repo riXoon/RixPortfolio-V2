@@ -11,6 +11,7 @@ import TerminalPrompt from './TerminalPrompt'
 import TerminalOutput from './TerminalOutput'
 import Testimonials from './Testimonials'
 import CTFWriteups from './CTFWriteups'
+import Achievement from './Achievement'
 export {
   Sidebar,
   Hero,
@@ -25,4 +26,5 @@ export {
   TerminalOutput,
   Testimonials,
   CTFWriteups,
+  Achievement,
 }

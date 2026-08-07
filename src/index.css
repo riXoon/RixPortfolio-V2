@@ -203,48 +203,45 @@
   }
   #hero-heading-child {
     @apply bg-transparent lg:left-[120px] left-[22px] lg:top-[20px] bg-gradient-to-r from-[#B8B7FF] via-[#9B72EF] to-[#7B4FD0] inline-block text-transparent bg-clip-text overflow-hidden absolute;
-    animation: openclose 8s ease-in-out infinite;
+    animation: openclose-mobile 8s ease-in-out infinite;
     font-optical-sizing: auto;
     font-weight: 800;
     font-style: normal;
   }
-  @keyframes openclose {
-    0% {
-      @apply w-0 top-[-0.4px];
+  @media (min-width: 1024px) {
+    #hero-heading-child {
+      animation: openclose-desktop 8s ease-in-out infinite;
     }
-    10% {
-      @apply w-0 top-[-0.4px];
-    }
-    20% {
-      @apply top-[-0.4px] w-[1038px] indent-[5px];
-    }
-    30% {
-      @apply top-[-0.4px] w-[1038px] indent-[5px];
-    }
-    40% {
-      @apply top-[-0.4px] w-0 indent-[5px];
-    }
-    50% {
-      @apply top-[-0.4px] w-0 indent-[5px];
-    }
-    55% {
-      @apply top-[-15rem] w-0;
-    }
-    60% {
-      @apply top-[-15rem] w-0;
-    }
-    70% {
-      @apply top-[-15rem] w-[800px] indent-[5px];
-    }
-    80% {
-      @apply top-[-15rem] w-[800px] indent-[5px];
-    }
-    90% {
-      @apply top-[-15rem] w-0;
-    }
-    100% {
-      @apply top-0 w-0 indent-0;
-    }
+  }
+
+  @keyframes openclose-mobile {
+    0% { @apply w-0 top-[-0.4px]; }
+    10% { @apply w-0 top-[-0.4px]; }
+    20% { @apply top-[-0.4px] w-[220px] indent-[2px]; }
+    30% { @apply top-[-0.4px] w-[220px] indent-[2px]; }
+    40% { @apply top-[-0.4px] w-0 indent-[2px]; }
+    50% { @apply top-[-0.4px] w-0 indent-[2px]; }
+    55% { @apply top-[-3rem] w-0; }
+    60% { @apply top-[-3rem] w-0; }
+    70% { @apply top-[-3rem] w-[220px] indent-[2px]; }
+    80% { @apply top-[-3rem] w-[220px] indent-[2px]; }
+    90% { @apply top-[-3rem] w-0; }
+    100% { @apply top-0 w-0 indent-0; }
+  }
+
+  @keyframes openclose-desktop {
+    0% { @apply w-0 top-[-0.4px]; }
+    10% { @apply w-0 top-[-0.4px]; }
+    20% { @apply top-[-0.4px] w-[1038px] indent-[5px]; }
+    30% { @apply top-[-0.4px] w-[1038px] indent-[5px]; }
+    40% { @apply top-[-0.4px] w-0 indent-[5px]; }
+    50% { @apply top-[-0.4px] w-0 indent-[5px]; }
+    55% { @apply top-[-15rem] w-0; }
+    60% { @apply top-[-15rem] w-0; }
+    70% { @apply top-[-15rem] w-[800px] indent-[5px]; }
+    80% { @apply top-[-15rem] w-[800px] indent-[5px]; }
+    90% { @apply top-[-15rem] w-0; }
+    100% { @apply top-0 w-0 indent-0; }
   }
   /* ------- //Hero Heading Styles ------- */
 
