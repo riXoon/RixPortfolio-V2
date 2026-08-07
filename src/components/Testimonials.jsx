@@ -66,7 +66,7 @@ const TestimonialCard = ({ item }) => {
         <div className="relative shrink-0 flex items-center justify-center w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-[#1A1625] border border-[#9B72EF]/50 z-10 overflow-hidden">
           <div className="absolute inset-0 bg-[#7B4FD0] blur opacity-40 group-hover/card:opacity-70 transition-opacity duration-300 -z-10"></div>
           {item.profile ? (
-            <img src={item.profile} alt={item.name} className="w-full h-full object-cover" />
+            <img src={item.profile} alt={item.name} loading='lazy' decoding='async' className="w-full h-full object-cover" />
           ) : (
             <span className="text-[#E2D8FF] font-bold text-lg lg:text-xl">{item.name.charAt(0)}</span>
           )}
@@ -94,8 +94,8 @@ const Testimonials = () => {
           Testimonial<span className='text-[#9B72EF]'>s</span>
         </motion.h1>
         <motion.p 
-          initial={{ opacity: 0.1 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0.1, x: 70 }}
+          whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: false, amount: 0.5 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="text-white text-center px-[2rem] mt-4 max-w-3xl"
@@ -105,8 +105,8 @@ const Testimonials = () => {
       </div>
       
       <motion.div 
-        initial={{ opacity: 0.1 }}
-        whileInView={{ opacity: 1 }}
+        initial={{ opacity: 0.1, y: 70 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false, amount: 0.2 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
         className='relative w-full'

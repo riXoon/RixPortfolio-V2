@@ -39,7 +39,7 @@ const ToggleButton = ({ onClick }) => (
 const HeaderLogo = ({ onClick }) => (
   <div className="flex justify-between items-center">
     <a href="/#home" aria-label="Go to Home">
-      <img src={FMlogo} alt="FM-logo" className="lg:h-[2.5rem] h-[1.8rem] w-auto object-contain" />
+      <img src={FMlogo} alt="FM-logo" loading='lazy' decoding='async' className="lg:h-[2.5rem] h-[1.8rem] w-auto object-contain" />
     </a>
     <button
       aria-label="Close Menu"

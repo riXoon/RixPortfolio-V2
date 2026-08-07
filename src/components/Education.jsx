@@ -75,7 +75,7 @@ const SfhsEducation = () => {
       <TerminalOutput visible={done}>
         <div className='flex lg:gap-12 gap-5'>
           {/* Logo container */}
-          <img src={sfhsSeniorHigh.logo} alt="SFHS Logo" className='w-auto h-[3.5rem] lg:h-[14rem]' />
+          <img src={sfhsSeniorHigh.logo} alt="SFHS Logo" loading='lazy' decoding='async' className='w-auto h-[3.5rem] lg:h-[14rem]' />
           <div className='lg:space-y-4 space-y-3'>
             <h1 className='uppercase bg-gradient-to-r from-[#B8B7FF] via-[#9B72EF] to-[#7B4FD0] text-transparent bg-clip-text font-black text-[2rem] lg:text-[5rem] whitespace-nowrap leading-none'>
               {sfhsSeniorHigh.title}
@@ -104,7 +104,7 @@ const QcuEducation = () => {
       {/* QCU content reveals after cat qcu.json */}
       <TerminalOutput visible={done}>
         <div className='flex lg:gap-12 gap-5'>
-          <img src={qcuTertiary.logo} alt="QCU Logo" className='w-auto h-[3.5rem] lg:h-[12rem]' />
+          <img src={qcuTertiary.logo} alt="QCU Logo" loading='lazy' decoding='async' className='w-auto h-[3.5rem] lg:h-[12rem]' />
           <div className='lg:space-y-4 space-y-3'>
             <h1 className='uppercase bg-gradient-to-r from-[#B8B7FF] via-[#9B72EF] to-[#7B4FD0] text-transparent bg-clip-text font-black text-[2rem] lg:text-[4rem] whitespace-nowrap leading-none'>
               {qcuTertiary.title}

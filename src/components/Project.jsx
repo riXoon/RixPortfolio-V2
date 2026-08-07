@@ -4,6 +4,7 @@ import { ProjectData, Socials } from '../constants'
 import Button from './Button'
 import { compiledProjects } from '../assets'
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 
 const Project = () => {
   const project = ProjectData[0];
@@ -11,14 +12,34 @@ const Project = () => {
   return (
     <>
       {/* TODO: Compiled Project Background Image */}
-      <img src={compiledProjects} alt="Compiled Projects" className='w-full h-full object-cover object-center absolute z-20' id='scroll-animation-14' />
+      <motion.img 
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: false, amount: 0.2 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        src={compiledProjects} alt="Compiled Projects" className='w-full h-full object-cover object-center absolute z-20' 
+      />
       <div className='lg:pl-[13.5rem] pl-[2rem] flex h-full absolute z-30'>
         <div className='flex h-full items-center'>
           <div className='grid grid-cols-8'>
             <div className='lg:col-span-4 md:col-span-4 col-span-7 p-px space-y-[1.5rem] z-10'>
-              <h1 className='uppercase text-white font-black text-[3rem] lg:text-[7rem] whitespace-nowrap leading-none md:ml-[4rem]' id='scroll-animation-15'>{project.title}</h1>
+              <motion.h1 
+                initial={{ opacity: 0.1, x: -70 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: false, amount: 0.5 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className='uppercase text-white font-black text-[3rem] lg:text-[7rem] whitespace-nowrap leading-none'
+              >
+                {project.title}
+              </motion.h1>
               {/* Rendered roles badges */}
-              <div className='gap-3 flex flex-wrap justify-start items-center scroll-animation-16'>
+              <motion.div 
+                initial={{ opacity: 0.1, x: 70 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: false, amount: 0.5 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className='gap-3 flex flex-wrap justify-start items-center'
+              >
                 {project.badge.map((badge, index) => (
                   <Badge key={index} text={badge.title} styles={'lg:py-1.5 lg:px-3 py-1 px-2 inline-flex items-center text-nowrap gap-2 text-xs lg:text-sm bg-[#1A1625] border-[#3B2B6A]'}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="lg:size-3.5 size-2">
@@ -26,9 +47,23 @@ const Project = () => {
                     </svg>
                   </Badge>
                 ))}
-              </div>
-              <p className='text-white scroll-animation-16'>{project.content}</p>
-              <div className='flex gap-4 scroll-animation-16'>
+              </motion.div>
+              <motion.p 
+                initial={{ opacity: 0.1, y: 70 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, amount: 0.5 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className='text-white'
+              >
+                {project.content}
+              </motion.p>
+              <motion.div 
+                initial={{ opacity: 0.1, y: -70 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, amount: 0.5 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className='flex gap-4'
+              >
                 <Link to='/all-projects'>
                   <Button text={'View all'} styles={'bg-[#7B4FD0] hover:bg-[#6A3FBF]'}>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-4">
@@ -43,7 +78,7 @@ const Project = () => {
                     </svg>
                   </Button>
                 </a>
-              </div>
+              </motion.div>
             </div>
           </div>
         </div>

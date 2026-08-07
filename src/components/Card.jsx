@@ -6,7 +6,7 @@ const Card = ({ title, badge, desc, img, roles = [] }) => {
     <div className='w-full h-full rounded-[1rem] md:p-6 p-4 flex-1 hover:shadow-2xl hover:shadow-[#412F84]/20 border border-[#221c3d] transition-all duration-300 ease-in-out hover:border-[#6C59B9] bg-base/70 hover:bg-[#191723]/70'>
       <div className='space-y-5'>
         <div className='w-full'>
-          <img src={img} alt={title} className='w-full h-full rounded-[0.1rem]' />
+          <img src={img} alt={title} loading='lazy' decoding='async' className='w-full h-full rounded-[0.1rem]' />
         </div>
         <div className='flex flex-col gap-4'>
           <div className='space-y-2'>

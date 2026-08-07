@@ -61,9 +61,15 @@ const CustomCursor = () => {
     };
   }, [cursorX, cursorY, isVisible]);
 
-  // If running on a touch device, don't show the custom cursor
-  if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) {
-    return null;
+  // If running on a touch device, or preferred reduced motion, or low end device, don't show the custom cursor
+  if (typeof window !== 'undefined') {
+    const isTouch = window.matchMedia('(pointer: coarse)').matches;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isLowEnd = navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4;
+
+    if (isTouch || prefersReducedMotion || isLowEnd) {
+      return null;
+    }
   }
 
   return (

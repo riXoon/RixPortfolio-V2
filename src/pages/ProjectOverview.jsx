@@ -109,7 +109,7 @@ const ProjectOverview = ({ projects }) => {
   return (
     <>
       <SEO title={`${project.title} | Erickson Guhilde`} description={project.summary} image={project.poster || fallbackPoster} />
-      <img src={project.poster || fallbackPoster} alt={`${project.id} Banner`} className='top-0 left-0 w-full h-screen object-cover object-center fixed z-0' />
+      <img src={project.poster || fallbackPoster} alt={`${project.id} Banner`} decoding='async' className='top-0 left-0 w-full h-screen object-cover object-center fixed z-0' />
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -126,7 +126,7 @@ const ProjectOverview = ({ projects }) => {
 
       <div className='z-20 lg:p-12 p-6 relative overflow-x-hidden'>
         <Link to="/all-projects">
-          <img src={FMlogo} alt="FM-logo" className="lg:h-[2.5rem] h-[1.8rem] w-auto object-contain" />
+          <img src={FMlogo} alt="FM-logo" loading='lazy' decoding='async' className="lg:h-[2.5rem] h-[1.8rem] w-auto object-contain" />
         </Link>
         <div className='lg:pt-[11rem] pt-[9rem]'>
           {/* Header */}
@@ -222,7 +222,7 @@ const ProjectOverview = ({ projects }) => {
                     <div className="relative flex items-center" key={index}>
                       <div className="group relative flex items-center">
                         <Badge styles={'lg:p-2 p-1.5 relative group hover:shadow-xl hover:shadow-[#412F84] transition-all duration-300 ease-in-out hover:border-[#6C59B9] hover:bg-[#221D36] cursor-help'}>
-                          <img src={icon.icon} alt={icon.tooltip} className='w-6 h-6 lg:w-8 lg:h-8' />
+                          <img src={icon.icon} alt={icon.tooltip} loading='lazy' decoding='async' className='w-6 h-6 lg:w-8 lg:h-8' />
                         </Badge>
                         <div className={`absolute text-xs bg-[#221c38] text-white lg:px-2 px-1.5 lg:py-1.5 py-1 z-50 rounded-md opacity-0 group-hover:opacity-100 text-nowrap transition-opacity duration-300 ease-in-out top-[120%] left-[50%] transform  translate-x-[-50%] pointer-events-none border border-violet-500/20`}>
                           {icon.tooltip}
@@ -238,7 +238,7 @@ const ProjectOverview = ({ projects }) => {
           <div className='grid lg:grid-cols-7 grid-cols-1 gap-10'>
             {/* Visuals */}
             <div className='md:col-span-5 col-span-1 ring-[1px] lg:rounded-[18px] md:rounded-[15px] rounded-[7px] ring-[#221c38] border-[0.5rem] relative h-[12rem] lg:h-[40rem] md:h-[30rem] border-[#191529]/30'>
-              <img src={project.graphics || fallbackGraphics} alt={`${project.id} Graphics`} className='object-cover absolute w-full h-full lg:rounded-[14px] md:rounded-[11px] rounded-[4px]' />
+              <img src={project.graphics || fallbackGraphics} alt={`${project.id} Graphics`} loading='lazy' decoding='async' className='object-cover absolute w-full h-full lg:rounded-[14px] md:rounded-[11px] rounded-[4px]' />
             </div>
             {/* Details */}
             <div className='md:col-span-2 col-span-1 flex flex-col gap-6'>
@@ -264,7 +264,7 @@ const ProjectOverview = ({ projects }) => {
                 <div className='flex flex-wrap lg:flex-col flex-row lg:gap-5 gap-8'>
                   {contributors.map((contributor, index) => (
                     <div className='flex items-start gap-4' key={index}>
-                      <img className="size-10 p-[2px] rounded-full ring-[2px] ring-indigo-400" src={contributor.profile} alt={`${contributor.name} Avatar`} />
+                      <img className="size-10 p-[2px] rounded-full ring-[2px] ring-indigo-400" src={contributor.profile} loading='lazy' decoding='async' alt={`${contributor.name} Avatar`} />
                       <div>
                         <p className='text-[16px] pb-1'>{contributor.name}</p>
                         {contributor.role && contributor.role.map((role, roleIndex) => (

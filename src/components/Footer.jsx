@@ -12,7 +12,7 @@ const Footer = ({ link }) => {
     <footer className='grid lg:grid-cols-4 grid-cols-1 gap-8 w-full' id='scroll-animation-'>
       <div className="col-span-1 flex justify-center lg:justify-start items-end">
         <a href='/#home' aria-label="Go to Home">
-          <img src={FMlogo} alt="FM-logo" className="lg:h-[3.5rem] h-[2.5rem] w-auto object-contain" />
+          <img src={FMlogo} alt="FM-logo" loading='lazy' decoding='async' className="lg:h-[3.5rem] h-[2.5rem] w-auto object-contain" />
         </a>
       </div>
         <div className='col-span-2 grid grid-cols-2 gap-8'>

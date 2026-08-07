@@ -14,17 +14,17 @@ const Stats = () => {
           {/* Language Graph */}
           <div className='flex flex-col gap-3'>
             <h4 className='font-semibold lg:text-left text-center'>Most Used Languages</h4>
-            <img src="https://github-readme-stats-sigma-five.vercel.app/api/top-langs?username=riXoon&locale=en&hide_title=true&layout=compact&card_width=350&langs_count=8&order=2&bg_color=0C0A12&text_color=C4A8FF&border_color=3B2B6A" className='lg:h-[12rem] h-[8rem] w-auto' alt="languages graph" />
+            <img src="https://github-readme-stats-sigma-five.vercel.app/api/top-langs?username=riXoon&locale=en&hide_title=true&layout=compact&card_width=350&langs_count=8&order=2&bg_color=0C0A12&text_color=C4A8FF&border_color=3B2B6A" loading='lazy' decoding='async' className='lg:h-[12rem] h-[8rem] w-auto' alt="languages graph" />
           </div>
           {/* Streak Graph */}
           <div className='flex flex-col gap-3'>
             <h4 className='font-semibold lg:text-left text-center'>Streaks</h4>
-            <img src="https://streak-stats.demolab.com?user=riXoon&theme=material-palenight&currStreakNum=C4A8FF&background=0C0A12&border=3B2B6A&currStreakLabel=C4A8FF&fire=F1E05A&ring=9B72EF&dates=C4A8FF&sideNums=C4A8FF&sideLabels=C4A8FF&stroke=9B72EF36" className='lg:h-[12rem] h-[8rem] w-auto' alt="streak graph" />
+            <img src="https://streak-stats.demolab.com?user=riXoon&theme=material-palenight&currStreakNum=C4A8FF&background=0C0A12&border=3B2B6A&currStreakLabel=C4A8FF&fire=F1E05A&ring=9B72EF&dates=C4A8FF&sideNums=C4A8FF&sideLabels=C4A8FF&stroke=9B72EF36" loading='lazy' decoding='async' className='lg:h-[12rem] h-[8rem] w-auto' alt="streak graph" />
           </div>
         </div>
         {/* Contribution Tiles Graph */}
         <div className='flex flex-col gap-3 items-center justify-center mt-8'>
-          <img src="https://ghchart.rshah.org/7B4FD0/riXoon" className='lg:h-[11rem] h-[7rem] w-auto opacity-80 hover:opacity-100 transition-opacity duration-300' alt="GitHub Contribution Tiles" />
+          <img src="https://ghchart.rshah.org/7B4FD0/riXoon" loading='lazy' decoding='async' className='lg:h-[11rem] h-[7rem] w-auto opacity-80 hover:opacity-100 transition-opacity duration-300' alt="GitHub Contribution Tiles" />
         </div>
       </div>
     </div>

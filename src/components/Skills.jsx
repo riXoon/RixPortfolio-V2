@@ -15,7 +15,7 @@ const Skills = () => {
             <li className="relative flex items-center" key={index}>
               <div className="group/badge relative flex items-center">
                 <Badge styles={'lg:p-3 p-2 relative transition-all duration-300 ease-out hover:border-[#9B72EF]/50 hover:bg-[#7B4FD0]/10 hover:shadow-[0_0_20px_rgba(123,79,208,0.25)] cursor-help rounded-xl'}>
-                  <img src={stack.icon} alt={stack.tooltip} className='w-7 h-7 lg:w-10 lg:h-10 transition-transform duration-300 ease-out group-hover/badge:scale-110 drop-shadow-lg' />
+                  <img src={stack.icon} alt={stack.tooltip} loading='lazy' decoding='async' className='w-7 h-7 lg:w-10 lg:h-10 transition-transform duration-300 ease-out group-hover/badge:scale-110 drop-shadow-lg' />
                 </Badge>
                 <div className={`absolute text-xs bg-[#1A1625]/95 backdrop-blur-md text-[#E2D8FF] font-medium tracking-wide lg:px-3 px-2 lg:py-2 py-1.5 z-50 rounded-lg opacity-0 translate-y-2 group-hover/badge:opacity-100 group-hover/badge:translate-y-0 text-nowrap transition-all duration-300 ease-out bottom-[130%] left-[50%] transform -translate-x-1/2 pointer-events-none border border-[#7B4FD0]/40 shadow-[0_4px_15px_rgba(0,0,0,0.6)]`}>
                   {stack.tooltip}
@@ -30,7 +30,7 @@ const Skills = () => {
             <li className="relative flex items-center" key={index}>
               <div className="group/badge relative flex items-center">
                 <Badge styles={'lg:p-3 p-2 relative transition-all duration-300 ease-out hover:border-[#9B72EF]/50 hover:bg-[#7B4FD0]/10 hover:shadow-[0_0_20px_rgba(123,79,208,0.25)] cursor-help rounded-xl'}>
-                  <img src={stack.icon} alt={stack.tooltip} className='w-7 h-7 lg:w-10 lg:h-10 transition-transform duration-300 ease-out group-hover/badge:scale-110 drop-shadow-lg' />
+                  <img src={stack.icon} alt={stack.tooltip} loading='lazy' decoding='async' className='w-7 h-7 lg:w-10 lg:h-10 transition-transform duration-300 ease-out group-hover/badge:scale-110 drop-shadow-lg' />
                 </Badge>
                 <div className={`absolute text-xs bg-[#1A1625]/95 backdrop-blur-md text-[#E2D8FF] font-medium tracking-wide lg:px-3 px-2 lg:py-2 py-1.5 z-50 rounded-lg opacity-0 translate-y-2 group-hover/badge:opacity-100 group-hover/badge:translate-y-0 text-nowrap transition-all duration-300 ease-out bottom-[130%] left-[50%] transform -translate-x-1/2 pointer-events-none border border-[#7B4FD0]/40 shadow-[0_4px_15px_rgba(0,0,0,0.6)]`}>
                   {stack.tooltip}

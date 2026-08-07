@@ -89,6 +89,8 @@ const Hero = () => {
               <img 
                 src={senecaImg} 
                 alt="Seneca Backdrop" 
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover lg:object-contain lg:object-right scale-110 lg:scale-[1.3] lg:translate-x-12 opacity-40" 
               />
             </div>

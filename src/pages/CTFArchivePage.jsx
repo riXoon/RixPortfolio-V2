@@ -257,7 +257,8 @@ function usePaneLenis(wrapperRef, contentRef, deps = []) {
     const lenis = new Lenis({
       wrapper,
       content,
-      lerp: 0.1,
+      duration: 3,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
       wheelMultiplier: 1,
       touchMultiplier: 2,
@@ -440,7 +441,7 @@ const CTFArchivePage = () => {
 
       {/* Background decorations */}
       <div className='kali-glow fixed top-1/4 left-1/4 w-[40rem] h-[40rem] lg:w-[70rem] lg:h-[70rem]' style={{ opacity: 0.4, zIndex: -10 }} aria-hidden="true" />
-      <img src={grid01} alt="" aria-hidden="true" className="-z-20 fixed inset-0 w-full h-full object-cover opacity-20 pointer-events-none" />
+      <img src={grid01} alt="Grid background" aria-hidden="true" loading='lazy' decoding='async' className="-z-20 fixed inset-0 w-full h-full object-cover opacity-20 pointer-events-none" />
 
       {/* ── Header ──────────────────────────────────────────────────────── */}
       <header className="z-20 flex-shrink-0 flex items-center justify-between px-4 md:px-6 py-3 border-b border-[#3B2B6A]/40 bg-[#0A0710]/85 backdrop-blur-md relative overflow-hidden">
@@ -458,7 +459,7 @@ const CTFArchivePage = () => {
           </button>
 
           <Link to="/#ctf-writeups" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-            <img src={FMlogo} alt="FM-logo" className="h-6 md:h-8 w-auto object-contain" style={{ filter: 'drop-shadow(0 0 8px rgba(155,114,239,0.5))' }} />
+            <img src={FMlogo} alt="FM-logo" loading='lazy' decoding='async' className="h-6 md:h-8 w-auto object-contain" style={{ filter: 'drop-shadow(0 0 8px rgba(155,114,239,0.5))' }} />
           </Link>
 
           {/* Breadcrumb */}
@@ -627,6 +628,8 @@ const CTFArchivePage = () => {
                           <img
                             src={filesMap[pageData.cover.ref.file].downloadURL}
                             alt="Cover"
+                            loading='lazy'
+                            decoding='async'
                             className="w-full h-full object-cover"
                             style={{ objectPosition: `50% ${pageData.cover.yPos ? pageData.cover.yPos * 100 : 50}%` }}
                           />

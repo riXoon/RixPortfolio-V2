@@ -27,8 +27,8 @@ const Certifications = () => {
 
   return (
     <div className='flex flex-col md:gap-12 gap-8 items-center py-12 justify-center relative overflow-hidden'>
-      <img src={fade01} alt="Fade Effect" className='w-full h-full object-cover absolute inset-0 z-10' />
-      <img src={glow06} alt="Glow Elipse" className='absolute -z-10 w-[50rem] h-auto' />
+      <img src={fade01} alt="Fade effect background" aria-hidden="true" loading='lazy' decoding='async' className='w-full h-full object-cover absolute inset-0 z-10' />
+      <img src={glow06} alt="Glow eclipse background" aria-hidden="true" loading='lazy' decoding='async' className='absolute -z-10 w-[50rem] h-auto' />
       <div className='space-y-4' id='scroll-animation-24'>
         <h1 className='uppercase text-white font-black text-[2rem] lg:text-[5rem] whitespace-nowrap leading-none text-center' id='scroll-animation-'>{certificates.title}</h1>
         <p className='text-white text-center px-[2rem]' dangerouslySetInnerHTML={{ __html: certificates.content }}
@@ -38,12 +38,12 @@ const Certifications = () => {
         <div className='w-full inline-flex flex-nowrap overflow-hidden group/ticker1'>
           <div className='flex items-center justify-center md:justify-start flex-none w-max [&_img]:shrink-0 [&_img]:mx-1 md:[&_img]:mx-2 md:h-[10rem] h-[4rem] animate-infinite-scroll-slow group-hover/ticker1:[animation-play-state:paused] z-0'>
             {[...shuffledImages01, ...shuffledImages01, ...shuffledImages01].map((cert, index) => (
-              <img key={index} src={cert.src} alt={`Certification ${index + 1}`} className='h-full w-auto rounded-md border-1 border-white' />
+              <img key={index} src={cert.src} alt={`Certification ${index + 1}`} loading='lazy' decoding='async' className='h-full w-auto rounded-md border-1 border-white' />
             ))}
           </div>
           <div className='flex items-center justify-center md:justify-start flex-none w-max [&_img]:shrink-0 [&_img]:mx-1 md:[&_img]:mx-2 md:h-[10rem] h-[4rem] animate-infinite-scroll-slow group-hover/ticker1:[animation-play-state:paused] z-0' aria-hidden="true">
             {[...shuffledImages01, ...shuffledImages01, ...shuffledImages01].map((cert, index) => (
-              <img key={index} src={cert.src} alt={`Certification ${index + 1}`} className='h-full w-auto rounded-md border-1 border-white' />
+              <img key={index} src={cert.src} alt={`Certification ${index + 1}`} loading='lazy' decoding='async' className='h-full w-auto rounded-md border-1 border-white' />
             ))}
           </div>
         </div>
@@ -51,12 +51,12 @@ const Certifications = () => {
         <div className='w-full inline-flex flex-nowrap overflow-hidden group/ticker2'>
           <div className='flex items-center justify-center md:justify-start flex-none w-max [&_img]:shrink-0 [&_img]:mx-1 md:[&_img]:mx-2 md:h-[10rem] h-[4rem] animate-infinite-scroll-slow-reverse group-hover/ticker2:[animation-play-state:paused] z-0'>
             {[...shuffledImages02, ...shuffledImages02, ...shuffledImages02].map((cert, index) => (
-              <img key={index} src={cert.src} alt={`Certification ${index + 1}`} className='h-full w-auto rounded-md border-1 border-white' />
+              <img key={index} src={cert.src} alt={`Certification ${index + 1}`} loading='lazy' decoding='async' className='h-full w-auto rounded-md border-1 border-white' />
             ))}
           </div>
           <div className='flex items-center justify-center md:justify-start flex-none w-max [&_img]:shrink-0 [&_img]:mx-1 md:[&_img]:mx-2 md:h-[10rem] h-[4rem] animate-infinite-scroll-slow-reverse group-hover/ticker2:[animation-play-state:paused] z-0' aria-hidden="true">
             {[...shuffledImages02, ...shuffledImages02, ...shuffledImages02].map((cert, index) => (
-              <img key={index} src={cert.src} alt={`Certification ${index + 1}`} className='h-full w-auto rounded-md border-1 border-white' />
+              <img key={index} src={cert.src} alt={`Certification ${index + 1}`} loading='lazy' decoding='async' className='h-full w-auto rounded-md border-1 border-white' />
             ))}
           </div>
         </div>

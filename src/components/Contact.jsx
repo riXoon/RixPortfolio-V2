@@ -146,7 +146,7 @@ const Contact = () => {
               </li>
               {contacts.contacts.map((contact, index) => (
                 <li key={index} className='flex items-center gap-3'>
-                  <img src={contact.icon} alt={contact.alt} className='w-4 h-4' />
+                  <img src={contact.icon} alt={contact.alt} loading='lazy' decoding='async' className='w-4 h-4' />
                   <p>{contact.name}</p>
                 </li>
               ))}
@@ -171,7 +171,7 @@ const Contact = () => {
           <Footer link={renderLink} />
         </div>
       </div>
-      <img src={glow05} alt="Glow eclipse" className='absolute bottom-0' id='scroll-animation-20' />
+      <img src={glow05} alt="Glow eclipse background" aria-hidden="true" loading='lazy' decoding='async' className='absolute bottom-0' id='scroll-animation-20' />
       {/* Contact Form Modal */}
       <div
         className={`fixed inset-0 flex items-center justify-center bg-base bg-opacity-70 z-50 transition-opacity duration-300 ease-out ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'

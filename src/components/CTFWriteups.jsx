@@ -65,6 +65,8 @@ const CTFWriteups = () => {
         alt="CTF Writeups Background" 
         className="absolute inset-0 w-full h-full object-cover z-10 opacity-30"
         aria-hidden="true"
+        loading='lazy'
+        decoding='async'
       />
       
       {/* Gradient overlay to ensure text remains readable */}
@@ -87,8 +89,8 @@ const CTFWriteups = () => {
             </motion.h1>
             
             <motion.p 
-              initial={{ opacity: 0.1 }}
-              whileInView={{ opacity: 1 }}
+              initial={{ opacity: 0.1, x: 70 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: false, amount: 0.2 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
               style={{ color: '#E2E8F0', zIndex: 50 }} 
@@ -99,8 +101,8 @@ const CTFWriteups = () => {
           </div>
           
           <motion.div 
-            initial={{ opacity: 0.1 }}
-            whileInView={{ opacity: 1 }}
+            initial={{ opacity: 0.1, y: 70 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
             className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:ml-[4rem]'
@@ -156,8 +158,8 @@ const CTFWriteups = () => {
           </motion.div>
 
           <motion.div 
-            initial={{ opacity: 0.1 }}
-            whileInView={{ opacity: 1 }}
+            initial={{ opacity: 0.1, y: -70 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false }}
             transition={{ duration: 0.8, ease: "easeOut" }}
             className='flex mt-10 md:ml-[4rem]'

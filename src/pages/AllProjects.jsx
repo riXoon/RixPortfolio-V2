@@ -34,10 +34,10 @@ const AllProjects = ({ projects }) => {
     >
       <SEO title="Projects | Erickson Guhilde" description="Explore my innovative web development and collaborative projects." />
       <motion.div className='kali-glow fixed -top-[10rem] -left-[10rem] w-[40rem] h-[40rem] lg:w-[70rem] lg:h-[70rem]' style={{ y, opacity, zIndex: -10 }} />
-      <img src={grid01} alt="Grid" className='w-full h-full object-contain -z-20 object-center fixed' id='scroll-animation-' />
+      <img src={grid01} alt="Grid background" aria-hidden="true" loading='lazy' decoding='async' className='w-full h-full object-contain -z-20 object-center fixed' id='scroll-animation-' />
       <div className='lg:p-8 p-6 z-10'>
         <Link to="/#projects">
-          <img src={FMlogo} alt="FM-logo" className="lg:h-[2.5rem] h-[1.8rem] w-auto object-contain" />
+          <img src={FMlogo} alt="FM-logo" loading='lazy' decoding='async' className="lg:h-[2.5rem] h-[1.8rem] w-auto object-contain" />
         </Link>
         <div className='gap-4 md:mt-0 mt-12 flex flex-col justify-center items-center'>
           <h1 className='uppercase text-white font-black text-[3rem] lg:text-[9rem] whitespace-nowrap leading-none text-center' id='scroll-animation-'>Projects</h1>

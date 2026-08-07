@@ -123,6 +123,7 @@ const TiltCard = ({ cert, index }) => {
           alt={cert.title || `Certificate ${index + 1}`} 
           className={`w-full h-auto object-contain rounded-xl border border-white/5 z-10 transition-transform duration-500 group-hover:scale-105`} 
           loading="lazy"
+          decoding="async"
         />
       </div>
       
@@ -235,12 +236,12 @@ const CertificationsPage = () => {
       {/* Backgrounds */}
       <BackgroundAnimations />
       <motion.div className='kali-glow fixed -top-[10rem] -left-[10rem] w-[40rem] h-[40rem] lg:w-[70rem] lg:h-[70rem]' style={{ y, opacity, zIndex: -20 }} />
-      <img src={grid01} alt="Grid" className='w-full h-full object-cover -z-30 object-center fixed opacity-40' id='scroll-animation-' />
+      <img src={grid01} alt="Grid background" aria-hidden="true" loading='lazy' decoding='async' className='w-full h-full object-cover -z-30 object-center fixed opacity-40' id='scroll-animation-' />
       
       <div className='lg:p-8 p-6 z-10 max-w-[1600px] mx-auto'>
         {/* Navigation */}
         <Link to="/">
-          <img src={FMlogo} alt="FM-logo" className="lg:h-[2.5rem] h-[1.8rem] w-auto object-contain hover:scale-105 transition-transform" />
+          <img src={FMlogo} alt="FM-logo" loading='lazy' decoding='async' className="lg:h-[2.5rem] h-[1.8rem] w-auto object-contain hover:scale-105 transition-transform" />
         </Link>
         
         {/* Header */}

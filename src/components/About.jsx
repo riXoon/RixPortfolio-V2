@@ -161,7 +161,7 @@ const HowItStarted = () => {
                 <div className="relative flex items-center" key={index}>
                   <div className="group/badge relative flex items-center">
                     <Badge styles={'lg:p-3 p-2 relative group-hover/badge:scale-110 transition-all duration-300 ease-in-out border-[#40317A] hover:border-[#9B72EF] bg-[#1C182D]/80 hover:bg-[#2A243F] shadow-lg cursor-help'}>
-                      <img src={icon.icon} alt={icon.tooltip} className='w-6 h-6 lg:w-8 lg:h-8 drop-shadow-md' />
+                      <img src={icon.icon} alt={icon.tooltip} loading='lazy' decoding='async' className='w-6 h-6 lg:w-8 lg:h-8 drop-shadow-md' />
                     </Badge>
                     <div className={`absolute text-xs bg-[#1A1625]/95 backdrop-blur-md text-[#E2D8FF] font-medium tracking-wide lg:px-3 px-2 lg:py-2 py-1.5 z-50 rounded-lg opacity-0 translate-y-2 group-hover/badge:opacity-100 group-hover/badge:translate-y-0 text-nowrap transition-all duration-300 ease-out bottom-[130%] left-[50%] transform -translate-x-1/2 pointer-events-none border border-[#7B4FD0]/40 shadow-[0_4px_15px_rgba(0,0,0,0.6)]`}>
                       {icon.tooltip}
@@ -221,7 +221,7 @@ const HowsItGoing = () => {
                 <div className="relative flex items-center" key={index}>
                   <div className="group/badge relative flex items-center">
                     <Badge styles={'lg:p-3 p-2 relative group-hover/badge:scale-110 transition-all duration-300 ease-in-out border-[#40317A] hover:border-[#9B72EF] bg-[#1C182D]/80 hover:bg-[#2A243F] shadow-lg cursor-help'}>
-                      <img src={icon.icon} alt={icon.tooltip} className='w-6 h-6 lg:w-8 lg:h-8 drop-shadow-md' />
+                      <img src={icon.icon} alt={icon.tooltip} loading='lazy' decoding='async' className='w-6 h-6 lg:w-8 lg:h-8 drop-shadow-md' />
                     </Badge>
                     <div className={`absolute text-xs bg-[#1A1625]/95 backdrop-blur-md text-[#E2D8FF] font-medium tracking-wide lg:px-3 px-2 lg:py-2 py-1.5 z-50 rounded-lg opacity-0 translate-y-2 group-hover/badge:opacity-100 group-hover/badge:translate-y-0 text-nowrap transition-all duration-300 ease-out bottom-[130%] left-[50%] transform -translate-x-1/2 pointer-events-none border border-[#7B4FD0]/40 shadow-[0_4px_15px_rgba(0,0,0,0.6)]`}>
                       {icon.tooltip}
