@@ -28,7 +28,7 @@ const Home = () => {
       exit={{ opacity: 0 }}
       transition={{ duration: 1.3 }}
     >
-      <SEO title="Erickson Guhilde | Frontend Developer" description="Portfolio of Erickson Guhilde, a Frontend Developer and CTF enthusiast showcasing projects, skills, and writeups." />
+      <SEO title="Erickson Guhilde | Web Developer" description="Portfolio of Erickson Guhilde, a Web Developer, CTF Player, and Cybersecurity Enthusiast showcasing projects, skills, and writeups." />
       <Modal />
       <div
         className={`transition-opacity duration-500 ease-in-out ${activeSection === 'contact' ? 'opacity-0 pointer-events-none' : 'opacity-100'
