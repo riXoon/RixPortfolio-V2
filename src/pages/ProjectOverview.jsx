@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { NoPage } from './index'
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { FMlogo, glow05 } from '../assets';
 import { defaultBanner } from '../assets/banners';
 import { defaultGraphics } from '../assets/graphics';
@@ -17,6 +17,10 @@ import useScrollToTop from '../hooks/useScrollToTop';
 
 const ProjectOverview = ({ projects }) => {
   useScrollToTop();
+  const { scrollY } = useScroll();
+  const y = useTransform(scrollY, [0, 1000], [0, -250]);
+  const opacity = useTransform(scrollY, [0, 1000], [0.5, 0.1]);
+
   const { projectId } = useParams();
   const project = projects.find(proj => proj.id === projectId);
 
@@ -111,7 +115,7 @@ const ProjectOverview = ({ projects }) => {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 1.3 }}
-        className="relative w-full min-h-screen"
+        className="relative z-0 w-full min-h-screen"
       >
       {/* Alert for Page Status */}
       {project.pageStatus === 'Done' ? (
@@ -280,7 +284,7 @@ const ProjectOverview = ({ projects }) => {
           <div className='mt-[5rem] z-10'>
             <Footer link={renderLink} />
           </div>
-          <img src={glow05} alt="Glow eclipse" className='absolute bottom-0 -z-10 right-1' id='scroll-animation-' />
+          <motion.div className='kali-glow absolute -bottom-[10rem] -right-[10rem] w-[40rem] h-[40rem] lg:w-[60rem] lg:h-[60rem]' style={{ y, opacity, zIndex: -10 }} />
         </div>
       </div>
       </motion.div>

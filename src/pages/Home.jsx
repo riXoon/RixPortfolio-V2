@@ -27,6 +27,7 @@ const Home = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 1.3 }}
+      className="relative z-0"
     >
       <SEO title="Erickson Guhilde | Web Developer" description="Portfolio of Erickson Guhilde, a Web Developer, CTF Player, and Cybersecurity Enthusiast showcasing projects, skills, and writeups." />
       <Modal />

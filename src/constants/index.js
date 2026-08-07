@@ -17,7 +17,7 @@ import {
 } from '../assets/certifications';
 
 // Profile Imports
-import { lianProfile, merylProfile, carlProfile, vienProfile, frivsProfile, cedricProfile  } from '../assets/profiles';
+import { lianProfile, merylProfile, carlProfile, vienProfile, frivsProfile, cedricProfile, yensydProfile  } from '../assets/profiles';
 
 // Graphics Imports
 import {
@@ -690,7 +690,7 @@ export const TestimonialData = [
     testimonial: "Erick is a progressive programmer and a potential leader. I have witnessed his growth through various events that will make him successful one day."
   },
   {
-    profile: lianProfile,
+    profile: yensydProfile,
     name: "Yensyd Francisco",
     role: "Technical Implementation Specialist",
     testimonial: "Erick is a progressive programmer and a potential leader. I have witnessed his growth through various events that will make him successful one day."

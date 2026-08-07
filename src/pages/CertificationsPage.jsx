@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { FMlogo, grid01, glow07 } from '../assets';
 import { ExpertiseData } from '../constants';
 import Footer from '../components/Footer';
@@ -184,6 +184,10 @@ const CertificationsPage = () => {
   useScrollToTop();
   const certificates = ExpertiseData[0].certifications[0];
   
+  const { scrollY } = useScroll();
+  const y = useTransform(scrollY, [0, 1000], [0, 250]);
+  const opacity = useTransform(scrollY, [0, 1000], [0.4, 0.1]);
+  
   const groupedCerts = useMemo(() => {
     const certs = [...certificates.images01, ...certificates.images02];
     
@@ -224,13 +228,13 @@ const CertificationsPage = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 1.5 }}
-      className="min-h-screen relative"
+      className="min-h-screen relative z-0"
     >
       <SEO title="Certifications | Erickson Guhilde" description="View my certifications and continuous learning achievements." />
       
       {/* Backgrounds */}
       <BackgroundAnimations />
-      <img src={glow07} alt="Glow eclipse" className='-z-20 fixed opacity-60' id='scroll-animation-' />
+      <motion.div className='kali-glow fixed -top-[10rem] -left-[10rem] w-[40rem] h-[40rem] lg:w-[70rem] lg:h-[70rem]' style={{ y, opacity, zIndex: -20 }} />
       <img src={grid01} alt="Grid" className='w-full h-full object-cover -z-30 object-center fixed opacity-40' id='scroll-animation-' />
       
       <div className='lg:p-8 p-6 z-10 max-w-[1600px] mx-auto'>
@@ -265,7 +269,7 @@ const CertificationsPage = () => {
           {Object.entries(groupedCerts).map(([category, certs]) => (
             <div key={category} className="mb-20">
               {/* Sticky Header */}
-              <div className="sticky top-0 z-30 pt-6 pb-4 bg-[#0B0914]/80 backdrop-blur-xl mb-8 border-b border-[#3B2B6A]/50 flex items-center shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)]">
+              <div className="sticky top-0 z-30 pt-6 pb-4 bg-transparent mb-8 flex items-center">
                 {categoryConfig[category]?.icon || categoryConfig['Other'].icon}
                 <h2 className="text-2xl md:text-3xl font-black text-white tracking-wider">
                   {category}

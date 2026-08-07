@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { FMlogo, grid01, glow07 } from '../assets';
 import { defaultThumbnail } from '../assets/banners';
 import Badge from '../components/Badge';
@@ -11,6 +11,10 @@ import useScrollToTop from '../hooks/useScrollToTop';
 
 const AllProjects = ({ projects }) => {
   useScrollToTop();
+  const { scrollY } = useScroll();
+  const y = useTransform(scrollY, [0, 1000], [0, 250]);
+  const opacity = useTransform(scrollY, [0, 1000], [0.4, 0.1]);
+
   const renderLink = (link) => (
     <Link
       to={`/#${link.id}`}
@@ -26,9 +30,10 @@ const AllProjects = ({ projects }) => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 1.5 }}
+      className="relative z-0"
     >
       <SEO title="Projects | Erickson Guhilde" description="Explore my innovative web development and collaborative projects." />
-      <img src={glow07} alt="Glow eclipse" className='-z-10 fixed' id='scroll-animation-' />
+      <motion.div className='kali-glow fixed -top-[10rem] -left-[10rem] w-[40rem] h-[40rem] lg:w-[70rem] lg:h-[70rem]' style={{ y, opacity, zIndex: -10 }} />
       <img src={grid01} alt="Grid" className='w-full h-full object-contain -z-20 object-center fixed' id='scroll-animation-' />
       <div className='lg:p-8 p-6 z-10'>
         <Link to="/#projects">

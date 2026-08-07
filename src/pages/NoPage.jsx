@@ -20,6 +20,7 @@ const NoPage = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 1.5 }}
+      className="min-h-screen relative z-0 flex items-center justify-center p-6"
     >
       <SEO title="404 - Page Not Found | Erickson Guhilde" description="The page you are looking for does not exist." />
       <div className='lg:p-8 p-6 h-screen flex flex-col justify-between bg-grid-2 bg-contain bg-center bg-no-repeat'>
@@ -31,7 +32,7 @@ const NoPage = () => {
           <Footer link={renderLink} />
         </div>
       </div>
-      <img src={glow05} alt="Glow eclipse" className='absolute bottom-0 z-10' id='scroll-animation-' />
+      <div className='kali-glow absolute -bottom-[10rem] -right-[10rem] w-[40rem] h-[40rem] lg:w-[60rem] lg:h-[60rem]' style={{ opacity: 0.5, zIndex: 10 }} />
     </motion.div>
   )
 }

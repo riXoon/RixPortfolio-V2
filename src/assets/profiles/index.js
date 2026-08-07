@@ -4,6 +4,7 @@ import carlProfile from './carl-profile.jpg'
 import vienProfile from './vien-profile.jpg'
 import frivsProfile from './frivs-profile.jpg'
 import cedricProfile from './cedric-profile.jpg'
+import yensydProfile from './yensyd-profile.jpg'
 
 export {
     lianProfile,
@@ -11,5 +12,6 @@ export {
     carlProfile,
     vienProfile,
     frivsProfile,
-    cedricProfile
+    cedricProfile,
+    yensydProfile
 }

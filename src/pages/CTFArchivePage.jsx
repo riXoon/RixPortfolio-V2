@@ -434,12 +434,12 @@ const CTFArchivePage = () => {
   return (
     <div
       style={{ height: '100dvh', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}
-      className="bg-[#0A0710]"
+      className="bg-[#0A0710] relative z-0"
     >
       <SEO title="CTF Archive | Erickson Guhilde" description="Archive of my Capture The Flag (CTF) writeups and cybersecurity challenges." />
 
       {/* Background decorations */}
-      <img src={glow07} alt="" aria-hidden="true" className="-z-10 fixed inset-0 w-full h-full object-cover opacity-40 pointer-events-none" />
+      <div className='kali-glow fixed top-1/4 left-1/4 w-[40rem] h-[40rem] lg:w-[70rem] lg:h-[70rem]' style={{ opacity: 0.4, zIndex: -10 }} aria-hidden="true" />
       <img src={grid01} alt="" aria-hidden="true" className="-z-20 fixed inset-0 w-full h-full object-cover opacity-20 pointer-events-none" />
 
       {/* ── Header ──────────────────────────────────────────────────────── */}
