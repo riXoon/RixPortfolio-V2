@@ -12,48 +12,177 @@ let cachedTocData = null;
 // Cache for individual pages
 const cachedPages = new Map();
 
+// ─── Challenge Type Detector ──────────────────────────────────────────────────
+const CHALLENGE_TYPES = [
+  { pattern: /[—\-]\s*web\b/i,        label: 'WEB',       icon: '🌐', color: '#60A5FA', bg: 'rgba(96,165,250,0.1)',  border: 'rgba(96,165,250,0.35)'  },
+  { pattern: /[—\-]\s*dfir\b/i,       label: 'DFIR',      icon: '🔬', color: '#34D399', bg: 'rgba(52,211,153,0.1)',  border: 'rgba(52,211,153,0.35)'  },
+  { pattern: /[—\-]\s*crypto\b/i,     label: 'CRYPTO',    icon: '🔐', color: '#FBBF24', bg: 'rgba(251,191,36,0.1)',  border: 'rgba(251,191,36,0.35)'  },
+  { pattern: /[—\-]\s*osint\b/i,      label: 'OSINT',     icon: '👁', color: '#FB923C', bg: 'rgba(251,146,60,0.1)',  border: 'rgba(251,146,60,0.35)'  },
+  { pattern: /[—\-]\s*steg(o|anography)\b/i, label: 'STEGO', icon: '🖼', color: '#F472B6', bg: 'rgba(244,114,182,0.1)', border: 'rgba(244,114,182,0.35)' },
+  { pattern: /[—\-]\s*forensics?\b/i, label: 'FORENSICS', icon: '🧪', color: '#6EE7B7', bg: 'rgba(110,231,183,0.1)', border: 'rgba(110,231,183,0.35)' },
+  { pattern: /[—\-]\s*pwn\b/i,        label: 'PWN',       icon: '💥', color: '#F87171', bg: 'rgba(248,113,113,0.1)', border: 'rgba(248,113,113,0.35)' },
+  { pattern: /[—\-]\s*rev\b/i,        label: 'REV',       icon: '⚙️', color: '#94A3B8', bg: 'rgba(148,163,184,0.1)', border: 'rgba(148,163,184,0.35)' },
+  { pattern: /[—\-]\s*misc\b/i,       label: 'MISC',      icon: '⚡', color: '#A78BFA', bg: 'rgba(167,139,250,0.1)', border: 'rgba(167,139,250,0.35)' },
+];
+const DEFAULT_TYPE = { label: 'MISC', icon: '📄', color: '#9B72EF', bg: 'rgba(155,114,239,0.1)', border: 'rgba(155,114,239,0.35)' };
+
+function getChallengeType(title = '') {
+  for (const t of CHALLENGE_TYPES) {
+    if (t.pattern.test(title)) return t;
+  }
+  return DEFAULT_TYPE;
+}
+
+// ─── Terminal Boot Loading ─────────────────────────────────────────────────────
+const BootLoader = () => {
+  const [lines, setLines] = useState([]);
+  const bootLines = [
+    '> Initializing CTF archive...',
+    '> Fetching writeup payload...',
+    '> Decrypting content layers...',
+    '> Rendering document...',
+  ];
+
+  useEffect(() => {
+    let i = 0;
+    const interval = setInterval(() => {
+      setLines(prev => [...prev, bootLines[i]]);
+      i++;
+      if (i >= bootLines.length) clearInterval(interval);
+    }, 380);
+    return () => clearInterval(interval);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return (
+    <div className="flex flex-col justify-center items-start h-64 px-2">
+      <div className="font-mono text-[#9B72EF]/80 text-xs space-y-1.5">
+        {lines.map((line, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, x: -8 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            {line}
+          </motion.div>
+        ))}
+        <div className="mt-1">
+          <span className="text-[#9B72EF]/60">{'> '}</span>
+          <span className="ctf-boot-cursor" />
+        </div>
+      </div>
+    </div>
+  );
+};
+
 // ─── Sidebar Item ─────────────────────────────────────────────────────────────
-const SidebarItem = ({ page, activePageId, onSelectPage }) => {
+const SidebarItem = ({ page, activePageId, onSelectPage, depth = 0 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const hasChildren = page.pages && page.pages.length > 0;
   const isActive = activePageId === page.id;
+  const isTopLevel = depth === 0;
+  const challengeType = getChallengeType(page.title);
 
-  // Open the folder automatically if its child is active
+  // Open folder automatically if a child is active
   useEffect(() => {
-    if (hasChildren && page.pages.some(p => p.id === activePageId || (p.pages && p.pages.some(child => child.id === activePageId)))) {
+    if (
+      hasChildren &&
+      page.pages.some(
+        p => p.id === activePageId || (p.pages && p.pages.some(child => child.id === activePageId))
+      )
+    ) {
       setIsOpen(true);
     }
   }, [activePageId, hasChildren, page.pages]);
 
+  if (isTopLevel) {
+    // ── Section header (CTF event) or leaf intro page ─────────────────────────
+    return (
+      <div className="flex flex-col mb-1">
+        <button
+          onClick={() => {
+            if (hasChildren) setIsOpen(o => !o);
+            onSelectPage(page.id);
+          }}
+          className={`w-full text-left flex items-center justify-between px-2 py-2.5 rounded-md transition-all duration-150 group ${
+            isActive
+              ? 'bg-[#9B72EF]/15 text-[#C4A7F5]'
+              : 'text-gray-300 hover:bg-white/5 hover:text-white'
+          }`}
+        >
+          <div className="flex items-center gap-2 min-w-0">
+            {hasChildren ? (
+              /* Collapsible section — show chevron */
+              <span className="font-mono text-[#9B72EF]/60 text-[10px] flex-shrink-0">
+                {isOpen ? '▼' : '▶'}
+              </span>
+            ) : (
+              /* Leaf page (e.g. intro) — show a subtle page indicator instead */
+              <span className="font-mono text-[#9B72EF]/40 text-[10px] flex-shrink-0">◈</span>
+            )}
+            <span className="text-[11px] font-bold uppercase tracking-wider truncate leading-snug">
+              {page.title}
+            </span>
+          </div>
+        </button>
+
+        {hasChildren && isOpen && (
+          <div className="ml-3 pl-2 border-l border-[#3B2B6A]/40 mt-0.5 mb-1 flex flex-col gap-0.5">
+            {page.pages.map(child => (
+              <SidebarItem
+                key={child.id}
+                page={child}
+                activePageId={activePageId}
+                onSelectPage={onSelectPage}
+                depth={1}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  }
+
+
+  // ── Writeup child item ──────────────────────────────────────────────────────
   return (
     <div className="flex flex-col">
       <div
-        className={`flex items-center justify-between px-3 py-2 cursor-pointer rounded-md transition-all duration-150 ${
+        className={`ctf-sidebar-active flex items-center gap-2 px-2 py-2 cursor-pointer rounded-md transition-all duration-150 ${
           isActive
-            ? 'bg-[#9B72EF]/20 text-[#9B72EF] font-semibold'
-            : 'text-gray-400 hover:bg-white/5 hover:text-white'
+            ? 'bg-[#9B72EF]/15 text-white'
+            : 'text-gray-400 hover:bg-white/5 hover:text-gray-200'
         }`}
         onClick={() => {
-          if (hasChildren) setIsOpen(o => !o);
           onSelectPage(page.id);
+          if (hasChildren) setIsOpen(o => !o);
         }}
       >
-        <span className="truncate text-sm leading-snug">{page.title}</span>
-        {hasChildren && (
-          <span className="text-gray-500 ml-2 flex-shrink-0">
-            {isOpen ? <FiChevronDown size={14} /> : <FiChevronRight size={14} />}
-          </span>
-        )}
+        {/* Challenge type colored dot */}
+        <span
+          className="flex-shrink-0 w-1.5 h-1.5 rounded-full mt-px"
+          style={{ background: challengeType.color, boxShadow: isActive ? `0 0 6px ${challengeType.color}` : 'none' }}
+        />
+        <span className="truncate text-[11px] leading-snug flex-1">{page.title}</span>
+        {/* Type badge — only on active or hover */}
+        <span
+          className="ctf-challenge-badge flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
+          style={{ color: challengeType.color, background: challengeType.bg, borderColor: challengeType.border }}
+        >
+          {challengeType.icon} {challengeType.label}
+        </span>
       </div>
 
       {hasChildren && isOpen && (
-        <div className="ml-3 pl-2 border-l border-white/10 mt-0.5 mb-0.5 flex flex-col gap-0.5">
+        <div className="ml-4 pl-2 border-l border-white/10 mt-0.5 mb-0.5 flex flex-col gap-0.5">
           {page.pages.map(child => (
             <SidebarItem
               key={child.id}
               page={child}
               activePageId={activePageId}
               onSelectPage={onSelectPage}
+              depth={depth + 1}
             />
           ))}
         </div>
@@ -62,9 +191,17 @@ const SidebarItem = ({ page, activePageId, onSelectPage }) => {
   );
 };
 
-// ─── Lenis container hook ─────────────────────────────────────────────────────
-// Creates a Lenis smooth-scroll instance bound to a specific DOM wrapper/content
-// pair so the Lenis feel applies to an inner pane rather than the window.
+// ─── Sidebar animation variants ─────────────────────────────────────────────
+const tocContainerVariants = {
+  hidden:  {},
+  visible: { transition: { staggerChildren: 0.05, delayChildren: 0.08 } },
+};
+const tocItemVariants = {
+  hidden:  { opacity: 0, x: -14 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.3, ease: 'easeOut' } },
+};
+
+
 function usePaneLenis(wrapperRef, contentRef, deps = []) {
   useEffect(() => {
     if (window.innerWidth < 768) return;
@@ -75,7 +212,7 @@ function usePaneLenis(wrapperRef, contentRef, deps = []) {
     const lenis = new Lenis({
       wrapper,
       content,
-      lerp: 0.1,          // smoothness (0 = instant, 1 = never arrives)
+      lerp: 0.1,
       smoothWheel: true,
       wheelMultiplier: 1,
       touchMultiplier: 2,
@@ -97,6 +234,21 @@ function usePaneLenis(wrapperRef, contentRef, deps = []) {
   }, deps);
 }
 
+// ─── Sidebar Skeleton ─────────────────────────────────────────────────────────
+const SidebarSkeleton = () => (
+  <div className="animate-pulse flex flex-col gap-3 px-2 pt-1">
+    {[...Array(5)].map((_, i) => (
+      <div key={i} className="flex flex-col gap-1.5">
+        <div className="h-3 bg-white/10 rounded w-3/4" />
+        <div className="ml-3 flex flex-col gap-1">
+          <div className="h-2.5 bg-white/5 rounded" style={{ width: `${55 + (i % 3) * 15}%` }} />
+          <div className="h-2.5 bg-white/5 rounded" style={{ width: `${45 + (i % 2) * 20}%` }} />
+        </div>
+      </div>
+    ))}
+  </div>
+);
+
 // ─── Main Page ────────────────────────────────────────────────────────────────
 const CTFArchivePage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -116,12 +268,7 @@ const CTFArchivePage = () => {
   const mainWrapperRef    = useRef(null);
   const mainContentRef    = useRef(null);
 
-  // Smooth-scroll the desktop sidebar
   usePaneLenis(sidebarWrapperRef, sidebarContentRef);
-
-  // Smooth-scroll the main content area.
-  // Re-initialise whenever the page content changes so Lenis recalculates
-  // the scroll height after new content renders.
   usePaneLenis(mainWrapperRef, mainContentRef, [documentContent]);
 
   // ── Fetch Table of Contents ──────────────────────────────────────────────
@@ -132,45 +279,31 @@ const CTFArchivePage = () => {
           setToc(cachedTocData.pages);
           setFilesMap(cachedTocData.filesMap);
           setLoadingToc(false);
-          
           const idFromQuery = searchParams.get('id');
-          if (idFromQuery) {
-            setActivePageId(idFromQuery);
-          } else if (cachedTocData.pages.length > 0) {
-            setActivePageId(cachedTocData.pages[0].id);
-          }
+          if (idFromQuery) setActivePageId(idFromQuery);
+          else if (cachedTocData.pages.length > 0) setActivePageId(cachedTocData.pages[0].id);
           return;
         }
 
         const res  = await fetch('/api/gitbook');
         const data = await res.json();
-
         if (!res.ok) throw new Error(data.error || 'Failed to fetch TOC');
 
         const pages = data.pages || [];
-        
         let newFilesMap = {};
-        // Convert files array → map keyed by file ID for O(1) lookup
         if (Array.isArray(data.files)) {
           data.files.forEach(f => { newFilesMap[f.id] = f; });
         } else if (data.files && typeof data.files === 'object') {
           newFilesMap = data.files;
         }
 
-        cachedTocData = {
-          pages,
-          filesMap: newFilesMap
-        };
-
+        cachedTocData = { pages, filesMap: newFilesMap };
         setToc(pages);
         setFilesMap(newFilesMap);
 
         const idFromQuery = searchParams.get('id');
-        if (idFromQuery) {
-          setActivePageId(idFromQuery);
-        } else if (pages.length > 0) {
-          setActivePageId(pages[0].id);
-        }
+        if (idFromQuery) setActivePageId(idFromQuery);
+        else if (pages.length > 0) setActivePageId(pages[0].id);
       } catch (err) {
         console.error('Error fetching TOC:', err);
         setError(err.message);
@@ -181,11 +314,10 @@ const CTFArchivePage = () => {
     fetchTOC();
   }, []);
 
-  // Update the URL when the active page changes
   const handleSelectPage = (id) => {
     setActivePageId(id);
     setSearchParams({ id });
-    setIsMobileSidebarOpen(false); // Close mobile sidebar on select
+    setIsMobileSidebarOpen(false);
   };
 
   // ── Fetch Page Content ───────────────────────────────────────────────────
@@ -193,15 +325,11 @@ const CTFArchivePage = () => {
     if (!activePageId) return;
 
     const fetchPage = async () => {
-      // Check cache first
       if (cachedPages.has(activePageId)) {
         const cached = cachedPages.get(activePageId);
         setDocumentContent(cached.document);
         setPageData(cached.pageData);
-        // Optionally cache the files map updates too if there are any new files
-        if (cached.files) {
-          setFilesMap(prev => ({ ...prev, ...cached.files }));
-        }
+        if (cached.files) setFilesMap(prev => ({ ...prev, ...cached.files }));
         setLoadingPage(false);
         return;
       }
@@ -213,7 +341,6 @@ const CTFArchivePage = () => {
       try {
         const res  = await fetch(`/api/gitbook?pageId=${activePageId}`);
         const data = await res.json();
-
         if (!res.ok) throw new Error(data.error || 'Failed to fetch page');
 
         setDocumentContent(data.document);
@@ -232,12 +359,7 @@ const CTFArchivePage = () => {
           }
         }
 
-        cachedPages.set(activePageId, {
-          document: data.document,
-          pageData: data,
-          files: newFiles
-        });
-
+        cachedPages.set(activePageId, { document: data.document, pageData: data, files: newFiles });
       } catch (err) {
         console.error('Failed to fetch page:', err);
         setError(err.message);
@@ -248,7 +370,20 @@ const CTFArchivePage = () => {
     fetchPage();
   }, [activePageId]);
 
+  // Derive the active page title for the header breadcrumb
+  const activePageTitle = (() => {
+    if (!activePageId || toc.length === 0) return null;
+    for (const section of toc) {
+      if (section.id === activePageId) return section.title;
+      if (section.pages) {
+        const child = section.pages.find(p => p.id === activePageId);
+        if (child) return child.title;
+      }
+    }
+    return null;
+  })();
 
+  const activeChallengeType = getChallengeType(activePageTitle || '');
 
   // ── Render ───────────────────────────────────────────────────────────────
   return (
@@ -257,13 +392,17 @@ const CTFArchivePage = () => {
       className="bg-[#0A0710]"
     >
       <SEO title="CTF Archive | Erickson Guhilde" description="Archive of my Capture The Flag (CTF) writeups and cybersecurity challenges." />
+
       {/* Background decorations */}
       <img src={glow07} alt="" aria-hidden="true" className="-z-10 fixed inset-0 w-full h-full object-cover opacity-40 pointer-events-none" />
       <img src={grid01} alt="" aria-hidden="true" className="-z-20 fixed inset-0 w-full h-full object-cover opacity-20 pointer-events-none" />
 
       {/* ── Header ──────────────────────────────────────────────────────── */}
-      <header className="z-20 flex-shrink-0 flex items-center justify-between px-4 md:px-6 py-3 border-b border-white/10 bg-[#0A0710]/80 backdrop-blur-md">
-        <div className="flex items-center gap-3">
+      <header className="z-20 flex-shrink-0 flex items-center justify-between px-4 md:px-6 py-3 border-b border-[#3B2B6A]/40 bg-[#0A0710]/85 backdrop-blur-md relative overflow-hidden">
+        {/* Scanline overlay on header */}
+        <div className="ctf-scanline" aria-hidden="true" />
+
+        <div className="flex items-center gap-3 relative z-10">
           {/* Mobile hamburger */}
           <button
             className="md:hidden text-white p-1.5 hover:bg-white/10 rounded-lg transition-colors"
@@ -274,55 +413,80 @@ const CTFArchivePage = () => {
           </button>
 
           <Link to="/#ctf-writeups" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-            <img src={FMlogo} alt="FM-logo" className="h-6 md:h-8 w-auto object-contain" />
+            <img src={FMlogo} alt="FM-logo" className="h-6 md:h-8 w-auto object-contain" style={{ filter: 'drop-shadow(0 0 8px rgba(155,114,239,0.5))' }} />
           </Link>
+
+          {/* Breadcrumb */}
+          <div className="hidden sm:flex items-center gap-1.5 font-mono text-[10px] text-[#9B72EF]/50">
+            <span>~/senec4</span>
+            <span>/</span>
+            <span className="text-[#9B72EF]/80">ctf-archive</span>
+            {activePageTitle && (
+              <>
+                <span>/</span>
+                <span className="text-white/60 truncate max-w-[160px]">{activePageTitle}</span>
+              </>
+            )}
+          </div>
         </div>
 
-        <span className="text-[#9B72EF] font-mono text-xs uppercase tracking-widest font-semibold border border-[#9B72EF]/30 px-3 py-1 rounded-full bg-[#9B72EF]/10">
-          CTF Archive
-        </span>
+        {/* Terminal-style CTF badge */}
+        <div className="relative z-10 flex items-center gap-2">
+          <span className="font-mono text-[#9B72EF]/50 text-[10px] hidden md:inline">[</span>
+          <span className="text-[#9B72EF] font-mono text-[10px] uppercase tracking-[0.18em] font-bold border border-[#9B72EF]/30 px-3 py-1 rounded bg-[#9B72EF]/8">
+            CTF ARCHIVE
+          </span>
+          <span className="font-mono text-[#9B72EF]/50 text-[10px] hidden md:inline">]</span>
+        </div>
       </header>
 
       {/* ── Body (sidebar + content) ─────────────────────────────────────── */}
       <div className="flex flex-1 min-h-0 relative">
 
         {/* ── Desktop Sidebar ───────────────────────────────────────────── */}
-        {/*
-          data-lenis-prevent  → stops the GLOBAL Lenis from consuming wheel
-                                events here so they reach our local instance.
-          ref=sidebarWrapperRef → Lenis clips/scrolls within this element.
-          overflow-hidden     → required for Lenis container-mode to work.
-        */}
         <aside
           ref={sidebarWrapperRef}
           data-lenis-prevent
-          className="hidden md:flex flex-col w-64 lg:w-72 flex-shrink-0 border-r border-white/10 bg-[#12101A]/70 backdrop-blur-md overflow-hidden"
+          className="hidden md:flex flex-col w-64 lg:w-72 flex-shrink-0 border-r border-[#3B2B6A]/30 bg-[#0D0B15]/80 backdrop-blur-md overflow-hidden relative"
         >
-          {/* sidebarContentRef is what Lenis translates */}
-          <div ref={sidebarContentRef} className="p-3">
-            <p className="text-gray-500 uppercase tracking-widest text-[10px] font-bold mb-3 px-2">
-              Table of Contents
-            </p>
+          {/* Sidebar scanline */}
+          <div className="ctf-scanline opacity-50" aria-hidden="true" />
+
+          <div ref={sidebarContentRef} className="p-3 relative z-10">
+            {/* Terminal-style header */}
+            <div className="px-2 mb-4 pt-1">
+              <p className="font-mono text-[#9B72EF] text-[10px] tracking-wider">
+                <span className="text-[#9B72EF]/50">┌─</span> [contents]
+              </p>
+              <p className="font-mono text-[#9B72EF]/30 text-[9px] mt-0.5 pl-3">
+                └─$ ls -la ./writeups/
+              </p>
+            </div>
 
             {loadingToc ? (
-              <div className="animate-pulse flex flex-col gap-2 px-2">
-                {[...Array(6)].map((_, i) => (
-                  <div key={i} className="h-4 bg-white/10 rounded" style={{ width: `${60 + (i % 3) * 15}%` }} />
-                ))}
-              </div>
+              <SidebarSkeleton />
             ) : error ? (
-              <div className="text-red-400 text-xs px-2">{error}</div>
-            ) : (
-              <div className="flex flex-col gap-0.5">
-                {toc.map(page => (
-                  <SidebarItem
-                    key={page.id}
-                    page={page}
-                    activePageId={activePageId}
-                    onSelectPage={handleSelectPage}
-                  />
-                ))}
+              <div className="font-mono text-red-400 text-xs px-2">
+                <span className="text-red-500">✕ ERROR:</span> {error}
               </div>
+            ) : (
+              <motion.div
+                className="flex flex-col gap-0.5"
+                variants={tocContainerVariants}
+                initial="hidden"
+                animate="visible"
+              >
+                {toc.map(page => (
+                  <motion.div key={page.id} variants={tocItemVariants}>
+                    <SidebarItem
+                      page={page}
+                      activePageId={activePageId}
+                      onSelectPage={handleSelectPage}
+                      depth={0}
+                    />
+                  </motion.div>
+                ))}
+              </motion.div>
             )}
           </div>
         </aside>
@@ -331,7 +495,6 @@ const CTFArchivePage = () => {
         <AnimatePresence>
           {isMobileSidebarOpen && (
             <>
-              {/* Backdrop */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -339,31 +502,37 @@ const CTFArchivePage = () => {
                 className="absolute inset-0 bg-black/60 z-40 md:hidden"
                 onClick={() => setIsMobileSidebarOpen(false)}
               />
-              {/* Drawer */}
               <motion.aside
                 data-lenis-prevent
                 initial={{ x: '-100%' }}
                 animate={{ x: 0 }}
                 exit={{ x: '-100%' }}
                 transition={{ type: 'tween', duration: 0.25 }}
-                className="absolute inset-y-0 left-0 w-72 bg-[#1A1625] border-r border-white/10 z-50 p-3 shadow-2xl flex flex-col md:hidden ctf-scroll-area"
+                className="absolute inset-y-0 left-0 w-72 bg-[#0D0B15] border-r border-[#3B2B6A]/40 z-50 p-3 shadow-2xl flex flex-col md:hidden ctf-scroll-area relative overflow-hidden"
               >
-                <div className="flex items-center justify-between mb-4 px-2">
-                  <p className="text-gray-400 uppercase tracking-widest text-[10px] font-bold">Contents</p>
-                  <button onClick={() => setIsMobileSidebarOpen(false)} className="text-gray-400 hover:text-white">
-                    <FiX size={18} />
-                  </button>
-                </div>
+                {/* Mobile sidebar scanline */}
+                <div className="ctf-scanline opacity-40" aria-hidden="true" />
 
-                <div className="flex flex-col gap-0.5">
-                  {toc.map(page => (
-                    <SidebarItem
-                      key={page.id}
-                      page={page}
-                      activePageId={activePageId}
-                      onSelectPage={handleSelectPage}
-                    />
-                  ))}
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between mb-4 px-2">
+                    <p className="font-mono text-[#9B72EF] text-[10px] tracking-wider">┌─ [contents]</p>
+                    <button onClick={() => setIsMobileSidebarOpen(false)} className="text-gray-400 hover:text-white transition-colors">
+                      <FiX size={18} />
+                    </button>
+                  </div>
+
+                  <div className="flex flex-col gap-0.5">
+                    {toc.map(page => (
+                      <motion.div key={page.id} variants={tocItemVariants} initial="hidden" animate="visible">
+                        <SidebarItem
+                          page={page}
+                          activePageId={activePageId}
+                          onSelectPage={handleSelectPage}
+                          depth={0}
+                        />
+                      </motion.div>
+                    ))}
+                  </div>
                 </div>
               </motion.aside>
             </>
@@ -371,17 +540,11 @@ const CTFArchivePage = () => {
         </AnimatePresence>
 
         {/* ── Main Content ──────────────────────────────────────────────── */}
-        {/*
-          data-lenis-prevent  → stops global Lenis, local instance takes over.
-          ref=mainWrapperRef  → Lenis uses this as the clipping viewport.
-          overflow-hidden     → required for Lenis container-mode.
-        */}
         <main
           ref={mainWrapperRef}
           data-lenis-prevent
           className="flex-1 min-h-0 overflow-y-auto md:overflow-hidden"
         >
-          {/* mainContentRef is the element Lenis translates */}
           <div ref={mainContentRef}>
             <motion.div
               key={activePageId}
@@ -391,45 +554,93 @@ const CTFArchivePage = () => {
               className="max-w-3xl mx-auto px-5 py-8 md:px-10 md:py-12"
             >
               {loadingPage ? (
-                <div className="flex justify-center items-center h-64">
-                  <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-[#9B72EF]" />
-                </div>
+                <BootLoader />
               ) : !documentContent ? (
-                <div className="flex justify-center items-center h-64 text-gray-600 italic text-sm">
-                  {activePageId ? 'No content found for this page.' : 'Select a page from the sidebar.'}
+                /* ── Empty state ── */
+                <div className="flex flex-col justify-center items-start h-64 px-2">
+                  <div className="font-mono text-xs space-y-2 text-[#9B72EF]/50">
+                    <p><span className="text-[#9B72EF]/70">$</span> cat writeup.md</p>
+                    <p className="text-gray-600 italic pl-4">
+                      {activePageId ? 'No content found for this page.' : 'Select a writeup from the sidebar.'}
+                    </p>
+                    <p className="pl-4"><span className="ctf-boot-cursor" /></p>
+                  </div>
                 </div>
               ) : (
                 <div className="flex flex-col gap-6">
-                  {/* ── Page Header (Cover & Title) ── */}
+                  {/* ── Page Header ── */}
                   {pageData && (
                     <div className="mb-6">
-                      {/* Cover Image */}
+                      {/* Cover image */}
                       {pageData.cover?.ref?.file && filesMap[pageData.cover.ref.file] && (
-                        <div className="w-full h-48 md:h-64 rounded-xl overflow-hidden mb-8 border border-[#3B2B6A]/50 shadow-2xl relative">
-                          <img 
-                            src={filesMap[pageData.cover.ref.file].downloadURL} 
-                            alt="Cover" 
+                        <motion.div
+                          initial={{ opacity: 0, scale: 0.97 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+                          className="w-full h-48 md:h-64 rounded-xl overflow-hidden mb-8 border border-[#3B2B6A]/50 shadow-2xl relative"
+                        >
+                          <img
+                            src={filesMap[pageData.cover.ref.file].downloadURL}
+                            alt="Cover"
                             className="w-full h-full object-cover"
                             style={{ objectPosition: `50% ${pageData.cover.yPos ? pageData.cover.yPos * 100 : 50}%` }}
                           />
-                        </div>
+                          {/* Cover gradient overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-[#0A0710]/60 via-transparent to-transparent pointer-events-none" />
+                        </motion.div>
                       )}
-                      
-                      {/* Page Title & Icon */}
+
+                      {/* ── Terminal window frame around title ── */}
                       {pageData.title && (
-                        <h1 className="text-3xl md:text-4xl font-black text-white flex items-center gap-3 border-b border-[#3B2B6A]/50 pb-4">
-                          {pageData.icon && (
-                            <span className="text-2xl md:text-3xl">
-                              {/* Simple emoji rendering for gitbook icons which are often emojis or names */}
-                              {pageData.icon.length > 2 ? '📄' : pageData.icon} 
+                        <motion.div
+                          initial={{ opacity: 0, y: 16 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.45, ease: [0.25, 0.1, 0.25, 1], delay: 0.1 }}
+                          className="mb-6 rounded-xl overflow-hidden border border-[#3B2B6A]/40 bg-[#0F0C16]/60 shadow-xl relative"
+                        >
+                          {/* Window top bar */}
+                          <div className="flex items-center justify-between px-4 py-2.5 bg-[#1A1625] border-b border-[#2D2046]">
+                            <div className="flex items-center gap-1.5">
+                              <span className="ctf-terminal-dot bg-[#FF5F57]" />
+                              <span className="ctf-terminal-dot bg-[#FFBD2E]" />
+                              <span className="ctf-terminal-dot bg-[#28CA41]" />
+                            </div>
+                            {/* Challenge type badge in the title bar */}
+                            <span
+                              className="ctf-challenge-badge"
+                              style={{
+                                color: activeChallengeType.color,
+                                background: activeChallengeType.bg,
+                                borderColor: activeChallengeType.border,
+                              }}
+                            >
+                              {activeChallengeType.icon} {activeChallengeType.label}
                             </span>
-                          )}
-                          {pageData.title}
-                        </h1>
+                          </div>
+
+                          {/* Title content */}
+                          <div className="px-6 py-5 relative">
+                            <div className="ctf-scanline opacity-30" aria-hidden="true" />
+                            <div className="relative z-10">
+                              {pageData.icon && (
+                                <span className="text-2xl mb-2 block">
+                                  {pageData.icon.length > 2 ? '📄' : pageData.icon}
+                                </span>
+                              )}
+                              <h1 className="text-2xl md:text-3xl font-black text-white ctf-glow-heading leading-tight">
+                                {pageData.title}
+                              </h1>
+                              <div className="mt-3 flex items-center gap-2">
+                                <span className="font-mono text-[#9B72EF]/40 text-[10px]">$ ./read</span>
+                                <div className="h-px flex-1 bg-gradient-to-r from-[#3B2B6A]/60 to-transparent" />
+                              </div>
+                            </div>
+                          </div>
+                        </motion.div>
                       )}
                     </div>
                   )}
-                  
+
                   {/* ── Page Document Content ── */}
                   <GitBookRenderer document={documentContent} filesMap={filesMap} />
                 </div>

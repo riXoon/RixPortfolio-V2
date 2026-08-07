@@ -256,4 +256,135 @@
     @apply rounded-[0.4rem];
   }
   /* ------- //Badge/Tag terminal style override ------- */
+
+  /* ═══════════════════════════════════════════════════
+     CTF Archive — Hacker / Terminal Aesthetic Utilities
+     ═══════════════════════════════════════════════════ */
+
+  /* Scanline overlay — place as a pseudo-element or child div */
+  .ctf-scanline {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.08) 2px,
+      rgba(0, 0, 0, 0.08) 4px
+    );
+    z-index: 1;
+  }
+
+  /* Terminal window chrome — wraps code blocks */
+  .ctf-terminal-window {
+    border: 1px solid #2D2046;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0 0 0 1px rgba(155, 114, 239, 0.08), 0 8px 32px rgba(0, 0, 0, 0.5);
+  }
+  .ctf-terminal-topbar {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.5rem 0.875rem;
+    background: #1A1625;
+    border-bottom: 1px solid #2D2046;
+  }
+  .ctf-terminal-dot {
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 50%;
+  }
+
+  /* Challenge type badge */
+  .ctf-challenge-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-family: "Fira Code", monospace;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.55rem;
+    border-radius: 0.3rem;
+    border: 1px solid;
+    line-height: 1;
+  }
+
+  /* Glow heading utility */
+  .ctf-glow-heading {
+    text-shadow: 0 0 24px rgba(155, 114, 239, 0.35), 0 0 48px rgba(123, 79, 208, 0.15);
+  }
+
+  /* Left reading rail accent */
+  .ctf-left-rail {
+    border-left: 1px solid rgba(59, 43, 106, 0.3);
+    padding-left: 0;
+  }
+
+  /* ── Boot loader animation ── */
+  .ctf-boot-cursor {
+    display: inline-block;
+    width: 0.55ch;
+    height: 1.1em;
+    background: #9B72EF;
+    vertical-align: text-bottom;
+    margin-left: 2px;
+    border-radius: 1px;
+    animation: ctf-cursor-blink 0.9s step-start infinite;
+  }
+  @keyframes ctf-cursor-blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
+  }
+
+  /* Neon glow pulse for sidebar active items */
+  .ctf-sidebar-active {
+    position: relative;
+  }
+  .ctf-sidebar-active::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    border-radius: 0 1px 1px 0;
+    background: linear-gradient(to bottom, #9B72EF, #7B4FD0);
+    box-shadow: 0 0 8px #9B72EF, 0 0 16px rgba(155, 114, 239, 0.4);
+  }
+
+  /* Neon glow on code-block images */
+  .ctf-image-glow {
+    box-shadow:
+      0 0 0 1px rgba(59, 43, 106, 0.6),
+      0 0 24px rgba(123, 79, 208, 0.2),
+      0 16px 48px rgba(0, 0, 0, 0.6);
+  }
+
+  /* ─── CTF blockquote / lore block ─── */
+  .ctf-lore-block {
+    border-left: 3px solid #7B4FD0;
+    background: linear-gradient(90deg, rgba(123, 79, 208, 0.08) 0%, transparent 100%);
+    padding: 0.75rem 1rem;
+    border-radius: 0 0.5rem 0.5rem 0;
+    font-family: "Fira Code", monospace;
+    font-size: 0.85em;
+    color: #b8b8ff;
+    position: relative;
+    overflow: hidden;
+  }
+  .ctf-lore-block::before {
+    content: "//";
+    position: absolute;
+    right: 1rem;
+    top: 0.65rem;
+    font-family: "Fira Code", monospace;
+    font-size: 0.7rem;
+    color: rgba(155, 114, 239, 0.3);
+    pointer-events: none;
+  }
+  /* ═══════════════════════════════════════════════════ */
 }
