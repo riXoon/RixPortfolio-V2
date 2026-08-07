@@ -18,7 +18,11 @@ import cert18 from './OWASP-API-Sec.png'
 import cert19 from './SoloLearn-CSS.png'
 import cert20 from './SoloLearn-HTML.png'
 import cert21 from './SoloLearn-Responsive-Web-Design.png'
+import cert22 from './GDGPUP-SEEN2025.png'
+import cert23 from './HTBMeetup2.jpg'
+import cert24 from './ZuittSeminar.jpg'
+import cert25 from './APAC-Top10.jpg'
 
 export {
-  cert01, cert02, cert03, cert04, cert05, cert06, cert07, cert08, cert09, cert10, cert11, cert12, cert13, cert15, cert16, cert17, cert18, cert19, cert20, cert21
+  cert01, cert02, cert03, cert04, cert05, cert06, cert07, cert08, cert09, cert10, cert11, cert12, cert13, cert15, cert16, cert17, cert18, cert19, cert20, cert21, cert22, cert23, cert24, cert25
 }

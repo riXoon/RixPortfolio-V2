@@ -13,11 +13,11 @@ import {
 
 // Certification Imports
 import {
-  cert01, cert02, cert03, cert04, cert05, cert06, cert07, cert08, cert09, cert10, cert11, cert12, cert13, cert15, cert16, cert17, cert18, cert19, cert20, cert21
+  cert01, cert02, cert03, cert04, cert05, cert06, cert07, cert08, cert09, cert10, cert11, cert12, cert13, cert15, cert16, cert17, cert18, cert19, cert20, cert21, cert22, cert23, cert24, cert25
 } from '../assets/certifications';
 
 // Profile Imports
-import { lianProfile, merylProfile, carlProfile, vienProfile, frivsProfile  } from '../assets/profiles';
+import { lianProfile, merylProfile, carlProfile, vienProfile, frivsProfile, cedricProfile  } from '../assets/profiles';
 
 // Graphics Imports
 import {
@@ -193,9 +193,33 @@ export const ExpertiseData = [
         content: "My extensive collection of certificates includes completed courses, active participation <br class='md:block hidden' /> in workshops and from tech industry-relevant webinars.",
         btnText: "View Certificates",
         link: "https://drive.google.com/drive/folders/1zmwS59a85LqUvTd-WQXUFQ-SKbuyvmCv?usp=sharing",
-        images01: [{ src: cert01 }, { src: cert02 }, { src: cert03 }, { src: cert04 }, { src: cert05 }, { src: cert06 }, { src: cert07 }, { src: cert08 }, { src: cert09 }, { src: cert10 }, { src: cert11 }
+        images01: [
+          { src: cert09, title: 'Certified Cybersecurity Analyst (C3SA)', issuer: 'CyberWarefare Labs', date: 'December 2025', category: 'Cybersecurity', description: 'Certified Cyber Security awareness or similar certification.' },
+          { src: cert15, title: 'Multi-Cloud Red Teaming Analyst (MCRTA)', issuer: 'CyberWarfare Labs', date: 'October 2025', category: 'Cybersecurity', description: 'Relevant technical training or certification.' },
+          { src: cert10, title: 'Certified Junior Web Penetration Tester (CJWPT)', issuer: 'Hack & Fix', date: 'February 2026', category: 'Cybersecurity', description: 'Web Penetration Testing certification.' },
+          { src: cert11, title: 'Certified Cybersecurity Foundations (CORE)', issuer: 'Hackviser', date: 'July 2026', category: 'Cybersecurity', description: 'Core cybersecurity concepts and practices from Hackviser.' },
+          { src: cert01, title: '0xFunCTF 2026', issuer: '0xFun', date: 'February 2026', category: 'Capture the Flag', description: 'Certificate of Participation for placing 237 out of 1359 teams in0xFunCTF 2026' },
+          { src: cert02, title: 'Advent of Cyber 2025', issuer: 'TryHackMe', date: 'December 2025', category: 'Capture the Flag', description: 'Completed the TryHackMe\'s Advent of Cyber 2025 challenges.' },
+          { src: cert03, title: 'API Authentication', issuer: 'APIsec University', date: 'June 2025', category: 'Cybersecurity', description: 'Understanding API Authentication mechanisms and vulnerabilities.' },
+          { src: cert04, title: 'API Documentation', issuer: 'APIsec University', date: 'September 2025', category: 'Cybersecurity', description: 'Best practices for writing and understanding API Documentation.' },
+          { src: cert05, title: 'API Gateway', issuer: 'APIsec University', date: 'September 2025', category: 'Cybersecurity', description: 'Knowledge on securing and managing API Gateways.' },
+          { src: cert06, title: 'API Penetration Testing', issuer: 'APIsec University', date: 'June 2025', category: 'Cybersecurity', description: 'Practical API penetration testing methodologies.' },
+          { src: cert07, title: 'API Security Fundamentals', issuer: 'APIsec University', date: 'June 2025', category: 'Cybersecurity', description: 'Core concepts of securing modern APIs.' },
+          { src: cert08, title: 'Datacamp Top #5 Scholar', issuer: 'AWSCC - QCU', date: 'June 2026', category: 'Student Builder', description: 'Placing 5th in datacamp leaderboard of AWSCC - QCU.' },
+          { src: cert25, title: 'APAC Stellar Hackathon Demo Day Top 10 Finalists', issuer: 'Stellar Philippines', date: 'July 2026', category: 'Student Builder', description: 'Winnig as Top 10 Finalists to compete internationally for APAC Stellar Hackathon 2026' },
         ],
-        images02: [{ src: cert12 }, { src: cert13 }, { src: cert15 }, { src: cert16 }, { src: cert17 }, { src: cert18 }, { src: cert19 }, { src: cert20 }, { src: cert21 }
+        images02: [
+          { src: cert12, title: 'Cybersecure U', issuer: 'AWSCC - QCU', date: 'October 2025', category: 'Seminars/Webinars', description: 'Foundations of digital hygiene and cybersecurity.' },
+          { src: cert13, title: 'Love At First Bug (LAFB) 2026', issuer: 'TryHackMe', date: 'February 2026', category: 'Capture the Flag', description: 'Certificate of completion for solving all of the rooms on TryHackMe\'s Love At First Bug 2026' },
+          { src: cert16, title: 'NYX Design IT Champion', issuer: 'LESIT', date: 'November 2025', category: 'Student Builder', description: 'Winning the NYX Design IT Group Web Designing competition' },
+          { src: cert17, title: 'NYX ALT+LEAD', issuer: 'LESIT', date: 'November 2025', category: 'Seminars/Webinars', description: 'Certificate of Participation for attending NYX\'s ALT+LEAD: Shifting Perspective Toward Ethical Leadership in a Technology-Driven World ' },
+          { src: cert18, title: 'OWASP API Security Top 10', issuer: 'APIsec University', date: 'June 2025', category: 'Cybersecurity', description: 'Understanding the top 10 vulnerabilities in APIs.' },
+          { src: cert19, title: 'CSS Fundamentals', issuer: 'SoloLearn', date: 'February 2022', category: 'Student Builder', description: 'Completed the CSS course on SoloLearn.' },
+          { src: cert20, title: 'HTML Fundamentals', issuer: 'SoloLearn', date: 'September 2021', category: 'Student Builder', description: 'Completed the HTML course on SoloLearn.' },
+          { src: cert21, title: 'Responsive Web Design', issuer: 'SoloLearn', date: 'August 2022', category: 'Student Builder', description: 'Learned principles of responsive web design on SoloLearn.' },
+          { src: cert22, title: 'SEEN 2025', issuer: 'Google Developers on Campus PUP', date: 'August 2025', category: 'Capture the Flag', description: 'Certificate of Participation for SEEN2025 CTF Competition' },
+          { src: cert23, title: 'HTB Meetup 2', issuer: 'CyberWirez', date: 'August 2025', category: 'Seminars/Webinars', description: 'Certificate of Attendance for HTB Meetup 2' },
+          { src: cert24, title: 'Free Coding Bootcamp: Data Visualization', issuer: 'Zuitt', date: 'November 2025', category: 'Seminars/Webinars', description: 'Certificate of Attendance Data Visualization seminar' }
         ]
       }
     ]
@@ -653,9 +677,21 @@ export const CTFWriteupData = [
 ];
 
 export const TestimonialData = [
+   {
+    profile: cedricProfile,
+    name: "Cedric Paul Mendoza",
+    role: "Pijin, System Architect",
+    testimonial: "Erickson is someone I can always rely on in every project we work on together. His discipline, self-awareness, and commitment to giving his best allow me to focus on my own role with confidence, knowing he’ll do his part well."
+  },
   {
     profile: lianProfile,
     name: "Lian Torres",
+    role: "Technical Implementation Specialist",
+    testimonial: "Erick is a progressive programmer and a potential leader. I have witnessed his growth through various events that will make him successful one day."
+  },
+  {
+    profile: lianProfile,
+    name: "Yensyd Francisco",
     role: "Technical Implementation Specialist",
     testimonial: "Erick is a progressive programmer and a potential leader. I have witnessed his growth through various events that will make him successful one day."
   },
