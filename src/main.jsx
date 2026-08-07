@@ -6,13 +6,23 @@ import { ProjectOverviewData } from './constants/index.js';
 import App from './App.jsx'
 import './index.css'
 
-// Lazy load pages for code splitting
-const Home = lazy(() => import('./pages/Home.jsx'));
-const AllProjects = lazy(() => import('./pages/AllProjects.jsx'));
-const ProjectOverview = lazy(() => import('./pages/ProjectOverview.jsx'));
-const CertificationsPage = lazy(() => import('./pages/CertificationsPage.jsx'));
-const CTFArchivePage = lazy(() => import('./pages/CTFArchivePage.jsx'));
-const NoPage = lazy(() => import('./pages/NoPage.jsx'));
+// Helper to enforce a minimum loading time so the animation can finish
+const lazyWithMinDelay = (importFunc, delay = 3500) => {
+  return lazy(() => 
+    Promise.all([
+      importFunc(),
+      new Promise(resolve => setTimeout(resolve, delay))
+    ]).then(([moduleExports]) => moduleExports)
+  );
+};
+
+// Lazy load pages for code splitting with guaranteed animation time
+const Home = lazyWithMinDelay(() => import('./pages/Home.jsx'));
+const AllProjects = lazyWithMinDelay(() => import('./pages/AllProjects.jsx'));
+const ProjectOverview = lazyWithMinDelay(() => import('./pages/ProjectOverview.jsx'));
+const CertificationsPage = lazyWithMinDelay(() => import('./pages/CertificationsPage.jsx'));
+const CTFArchivePage = lazyWithMinDelay(() => import('./pages/CTFArchivePage.jsx'));
+const NoPage = lazyWithMinDelay(() => import('./pages/NoPage.jsx'));
 
 const projects = ProjectOverviewData;
 
@@ -49,16 +59,12 @@ const router = createBrowserRouter([
   },
 ]);
 
-const LoadingFallback = () => (
-  <div className="w-screen h-screen flex items-center justify-center bg-[#0A0710]">
-    <div className="w-8 h-8 border-4 border-[#9B72EF] border-t-transparent rounded-full animate-spin"></div>
-  </div>
-);
+import LoadingScreen from './components/LoadingScreen.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <HelmetProvider>
-      <Suspense fallback={<LoadingFallback />}>
+      <Suspense fallback={<LoadingScreen />}>
         <RouterProvider router={router} />
       </Suspense>
     </HelmetProvider>

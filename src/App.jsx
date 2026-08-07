@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import useLenisScroll from './hooks/useLenisScroll';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import CustomCursor from './components/CustomCursor';
 import { Analytics } from '@vercel/analytics/react';
 
 export default function App() {
   useLenisScroll();
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    if (window.__lenis) {
+      window.__lenis.scrollTo(0, { immediate: true });
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [pathname]);
+
   return (
     <>
       <CustomCursor />
