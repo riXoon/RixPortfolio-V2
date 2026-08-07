@@ -53,7 +53,7 @@ const AchievementSlide = ({ item }) => (
   <div className="w-full flex flex-col">
 
     {/* ── Top: Landscape Image ── */}
-    <div className="relative w-full h-[220px] sm:h-[260px] shrink-0 overflow-hidden">
+    <div className="relative w-full h-[320px] sm:h-[400px] lg:h-[440px] shrink-0 overflow-hidden">
       {/* Bottom fade into card body */}
       <div className="absolute inset-0 bg-gradient-to-t from-[#130F1E] via-[#130F1E]/20 to-transparent z-10 pointer-events-none" />
       {/* Subtle purple tint */}
@@ -220,20 +220,27 @@ const Achievement = () => {
           {/* Floating dots (behind slide) */}
           <FloatingDots />
 
-          {/* Animated slide — relative flow so height is content-driven */}
-          <AnimatePresence custom={direction} mode="popLayout">
-            <motion.div
-              key={current.id}
-              custom={direction}
-              variants={slideVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              className="relative w-full"
-            >
+          {/* Height anchor + animated slide stage */}
+          <div className="relative w-full overflow-hidden">
+            {/* Invisible spacer — stays in flow to give the container its natural height */}
+            <div className="invisible pointer-events-none" aria-hidden="true">
               <AchievementSlide item={current} />
-            </motion.div>
-          </AnimatePresence>
+            </div>
+            {/* Slides animate absolutely over the spacer — no layout shift */}
+            <AnimatePresence custom={direction} mode="sync">
+              <motion.div
+                key={current.id}
+                custom={direction}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                className="absolute inset-0 w-full"
+              >
+                <AchievementSlide item={current} />
+              </motion.div>
+            </AnimatePresence>
+          </div>
 
           {/* Paused pill */}
           <AnimatePresence>

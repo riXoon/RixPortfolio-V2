@@ -30,6 +30,11 @@ import {
   LMSBanner, entriqBanner, furniroBanner, gothamgainsBanner, monitoBanner, picpacBanner, pijinBanner, zaprollBanner, zentryBanner, PARMSBanner, erixonBanner, ctfBanner
 } from '../assets/banners';
 
+// Achievements
+import {
+  ach01, ach02, ach03,
+} from '../assets/achievements';
+
 // Navigation Links Data
 export const navLinks = [
   { id: 'home', title: 'HOME', },
@@ -47,31 +52,24 @@ export const navLinks = [
 export const AchievementData = [
   {
     id: 1,
-    image: LMSBanner,
-    title: 'Best Capstone Project Award',
-    description: 'Awarded Best Capstone Project for developing a Learning Management System (LMS) that streamlines academic workflows for Quezon City University faculty and students.',
-    date: '2024',
+    image: ach01,
+    title: 'Stellar Philippines Hackathon 2026 Champion',
+    description: 'Placed first at Stellar Philippines Hackathon 2026 by developing an innovative financial technology solution that enables digital transactions in areas with limited to no internet connectivity. This initiative bridges the accessibility gap by bringing reliable digital payment capabilities to rural barangays and remote communities.', 
+    date: '2026',
   },
   {
     id: 2,
-    image: ctfBanner,
-    title: 'CTF Competition — Top Finisher',
-    description: 'Placed in the top rankings at a national Capture The Flag competition, demonstrating expertise in Web Exploitation, Cryptography, and OSINT under the handle Senec4.',
-    date: '2024',
+    image: ach02,
+    title: 'APAC Stellar Hackathon Philippines Demo Day Top 10 Finalists',
+    description: 'Recognized for advancing to the APAC Stellar Hackathon Grand Finale, advancing to compete for a share of the $60,000 APAC Prize Pool',
+    date: '2026',
   },
   {
     id: 3,
-    image: erixonBanner,
-    title: 'Frontend Developer Recognition',
-    description: 'Recognized for outstanding contributions to open-source frontend development, building production-grade applications with modern React and MERN stack technologies.',
-    date: '2025',
-  },
-  {
-    id: 4,
-    image: PARMSBanner,
-    title: 'Hackathon Finalist',
-    description: 'Reached the finals of a university-level hackathon, delivering a full-stack solution within 24 hours that addressed real-world cybersecurity challenges.',
-    date: '2025',
+    image: ach03,
+    title: 'APAC Stellar Hackathon Local & Finance Track 3rd Placer',
+    description: 'Awarded 3rd Place in the Local & Finance Track at the APAC Stellar Hackathon. This recognition highlights the innovative potential of the developed solution within the competitive fintech landscape.',
+    date: '2026',
   },
 ];
 
