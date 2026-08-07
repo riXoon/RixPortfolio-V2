@@ -1,37 +1,21 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 
 const CustomCursor = () => {
-  // Determine device capabilities BEFORE any state/hooks that depend on rendering.
-  // Moving this check to a useMemo ensures it runs once on mount and respects
-  // React's rules-of-hooks (no conditional hook calls below a return).
-  const shouldHideCursor = useMemo(() => {
-    if (typeof window === 'undefined') return true;
-    const isTouch = window.matchMedia('(pointer: coarse)').matches;
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    // Only skip the custom cursor on true single-core devices (essentially none in modern browsers).
-    // The old threshold of < 4 was hiding the cursor for dual-core and quad-core machines,
-    // which are extremely common among real visitors.
-    const isLowEnd = navigator.hardwareConcurrency != null && navigator.hardwareConcurrency < 2;
-    return isTouch || prefersReducedMotion || isLowEnd;
-  }, []);
-
   const [isVisible, setIsVisible] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
   const [hoverScale, setHoverScale] = useState(4.5);
 
-  // Position for the small, immediate inner block
+  // Position for the small, immediate inner dot
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
 
-  // Spring physics for the outer trailing brackets
+  // Spring physics for the outer trailing rings
   const springConfig = { damping: 25, stiffness: 150, mass: 0.5 };
   const cursorXSpring = useSpring(cursorX, springConfig);
   const cursorYSpring = useSpring(cursorY, springConfig);
 
   useEffect(() => {
-    if (shouldHideCursor) return;
-
     const moveCursor = (e) => {
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
@@ -44,12 +28,9 @@ const CustomCursor = () => {
         'a, button, img, p, h1, h2, h3, h4, h5, h6, span, li, .cursor-pointer'
       );
 
-      // Removed expensive isElementVisible and getComputedStyle checks to eliminate layout thrashing
       if (interestingElement) {
         setIsHovering(true);
         const tagName = interestingElement.tagName.toLowerCase();
-        
-        // Simple heuristic for hover scale instead of reading computed font-size
         if (['h1', 'h2', 'h3'].includes(tagName)) {
           setHoverScale(8);
         } else if (tagName === 'img') {
@@ -75,13 +56,7 @@ const CustomCursor = () => {
       document.body.removeEventListener('mouseleave', handleMouseLeave);
       document.body.removeEventListener('mouseenter', handleMouseEnter);
     };
-  }, [cursorX, cursorY, isVisible, shouldHideCursor]);
-
-  // If running on a touch device, prefer-reduced-motion, or true single-core device,
-  // don't render the custom cursor element.
-  if (shouldHideCursor) {
-    return null;
-  }
+  }, [cursorX, cursorY, isVisible]);
 
   return (
     <>
@@ -154,4 +129,3 @@ const CustomCursor = () => {
 };
 
 export default CustomCursor;
-
