@@ -3,14 +3,18 @@ import { useEffect } from 'react'
 
 const useLenisScroll = () => {
   useEffect(() => {
-    // Check for low-end device, mobile device, or user preference for reduced motion
+    // Only skip Lenis for users who have explicitly asked for reduced motion.
+    // Do NOT gate on hardwareConcurrency or window width — those thresholds
+    // were incorrectly blocking smooth scroll for many real desktop/laptop users
+    // (any machine with ≤3 logical cores was getting a no-op stub).
+    // Touch/mobile devices naturally don't need Lenis because they use native
+    // momentum scrolling, and the pointer: coarse check below handles that.
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const isMobile = window.innerWidth < 768;
-    const isLowEnd = navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4;
+    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
 
-    if (prefersReducedMotion || isMobile || isLowEnd) {
+    if (prefersReducedMotion || isTouchDevice) {
       // Provide a dummy window.__lenis so other components don't crash when calling .stop() or .start()
-      window.__lenis = { stop: () => {}, start: () => {}, destroy: () => {}, raf: () => {} };
+      window.__lenis = { stop: () => {}, start: () => {}, destroy: () => {}, raf: () => {}, scrollTo: () => {} };
       return;
     }
 
