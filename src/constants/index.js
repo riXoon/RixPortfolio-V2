@@ -723,8 +723,8 @@ export const TestimonialData = [
   {
     profile: yensydProfile,
     name: "Yensyd Francisco",
-    role: "Technical Implementation Specialist",
-    testimonial: "Erick is a progressive programmer and a potential leader. I have witnessed his growth through various events that will make him successful one day."
+    role: "Offensive Security Engineer",
+    testimonial: "Erickson is an awesome guy to have in your corner during a CTF. He took complete ownership of the challenges he chose, kept communication effortless, and wasn't shy about throwing out ideas. Super dependable, easygoing, and a genuine team player. "
   },
   {
     profile: frivsProfile,
