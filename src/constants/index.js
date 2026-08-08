@@ -13,7 +13,7 @@ import {
 
 // Certification Imports
 import {
-  cert01, cert02, cert03, cert04, cert05, cert06, cert07, cert08, cert09, cert10, cert11, cert12, cert13, cert15, cert16, cert17, cert18, cert19, cert20, cert21, cert22, cert23, cert24, cert25
+  cert01, cert02, cert03, cert04, cert05, cert06, cert07, cert08, cert09, cert10, cert11, cert12, cert13, cert15, cert16, cert17, cert18, cert19, cert20, cert21, cert22, cert23, cert24, cert25, cert26, cert27
 } from '../assets/certifications';
 
 // Profile Imports
@@ -237,7 +237,8 @@ export const ExpertiseData = [
           { src: cert06, title: 'API Penetration Testing', issuer: 'APIsec University', date: 'June 2025', category: 'Cybersecurity', description: 'Practical API penetration testing methodologies.' },
           { src: cert07, title: 'API Security Fundamentals', issuer: 'APIsec University', date: 'June 2025', category: 'Cybersecurity', description: 'Core concepts of securing modern APIs.' },
           { src: cert08, title: 'Datacamp Top #5 Scholar', issuer: 'AWSCC - QCU', date: 'June 2026', category: 'Student Builder', description: 'Placing 5th in datacamp leaderboard of AWSCC - QCU.' },
-          { src: cert25, title: 'APAC Stellar Hackathon Demo Day Top 10 Finalists', issuer: 'Stellar Philippines', date: 'July 2026', category: 'Student Builder', description: 'Winnig as Top 10 Finalists to compete internationally for APAC Stellar Hackathon 2026' },
+          { src: cert25, title: 'APAC Stellar Hackathon Demo Day Top 10 Finalists', issuer: 'Stellar Philippines', date: 'July 2026', category: 'Student Builder', description: 'Winning as Top 10 Finalists to compete internationally for APAC Stellar Hackathon 2026' },
+          { src: cert26, title: 'Swimmer OSINT CTF 2026', issuer: 'Diver OSINT CTF', date: 'January 2026', category: 'Capture the Flag', description: 'Certificate of Participation for ranking 186th out of 688 teams in SWIMMER OSINT CTF 2026, an international cybersecurity competition that focuses on Open Source Intelligence' },
         ],
         images02: [
           { src: cert12, title: 'Cybersecure U', issuer: 'AWSCC - QCU', date: 'October 2025', category: 'Seminars/Webinars', description: 'Foundations of digital hygiene and cybersecurity.' },
@@ -250,7 +251,8 @@ export const ExpertiseData = [
           { src: cert21, title: 'Responsive Web Design', issuer: 'SoloLearn', date: 'August 2022', category: 'Student Builder', description: 'Learned principles of responsive web design on SoloLearn.' },
           { src: cert22, title: 'SEEN 2025', issuer: 'Google Developers on Campus PUP', date: 'August 2025', category: 'Capture the Flag', description: 'Certificate of Participation for SEEN2025 CTF Competition' },
           { src: cert23, title: 'HTB Meetup 2', issuer: 'CyberWirez', date: 'August 2025', category: 'Seminars/Webinars', description: 'Certificate of Attendance for HTB Meetup 2' },
-          { src: cert24, title: 'Free Coding Bootcamp: Data Visualization', issuer: 'Zuitt', date: 'November 2025', category: 'Seminars/Webinars', description: 'Certificate of Attendance Data Visualization seminar' }
+          { src: cert24, title: 'Free Coding Bootcamp: Data Visualization', issuer: 'Zuitt', date: 'November 2025', category: 'Seminars/Webinars', description: 'Certificate of Attendance Data Visualization seminar' },
+          { src: cert27, title: 'Diver OSINT CTF 2026', issuer: 'Diver OSINT CTF', date: 'July 2025', category: 'Capture the Flag', description: 'Certificate of Participation for placing 171st out of 867 teams in DIVER OSINT CTF 2026.' },
         ]
       }
     ]
