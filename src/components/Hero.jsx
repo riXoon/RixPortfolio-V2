@@ -149,7 +149,8 @@ const Hero = () => {
                       <div className="absolute top-full mt-2 left-0 w-48 bg-[#1a1435] border border-[#412F84] rounded-md shadow-lg overflow-hidden z-50">
                         <a 
                           href="/Developer_CV.pdf" 
-                          download="Developer_CV.pdf"
+                          target="_blank"
+                          rel="noopener noreferrer"
                           className="block px-4 py-3 text-sm text-white hover:bg-[#412F84]/30 transition-colors"
                         >
                           Developer CV
@@ -157,7 +158,8 @@ const Hero = () => {
                         <div className="h-[1px] bg-[#412F84]/50 w-full"></div>
                         <a 
                           href="/Cybersecurity_CV.pdf" 
-                          download="Cybersecurity_CV.pdf"
+                          target="_blank"
+                          rel="noopener noreferrer"
                           className="block px-4 py-3 text-sm text-white hover:bg-[#412F84]/30 transition-colors"
                         >
                           Cybersecurity CV
