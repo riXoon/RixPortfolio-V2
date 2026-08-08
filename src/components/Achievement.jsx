@@ -16,7 +16,7 @@ const slideVariants = {
   exit: (dir) => ({
     x: dir > 0 ? '-100%' : '100%',
     opacity: 0,
-    transition: { duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] },
   }),
 };
 
@@ -227,7 +227,7 @@ const Achievement = () => {
               <AchievementSlide item={current} />
             </div>
             {/* Slides animate absolutely over the spacer — no layout shift */}
-            <AnimatePresence custom={direction} mode="sync">
+            <AnimatePresence custom={direction} mode="wait">
               <motion.div
                 key={current.id}
                 custom={direction}
