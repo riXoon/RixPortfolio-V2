@@ -49,8 +49,8 @@ const Education = () => {
                   <h1 className='uppercase text-white font-black text-[2.8rem] lg:text-[6rem] whitespace-nowrap leading-none text-center' id='scroll-animation-11'>Education</h1>
                 </TerminalOutput>
                 <TerminalOutput visible={headerDone} delay={200}>
-                  <SfhsEducation />
                   <QcuEducation />
+                  <SfhsEducation />
                 </TerminalOutput>
               </div>
             </div>
