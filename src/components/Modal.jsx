@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import Button from './Button';
 
+let hasShownModal = false;
+
 const Modal = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
+    if (hasShownModal) return;
+
     const timer = setTimeout(() => {
       setIsOpen(true);
+      hasShownModal = true;
     }, 2500);
 
     return () => clearTimeout(timer);

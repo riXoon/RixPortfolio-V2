@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import useLenisScroll from './hooks/useLenisScroll';
 import { Outlet, useLocation } from 'react-router-dom';
 import CustomCursor from './components/CustomCursor';
+import ScrollToTopButton from './components/ScrollToTopButton';
 import { Analytics } from '@vercel/analytics/react';
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
   return (
     <>
       <CustomCursor />
+      <ScrollToTopButton />
       <Outlet />
       <Analytics />
     </>
