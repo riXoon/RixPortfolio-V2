@@ -32,7 +32,7 @@ import {
 
 // Achievements
 import {
-  ach01, ach02, ach03,
+  ach01, ach02, ach03, ach04
 } from '../assets/achievements';
 
 // Navigation Links Data
@@ -52,25 +52,33 @@ export const navLinks = [
 export const AchievementData = [
   {
     id: 1,
+    image: ach04,
+    title: 'NYX Design IT Champion',
+    description: 'Placed 1st on NYX Design IT: A group web design competition held by League of Excellence Students in Information Technology (LESIT).',
+    date: '2025',
+  },
+  {
+    id: 2,
     image: ach01,
     title: 'Stellar Philippines Hackathon 2026 Champion',
     description: 'Placed first at Stellar Philippines Hackathon 2026 by developing an innovative financial technology solution that enables digital transactions in areas with limited to no internet connectivity. This initiative bridges the accessibility gap by bringing reliable digital payment capabilities to rural barangays and remote communities.', 
     date: '2026',
   },
   {
-    id: 2,
+    id: 3,
     image: ach02,
     title: 'APAC Stellar Hackathon Philippines Demo Day Top 10 Finalists',
     description: 'Recognized for advancing to the APAC Stellar Hackathon Grand Finale, advancing to compete for a share of the $60,000 APAC Prize Pool',
     date: '2026',
   },
   {
-    id: 3,
+    id: 4,
     image: ach03,
     title: 'APAC Stellar Hackathon Local & Finance Track 3rd Placer',
     description: 'Awarded 3rd Place in the Local & Finance Track at the APAC Stellar Hackathon. This recognition highlights the innovative potential of the developed solution within the competitive fintech landscape.',
     date: '2026',
   },
+  
 ];
 
 // Socials Data
