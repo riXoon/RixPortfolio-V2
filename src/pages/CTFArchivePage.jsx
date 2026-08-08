@@ -5,7 +5,7 @@ import { FMlogo, grid01, glow07 } from '../assets';
 import { Link, useSearchParams } from 'react-router-dom';
 import GitBookRenderer from '../components/GitBookRenderer';
 import SEO from '../components/SEO';
-import { FiMenu, FiX, FiChevronRight, FiChevronDown, FiFile, FiFileText } from 'react-icons/fi';
+import { FiMenu, FiX, FiChevronRight, FiChevronLeft, FiChevronDown, FiFile, FiFileText } from 'react-icons/fi';
 import {
   FiGlobe,
   FiLock,
@@ -416,18 +416,25 @@ const CTFArchivePage = () => {
     fetchPage();
   }, [activePageId]);
 
-  // Derive the active page title for the header breadcrumb
-  const activePageTitle = (() => {
-    if (!activePageId || toc.length === 0) return null;
-    for (const section of toc) {
-      if (section.id === activePageId) return section.title;
-      if (section.pages) {
-        const child = section.pages.find(p => p.id === activePageId);
-        if (child) return child.title;
+  // Flatten pages for navigation and title derivation
+  const flattenPages = (pages) => {
+    let flat = [];
+    if (!pages) return flat;
+    for (const p of pages) {
+      flat.push({ id: p.id, title: p.title });
+      if (p.pages && p.pages.length > 0) {
+        flat = flat.concat(flattenPages(p.pages));
       }
     }
-    return null;
-  })();
+    return flat;
+  };
+
+  const flatPages = flattenPages(toc);
+  const currentPageIndex = flatPages.findIndex(p => p.id === activePageId);
+  const prevPage = currentPageIndex > 0 ? flatPages[currentPageIndex - 1] : null;
+  const nextPage = currentPageIndex !== -1 && currentPageIndex < flatPages.length - 1 ? flatPages[currentPageIndex + 1] : null;
+
+  const activePageTitle = currentPageIndex !== -1 ? flatPages[currentPageIndex].title : null;
 
   const activeChallengeType = getChallengeType(activePageTitle || '');
 
@@ -692,6 +699,57 @@ const CTFArchivePage = () => {
 
                   {/* ── Page Document Content ── */}
                   <GitBookRenderer document={documentContent} filesMap={filesMap} />
+                  
+                  {/* ── Page Navigation ── */}
+                  <div className="mt-16 pt-10 border-t border-[#3B2B6A]/30 flex flex-col sm:flex-row gap-6 justify-between items-stretch relative z-10">
+                    {prevPage ? (
+                      <button
+                        onClick={() => handleSelectPage(prevPage.id)}
+                        className="group relative flex-1 flex items-center gap-4 p-5 rounded-2xl bg-[#130F1C]/60 hover:bg-[#1A1625]/90 border border-[#3B2B6A]/40 hover:border-[#9B72EF]/60 hover:-translate-y-1 hover:shadow-[0_8px_32px_rgba(123,79,208,0.25)] transition-all duration-300 overflow-hidden text-left shadow-lg"
+                      >
+                        {/* Hover Gradient Background */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-[#9B72EF]/15 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                        
+                        {/* Icon Container */}
+                        <div className="flex-shrink-0 w-12 h-12 rounded-full bg-[#2D2046]/50 group-hover:bg-[#9B72EF]/20 flex items-center justify-center transition-all duration-300 border border-transparent group-hover:border-[#9B72EF]/40 group-hover:scale-110">
+                          <FiChevronLeft className="text-[#9B72EF] opacity-70 group-hover:opacity-100 group-hover:-translate-x-1 group-hover:scale-110 transition-all duration-300" size={24} />
+                        </div>
+                        
+                        <div className="flex flex-col relative z-10">
+                          <span className="text-[10px] text-[#9B72EF]/70 group-hover:text-[#9B72EF] font-mono uppercase tracking-widest mb-1.5 flex items-center gap-2 transition-colors duration-300">
+                            <span className="w-3 h-px bg-[#9B72EF]/40 group-hover:bg-[#9B72EF]" /> Previous
+                          </span>
+                          <span className="!text-[#E2E8F0] text-sm md:text-base font-bold group-hover:!text-white group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.4)] transition-all duration-300 line-clamp-1">{prevPage.title}</span>
+                        </div>
+                      </button>
+                    ) : (
+                      <div className="hidden sm:block flex-1" />
+                    )}
+
+                    {nextPage ? (
+                      <button
+                        onClick={() => handleSelectPage(nextPage.id)}
+                        className="group relative flex-1 flex items-center justify-end gap-4 p-5 rounded-2xl bg-[#130F1C]/60 hover:bg-[#1A1625]/90 border border-[#3B2B6A]/40 hover:border-[#9B72EF]/60 hover:-translate-y-1 hover:shadow-[0_8px_32px_rgba(123,79,208,0.25)] transition-all duration-300 overflow-hidden text-right shadow-lg"
+                      >
+                        {/* Hover Gradient Background */}
+                        <div className="absolute inset-0 bg-gradient-to-l from-[#9B72EF]/15 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                        
+                        <div className="flex flex-col relative z-10 items-end">
+                          <span className="text-[10px] text-[#9B72EF]/70 group-hover:text-[#9B72EF] font-mono uppercase tracking-widest mb-1.5 flex items-center gap-2 transition-colors duration-300">
+                            Next <span className="w-3 h-px bg-[#9B72EF]/40 group-hover:bg-[#9B72EF]" />
+                          </span>
+                          <span className="!text-[#E2E8F0] text-sm md:text-base font-bold group-hover:!text-white group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.4)] transition-all duration-300 line-clamp-1">{nextPage.title}</span>
+                        </div>
+
+                        {/* Icon Container */}
+                        <div className="flex-shrink-0 w-12 h-12 rounded-full bg-[#2D2046]/50 group-hover:bg-[#9B72EF]/20 flex items-center justify-center transition-all duration-300 border border-transparent group-hover:border-[#9B72EF]/40 group-hover:scale-110">
+                          <FiChevronRight className="text-[#9B72EF] opacity-70 group-hover:opacity-100 group-hover:translate-x-1 group-hover:scale-110 transition-all duration-300" size={24} />
+                        </div>
+                      </button>
+                    ) : (
+                      <div className="hidden sm:block flex-1" />
+                    )}
+                  </div>
                 </div>
               )}
             </motion.div>
