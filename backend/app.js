@@ -1,16 +1,22 @@
 import express from "express";
 import { PORT } from "./config/env.js";
+import cors from 'cors'
 
 import supabase from './config/supabase.js'
 
 import authRoutes from './routes/auth.route.js'
+import projectRoutes from './routes/project.route.js'
+
 
 const app = express();
 
 //middleware
 app.use(express.json())
-
+app.use(cors({
+    origin: ['http://localhost:5173']
+}))
 app.use('/api/v1/auth', authRoutes)
+app.use('/api/v1/projects', projectRoutes)
 
 app.get("/", (req, res) => {
   res.send("Hello World");
