@@ -6,6 +6,8 @@ import {
   FiStar, 
   FiBriefcase, 
   FiMessageSquare, 
+  FiMessageCircle,
+  FiFlag,
   FiLogOut 
 } from 'react-icons/fi';
 
@@ -23,6 +25,8 @@ const AdminLayout = () => {
     { name: 'Certificates', path: '/admin/certificates', icon: FiAward },
     { name: 'Skills', path: '/admin/skills', icon: FiStar },
     { name: 'Experiences', path: '/admin/experiences', icon: FiBriefcase },
+    { name: 'Testimonials', path: '/admin/testimonials', icon: FiMessageCircle },
+    { name: 'Achievements', path: '/admin/achievements', icon: FiFlag },
     { name: 'Messages', path: '/admin/messages', icon: FiMessageSquare },
   ];
 

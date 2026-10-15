@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import apiClient from '../../api/client';
-import { FiPlus, FiEdit2, FiTrash2, FiX, FiAward } from 'react-icons/fi';
+import AdminModal from '../../components/admin/AdminModal';
+import { FiPlus, FiEdit2, FiTrash2, FiAward } from 'react-icons/fi';
+
+const CATEGORIES = ['Cybersecurity', 'Capture the Flag', 'Student Builder', 'Seminars/Webinars', 'Other'];
+const TEXT_FIELDS = ['title', 'issuer', 'date', 'category', 'description', 'link', 'sort_order'];
+const EMPTY_FORM = { title: '', issuer: '', date: '', category: CATEGORIES[0], description: '', link: '', sort_order: '' };
+const inputCls = 'w-full bg-[#0C0A12] border border-white/10 rounded-lg px-4 py-2 outline-none focus:border-[#9B72EF]';
 
 const CertificatesAdmin = () => {
   const [certificates, setCertificates] = useState([]);
@@ -10,7 +16,7 @@ const CertificatesAdmin = () => {
   const [currentId, setCurrentId] = useState(null);
   const [saving, setSaving] = useState(false);
   
-  const [formData, setFormData] = useState({ title: '', issuer: '', date: '' });
+  const [formData, setFormData] = useState(EMPTY_FORM);
   const [imageFile, setImageFile] = useState(null);
 
   const fetchCertificates = async () => {
@@ -31,11 +37,13 @@ const CertificatesAdmin = () => {
     if (cert) {
       setIsEditing(true);
       setCurrentId(cert.id);
-      setFormData({ title: cert.title || '', issuer: cert.issuer || '', date: cert.date || '' });
+      const form = { ...EMPTY_FORM };
+      TEXT_FIELDS.forEach(k => { if (cert[k] != null) form[k] = cert[k]; });
+      setFormData(form);
     } else {
       setIsEditing(false);
       setCurrentId(null);
-      setFormData({ title: '', issuer: '', date: '' });
+      setFormData(EMPTY_FORM);
     }
     setImageFile(null);
     setIsModalOpen(true);
@@ -46,9 +54,7 @@ const CertificatesAdmin = () => {
     setSaving(true);
     try {
       const payload = new FormData();
-      payload.append('title', formData.title);
-      payload.append('issuer', formData.issuer);
-      if (formData.date) payload.append('date', formData.date);
+      TEXT_FIELDS.forEach(k => payload.append(k, formData[k]));
       if (imageFile) payload.append('image', imageFile);
 
       if (isEditing) {
@@ -107,20 +113,14 @@ const CertificatesAdmin = () => {
             <div className="p-5">
               <h3 className="text-lg font-bold mb-1">{cert.title}</h3>
               <p className="text-[#9B72EF] text-sm mb-2">{cert.issuer}</p>
-              {cert.date && <p className="text-gray-500 text-xs">{new Date(cert.date).toLocaleDateString()}</p>}
+              <p className="text-gray-500 text-xs">{[cert.category, cert.date].filter(Boolean).join(' · ')}</p>
             </div>
           </div>
         ))}
       </div>
 
-      {isModalOpen && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-[#1A1825] border border-white/10 rounded-2xl w-full max-w-md p-6">
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold">{isEditing ? 'Edit Certificate' : 'New Certificate'}</h2>
-              <button onClick={() => setIsModalOpen(false)} className="text-gray-400 hover:text-white"><FiX size={24} /></button>
-            </div>
-            <form onSubmit={handleSubmit} className="space-y-4">
+      <AdminModal open={isModalOpen} title={isEditing ? 'Edit Certificate' : 'New Certificate'} onClose={() => setIsModalOpen(false)} maxWidth="max-w-md">
+        <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="block text-sm text-gray-400 mb-1">Title *</label>
                 <input type="text" required value={formData.title} onChange={e => setFormData({...formData, title: e.target.value})} className="w-full bg-[#0C0A12] border border-white/10 rounded-lg px-4 py-2 outline-none focus:border-[#9B72EF]" />
@@ -129,9 +129,31 @@ const CertificatesAdmin = () => {
                 <label className="block text-sm text-gray-400 mb-1">Issuer *</label>
                 <input type="text" required value={formData.issuer} onChange={e => setFormData({...formData, issuer: e.target.value})} className="w-full bg-[#0C0A12] border border-white/10 rounded-lg px-4 py-2 outline-none focus:border-[#9B72EF]" />
               </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm text-gray-400 mb-1">Date</label>
+                  <input type="text" value={formData.date} placeholder="December 2025" onChange={e => setFormData({...formData, date: e.target.value})} className={inputCls} />
+                </div>
+                <div>
+                  <label className="block text-sm text-gray-400 mb-1">Category</label>
+                  <select value={formData.category} onChange={e => setFormData({...formData, category: e.target.value})} className={inputCls}>
+                    {CATEGORIES.map(c => <option key={c}>{c}</option>)}
+                  </select>
+                </div>
+              </div>
               <div>
-                <label className="block text-sm text-gray-400 mb-1">Date</label>
-                <input type="date" value={formData.date} onChange={e => setFormData({...formData, date: e.target.value})} className="w-full bg-[#0C0A12] border border-white/10 rounded-lg px-4 py-2 outline-none focus:border-[#9B72EF]" />
+                <label className="block text-sm text-gray-400 mb-1">Description</label>
+                <textarea rows="3" value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})} className={inputCls}></textarea>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm text-gray-400 mb-1">Credential link</label>
+                  <input type="url" value={formData.link} onChange={e => setFormData({...formData, link: e.target.value})} className={inputCls} />
+                </div>
+                <div>
+                  <label className="block text-sm text-gray-400 mb-1">Sort order (lower = first)</label>
+                  <input type="number" value={formData.sort_order} onChange={e => setFormData({...formData, sort_order: e.target.value})} className={inputCls} />
+                </div>
               </div>
               <div>
                 <label className="block text-sm text-gray-400 mb-1">Image</label>
@@ -142,9 +164,7 @@ const CertificatesAdmin = () => {
                 <button type="submit" disabled={saving} className="bg-[#9B72EF] hover:bg-[#8A5FD0] px-6 py-2 rounded-lg text-white font-medium">{saving ? 'Saving...' : 'Save'}</button>
               </div>
             </form>
-          </div>
-        </div>
-      )}
+      </AdminModal>
     </div>
   );
 };

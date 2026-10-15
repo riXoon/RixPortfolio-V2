@@ -1,6 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import apiClient from '../../api/client';
-import { FiPlus, FiEdit2, FiTrash2, FiX, FiImage, FiExternalLink, FiGithub } from 'react-icons/fi';
+import AdminModal from '../../components/admin/AdminModal';
+import { FiPlus, FiEdit2, FiTrash2, FiImage, FiExternalLink, FiGithub } from 'react-icons/fi';
+
+const ARRAY_FIELDS = ['roles', 'category', 'tools'];
+const TEXT_FIELDS = ['title', 'slug', 'type', 'page_status', 'status', 'date_label',
+  'summary', 'description', 'content', 'site_link', 'repo_link'];
+
+const EMPTY_FORM = {
+  title: '', slug: '', type: 'personal', page_status: 'Done', status: 'Finished',
+  date_label: '', summary: '', description: '', content: '', site_link: '', repo_link: '',
+  roles: '', category: '', tools: '', // comma separated in the UI, sent as JSON arrays
+};
+
+const fromProject = (p) => {
+  const form = { ...EMPTY_FORM };
+  TEXT_FIELDS.forEach(k => { if (p[k] != null) form[k] = p[k]; });
+  ARRAY_FIELDS.forEach(k => { form[k] = Array.isArray(p[k]) ? p[k].join(', ') : ''; });
+  return form;
+};
+
+const inputCls = 'w-full bg-[#0C0A12] border border-white/10 rounded-lg px-4 py-2 focus:border-[#9B72EF] outline-none';
+
+const toArray =(s) => s.split(',').map(t => t.trim()).filter(Boolean);
 
 const ProjectsAdmin = () => {
   const [projects, setProjects] = useState([]);
@@ -14,16 +36,8 @@ const ProjectsAdmin = () => {
   const [saving, setSaving] = useState(false);
   
   // Form State
-  const [formData, setFormData] = useState({
-    title: '',
-    slug: '',
-    type: 'Frontend',
-    summary: '',
-    site_link: '',
-    repo_link: '',
-    tools: '', // We'll handle this as comma-separated in the UI, but send as JSON array
-  });
-  const [thumbnailFile, setThumbnailFile] = useState(null);
+  const [formData, setFormData] = useState(EMPTY_FORM);
+  const [files, setFiles] = useState({ thumbnail: null, poster: null, graphics: [] });
 
   const fetchProjects = async () => {
     try {
@@ -45,23 +59,13 @@ const ProjectsAdmin = () => {
     if (project) {
       setIsEditing(true);
       setCurrentId(project.id);
-      setFormData({
-        title: project.title || '',
-        slug: project.slug || '',
-        type: project.type || 'Frontend',
-        summary: project.summary || '',
-        site_link: project.site_link || '',
-        repo_link: project.repo_link || '',
-        tools: Array.isArray(project.tools) ? project.tools.join(', ') : '',
-      });
+      setFormData(fromProject(project));
     } else {
       setIsEditing(false);
       setCurrentId(null);
-      setFormData({
-        title: '', slug: '', type: 'Frontend', summary: '', site_link: '', repo_link: '', tools: ''
-      });
+      setFormData(EMPTY_FORM);
     }
-    setThumbnailFile(null);
+    setFiles({ thumbnail: null, poster: null, graphics: [] });
     setIsModalOpen(true);
   };
 
@@ -73,8 +77,11 @@ const ProjectsAdmin = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleFileChange = (e) => {
-    setThumbnailFile(e.target.files[0]);
+  const handleFileChange = (field) => (e) => {
+    setFiles(prev => ({
+      ...prev,
+      [field]: field === 'graphics' ? Array.from(e.target.files) : e.target.files[0] || null,
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -84,20 +91,12 @@ const ProjectsAdmin = () => {
     try {
       // Because we have files, we MUST use FormData
       const payload = new FormData();
-      payload.append('title', formData.title);
-      payload.append('slug', formData.slug);
-      payload.append('type', formData.type);
-      payload.append('summary', formData.summary);
-      payload.append('site_link', formData.site_link);
-      payload.append('repo_link', formData.repo_link);
-      
-      // Convert tools comma separated string to JSON array
-      const toolsArray = formData.tools.split(',').map(t => t.trim()).filter(Boolean);
-      payload.append('tools', JSON.stringify(toolsArray));
+      TEXT_FIELDS.forEach(k => payload.append(k, formData[k]));
+      ARRAY_FIELDS.forEach(k => payload.append(k, JSON.stringify(toArray(formData[k]))));
 
-      if (thumbnailFile) {
-        payload.append('thumbnail', thumbnailFile);
-      }
+      if (files.thumbnail) payload.append('thumbnail', files.thumbnail);
+      if (files.poster) payload.append('poster', files.poster);
+      files.graphics.forEach(f => payload.append('graphics', f));
 
       if (isEditing) {
         await apiClient.put(`/projects/${currentId}`, payload, {
@@ -200,17 +199,8 @@ const ProjectsAdmin = () => {
       </div>
 
       {/* CREATE / EDIT MODAL */}
-      {isModalOpen && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-[#1A1825] border border-white/10 rounded-2xl w-full max-w-2xl my-8">
-            <div className="flex justify-between items-center p-6 border-b border-white/5">
-              <h2 className="text-2xl font-bold">{isEditing ? 'Edit Project' : 'New Project'}</h2>
-              <button onClick={closeModal} className="text-gray-400 hover:text-white transition-colors">
-                <FiX size={24} />
-              </button>
-            </div>
-            
-            <form onSubmit={handleSubmit} className="p-6 space-y-4">
+      <AdminModal open={isModalOpen} title={isEditing ? 'Edit Project' : 'New Project'} onClose={closeModal} maxWidth="max-w-2xl">
+        <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm text-gray-400 mb-1">Title *</label>
@@ -227,14 +217,61 @@ const ProjectsAdmin = () => {
                 <textarea name="summary" rows="2" value={formData.summary} onChange={handleInputChange} className="w-full bg-[#0C0A12] border border-white/10 rounded-lg px-4 py-2 focus:border-[#9B72EF] outline-none"></textarea>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm text-gray-400 mb-1">Description (shown on the project card)</label>
+                <textarea name="description" rows="3" value={formData.description} onChange={handleInputChange} className={inputCls}></textarea>
+              </div>
+
+              <div>
+                <label className="block text-sm text-gray-400 mb-1">Content (shown on the project page)</label>
+                <textarea name="content" rows="4" value={formData.content} onChange={handleInputChange} className={inputCls}></textarea>
+              </div>
+
+              <div className="grid grid-cols-3 gap-4">
                 <div>
                   <label className="block text-sm text-gray-400 mb-1">Project Type</label>
-                  <input type="text" name="type" value={formData.type} onChange={handleInputChange} className="w-full bg-[#0C0A12] border border-white/10 rounded-lg px-4 py-2 focus:border-[#9B72EF] outline-none" />
+                  <select name="type" value={formData.type} onChange={handleInputChange} className={inputCls}>
+                    <option value="special">Special</option>
+                    <option value="school">School</option>
+                    <option value="personal">Personal</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm text-gray-400 mb-1">Status</label>
+                  <select name="status" value={formData.status} onChange={handleInputChange} className={inputCls}>
+                    <option>Finished</option>
+                    <option>Work in progress</option>
+                    <option>Discontinued/On-hold</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm text-gray-400 mb-1">Page status</label>
+                  <select name="page_status" value={formData.page_status} onChange={handleInputChange} className={inputCls}>
+                    <option>Done</option>
+                    <option>In progress</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm text-gray-400 mb-1">Date label</label>
+                  <input type="text" name="date_label" value={formData.date_label} onChange={handleInputChange} placeholder="March 2026" className={inputCls} />
+                </div>
+                <div>
+                  <label className="block text-sm text-gray-400 mb-1">Roles (comma separated)</label>
+                  <input type="text" name="roles" value={formData.roles} onChange={handleInputChange} placeholder="Frontend Developer, UI/UX Designer" className={inputCls} />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm text-gray-400 mb-1">Categories (comma separated)</label>
+                  <input type="text" name="category" value={formData.category} onChange={handleInputChange} placeholder="Fullstack Project, Team Project" className={inputCls} />
                 </div>
                 <div>
                   <label className="block text-sm text-gray-400 mb-1">Tools (comma separated)</label>
-                  <input type="text" name="tools" value={formData.tools} onChange={handleInputChange} placeholder="React, Node, Supabase" className="w-full bg-[#0C0A12] border border-white/10 rounded-lg px-4 py-2 focus:border-[#9B72EF] outline-none" />
+                  <input type="text" name="tools" value={formData.tools} onChange={handleInputChange} placeholder="ReactJS, NodeJS, Tailwind CSS" className={inputCls} />
                 </div>
               </div>
 
@@ -249,10 +286,17 @@ const ProjectsAdmin = () => {
                 </div>
               </div>
 
-              <div>
-                <label className="block text-sm text-gray-400 mb-1">Thumbnail Image</label>
-                <input type="file" accept="image/*" onChange={handleFileChange} className="w-full bg-[#0C0A12] border border-white/10 rounded-lg px-4 py-2 text-sm file:mr-4 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-sm file:bg-[#9B72EF]/20 file:text-[#9B72EF] hover:file:bg-[#9B72EF]/30" />
-              </div>
+              {[
+                ['thumbnail', 'Thumbnail image (card)', false],
+                ['poster', 'Poster / banner image (project page background)', false],
+                ['graphics', 'Graphics image (project page main visual — first one is shown)', true],
+              ].map(([field, label, multiple]) => (
+                <div key={field}>
+                  <label className="block text-sm text-gray-400 mb-1">{label}</label>
+                  <input type="file" accept="image/*" multiple={multiple} onChange={handleFileChange(field)} className={`${inputCls} text-sm file:mr-4 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-sm file:bg-[#9B72EF]/20 file:text-[#9B72EF] hover:file:bg-[#9B72EF]/30`} />
+                </div>
+              ))}
+              {isEditing && <p className="text-xs text-gray-500">Leave images empty to keep the current ones.</p>}
 
               <div className="pt-4 flex justify-end gap-3 border-t border-white/5">
                 <button type="button" onClick={closeModal} className="px-5 py-2 rounded-lg text-gray-400 hover:text-white transition-colors">
@@ -263,9 +307,7 @@ const ProjectsAdmin = () => {
                 </button>
               </div>
             </form>
-          </div>
-        </div>
-      )}
+      </AdminModal>
     </div>
   );
 };

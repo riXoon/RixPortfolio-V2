@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import apiClient from '../../api/client';
-import { FiPlus, FiEdit2, FiTrash2, FiX, FiStar } from 'react-icons/fi';
+import AdminModal from '../../components/admin/AdminModal';
+import { FiPlus, FiEdit2, FiTrash2, FiStar } from 'react-icons/fi';
 
 const SkillsAdmin = () => {
   const [skills, setSkills] = useState([]);
@@ -10,7 +11,7 @@ const SkillsAdmin = () => {
   const [currentId, setCurrentId] = useState(null);
   const [saving, setSaving] = useState(false);
   
-  const [formData, setFormData] = useState({ name: '', category: '', proficiency: 50 });
+  const [formData, setFormData] = useState({ name: '', category: '', sort_order: '' });
   const [iconFile, setIconFile] = useState(null);
 
   const fetchSkills = async () => {
@@ -31,11 +32,11 @@ const SkillsAdmin = () => {
     if (skill) {
       setIsEditing(true);
       setCurrentId(skill.id);
-      setFormData({ name: skill.name || '', category: skill.category || '', proficiency: skill.proficiency || 50 });
+      setFormData({ name: skill.name || '', category: skill.category || '', sort_order: skill.sort_order ?? '' });
     } else {
       setIsEditing(false);
       setCurrentId(null);
-      setFormData({ name: '', category: '', proficiency: 50 });
+      setFormData({ name: '', category: '', sort_order: '' });
     }
     setIconFile(null);
     setIsModalOpen(true);
@@ -48,7 +49,7 @@ const SkillsAdmin = () => {
       const payload = new FormData();
       payload.append('name', formData.name);
       payload.append('category', formData.category);
-      payload.append('proficiency', formData.proficiency);
+      payload.append('sort_order', formData.sort_order);
       if (iconFile) payload.append('icon', iconFile);
 
       if (isEditing) {
@@ -83,7 +84,7 @@ const SkillsAdmin = () => {
       <div className="flex justify-between items-center mb-8">
         <div>
           <h1 className="text-3xl font-bold mb-2">Skills</h1>
-          <p className="text-gray-400">Manage your technical skills and proficiencies.</p>
+          <p className="text-gray-400">Manage the skills shown in the expertise ticker.</p>
         </div>
         <button onClick={() => handleOpenModal()} className="flex items-center gap-2 bg-[#9B72EF] px-5 py-2.5 rounded-lg font-medium hover:bg-[#8A5FD0] transition-colors">
           <FiPlus /> New Skill
@@ -98,7 +99,7 @@ const SkillsAdmin = () => {
               <button onClick={() => handleDelete(skill.id)} className="text-gray-400 hover:text-red-400"><FiTrash2 size={16} /></button>
             </div>
             
-            <div className="flex items-center gap-4 mb-4">
+            <div className="flex items-center gap-4">
               <div className="w-12 h-12 bg-[#0C0A12] rounded-lg flex items-center justify-center p-2">
                 {skill.icon_url ? <img src={skill.icon_url} alt={skill.name} className="w-full h-full object-contain" /> : <FiStar className="text-2xl text-[#9B72EF]" />}
               </div>
@@ -107,28 +108,12 @@ const SkillsAdmin = () => {
                 <span className="text-xs text-gray-500">{skill.category}</span>
               </div>
             </div>
-            
-            <div>
-              <div className="flex justify-between text-xs mb-1">
-                <span className="text-gray-400">Proficiency</span>
-                <span className="text-[#9B72EF]">{skill.proficiency}%</span>
-              </div>
-              <div className="w-full bg-[#0C0A12] rounded-full h-1.5">
-                <div className="bg-gradient-to-r from-[#7B4FD0] to-[#9B72EF] h-1.5 rounded-full" style={{ width: `${skill.proficiency}%` }}></div>
-              </div>
-            </div>
           </div>
         ))}
       </div>
 
-      {isModalOpen && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-[#1A1825] border border-white/10 rounded-2xl w-full max-w-md p-6">
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold">{isEditing ? 'Edit Skill' : 'New Skill'}</h2>
-              <button onClick={() => setIsModalOpen(false)} className="text-gray-400 hover:text-white"><FiX size={24} /></button>
-            </div>
-            <form onSubmit={handleSubmit} className="space-y-4">
+      <AdminModal open={isModalOpen} title={isEditing ? 'Edit Skill' : 'New Skill'} onClose={() => setIsModalOpen(false)} maxWidth="max-w-md">
+        <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="block text-sm text-gray-400 mb-1">Name *</label>
                 <input type="text" required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full bg-[#0C0A12] border border-white/10 rounded-lg px-4 py-2 outline-none focus:border-[#9B72EF]" />
@@ -138,8 +123,8 @@ const SkillsAdmin = () => {
                 <input type="text" value={formData.category} onChange={e => setFormData({...formData, category: e.target.value})} className="w-full bg-[#0C0A12] border border-white/10 rounded-lg px-4 py-2 outline-none focus:border-[#9B72EF]" placeholder="e.g. Frontend, Backend" />
               </div>
               <div>
-                <label className="block text-sm text-gray-400 mb-1">Proficiency (0-100)</label>
-                <input type="number" min="0" max="100" value={formData.proficiency} onChange={e => setFormData({...formData, proficiency: e.target.value})} className="w-full bg-[#0C0A12] border border-white/10 rounded-lg px-4 py-2 outline-none focus:border-[#9B72EF]" />
+                <label className="block text-sm text-gray-400 mb-1">Sort order (lower = first in the ticker)</label>
+                <input type="number" value={formData.sort_order} onChange={e => setFormData({...formData, sort_order: e.target.value})} className="w-full bg-[#0C0A12] border border-white/10 rounded-lg px-4 py-2 outline-none focus:border-[#9B72EF]" />
               </div>
               <div>
                 <label className="block text-sm text-gray-400 mb-1">Icon Image</label>
@@ -150,9 +135,7 @@ const SkillsAdmin = () => {
                 <button type="submit" disabled={saving} className="bg-[#9B72EF] hover:bg-[#8A5FD0] px-6 py-2 rounded-lg text-white font-medium">{saving ? 'Saving...' : 'Save'}</button>
               </div>
             </form>
-          </div>
-        </div>
-      )}
+      </AdminModal>
     </div>
   );
 };

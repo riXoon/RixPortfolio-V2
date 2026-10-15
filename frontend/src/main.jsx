@@ -2,7 +2,6 @@ import React, { Suspense, lazy } from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
-import { ProjectOverviewData } from './constants/index.js';
 import App from './App.jsx'
 import './index.css'
 
@@ -115,6 +114,8 @@ const CertificatesAdmin = lazy(() => import('./pages/admin/CertificatesAdmin.jsx
 const SkillsAdmin = lazy(() => import('./pages/admin/SkillsAdmin.jsx'));
 const ExperiencesAdmin = lazy(() => import('./pages/admin/ExperiencesAdmin.jsx'));
 const MessagesAdmin = lazy(() => import('./pages/admin/MessagesAdmin.jsx'));
+const TestimonialsAdmin = lazy(() => import('./pages/admin/TestimonialsAdmin.jsx'));
+const AchievementsAdmin = lazy(() => import('./pages/admin/AchievementsAdmin.jsx'));
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 
 const AdminDashboardPlaceholder = ({ title }) => (
@@ -124,8 +125,6 @@ const AdminDashboardPlaceholder = ({ title }) => (
   </div>
 );
 
-
-const projects = ProjectOverviewData;
 
 const router = createBrowserRouter([
   {
@@ -138,11 +137,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/all-projects",
-        element: <AllProjects projects={projects} />,
+        element: <AllProjects />,
       },
       {
         path: "/all-projects/:projectId",
-        element: <ProjectOverview projects={projects} />,
+        element: <ProjectOverview />,
       },
       {
         path: "/certifications",
@@ -169,6 +168,8 @@ const router = createBrowserRouter([
           { path: "certificates", element: <CertificatesAdmin /> },
           { path: "skills", element: <SkillsAdmin /> },
           { path: "experiences", element: <ExperiencesAdmin /> },
+          { path: "testimonials", element: <TestimonialsAdmin /> },
+          { path: "achievements", element: <AchievementsAdmin /> },
           { path: "messages", element: <MessagesAdmin /> },
         ],
       },

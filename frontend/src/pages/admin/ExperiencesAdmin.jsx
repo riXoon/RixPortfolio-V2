@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import apiClient from '../../api/client';
-import { FiPlus, FiEdit2, FiTrash2, FiX, FiBriefcase } from 'react-icons/fi';
+import AdminModal from '../../components/admin/AdminModal';
+import { FiPlus, FiEdit2, FiTrash2, FiBriefcase } from 'react-icons/fi';
+
+const TEXT_FIELDS = ['type', 'short_title', 'company_school', 'role', 'duration', 'description', 'sort_order'];
+const EMPTY_FORM = { type: 'Work', short_title: '', company_school: '', role: '', duration: '', description: '', sort_order: '' };
+const inputCls = 'w-full bg-[#0C0A12] border border-white/10 rounded-lg px-4 py-2 outline-none focus:border-[#9B72EF]';
 
 const ExperiencesAdmin = () => {
   const [experiences, setExperiences] = useState([]);
@@ -10,14 +15,8 @@ const ExperiencesAdmin = () => {
   const [currentId, setCurrentId] = useState(null);
   const [saving, setSaving] = useState(false);
   
-  const [formData, setFormData] = useState({ 
-    type: 'Work', 
-    company_school: '', 
-    role: '', 
-    start_date: '', 
-    end_date: '', 
-    description: '' 
-  });
+  const [formData, setFormData] = useState(EMPTY_FORM);
+  const [logoFile, setLogoFile] = useState(null);
 
   const fetchExperiences = async () => {
     try {
@@ -37,19 +36,15 @@ const ExperiencesAdmin = () => {
     if (exp) {
       setIsEditing(true);
       setCurrentId(exp.id);
-      setFormData({ 
-        type: exp.type || 'Work', 
-        company_school: exp.company_school || '', 
-        role: exp.role || '',
-        start_date: exp.start_date || '',
-        end_date: exp.end_date || '',
-        description: exp.description || ''
-      });
+      const form = { ...EMPTY_FORM };
+      TEXT_FIELDS.forEach(k => { if (exp[k] != null) form[k] = exp[k]; });
+      setFormData(form);
     } else {
       setIsEditing(false);
       setCurrentId(null);
-      setFormData({ type: 'Work', company_school: '', role: '', start_date: '', end_date: '', description: '' });
+      setFormData(EMPTY_FORM);
     }
+    setLogoFile(null);
     setIsModalOpen(true);
   };
 
@@ -57,11 +52,14 @@ const ExperiencesAdmin = () => {
     e.preventDefault();
     setSaving(true);
     try {
-      // Experience has no files, so we can send raw JSON
+      const payload = new FormData();
+      TEXT_FIELDS.forEach(k => payload.append(k, formData[k]));
+      if (logoFile) payload.append('logo', logoFile);
+
       if (isEditing) {
-        await apiClient.put(`/experiences/${currentId}`, formData);
+        await apiClient.put(`/experiences/${currentId}`, payload);
       } else {
-        await apiClient.post('/experiences', formData);
+        await apiClient.post('/experiences', payload);
       }
       setIsModalOpen(false);
       fetchExperiences();
@@ -108,7 +106,7 @@ const ExperiencesAdmin = () => {
                 <h3 className="text-xl font-bold">{exp.role}</h3>
                 <div className="text-[#9B72EF] font-medium mb-1">{exp.company_school} <span className="text-gray-500 font-normal px-2">•</span> <span className="text-gray-400 font-normal">{exp.type}</span></div>
                 <p className="text-sm text-gray-500 mb-2">
-                  {exp.start_date ? new Date(exp.start_date).toLocaleDateString() : 'N/A'} - {exp.end_date ? new Date(exp.end_date).toLocaleDateString() : 'Present'}
+                  {exp.duration || 'No duration set'}
                 </p>
                 <p className="text-gray-300 text-sm">{exp.description}</p>
               </div>
@@ -122,14 +120,8 @@ const ExperiencesAdmin = () => {
         ))}
       </div>
 
-      {isModalOpen && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-[#1A1825] border border-white/10 rounded-2xl w-full max-w-lg p-6">
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold">{isEditing ? 'Edit Experience' : 'New Experience'}</h2>
-              <button onClick={() => setIsModalOpen(false)} className="text-gray-400 hover:text-white"><FiX size={24} /></button>
-            </div>
-            <form onSubmit={handleSubmit} className="space-y-4">
+      <AdminModal open={isModalOpen} title={isEditing ? 'Edit Experience' : 'New Experience'} onClose={() => setIsModalOpen(false)} maxWidth="max-w-lg">
+        <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm text-gray-400 mb-1">Type *</label>
@@ -139,7 +131,7 @@ const ExperiencesAdmin = () => {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm text-gray-400 mb-1">Role/Degree *</label>
+                  <label className="block text-sm text-gray-400 mb-1">Role / Course *</label>
                   <input type="text" required value={formData.role} onChange={e => setFormData({...formData, role: e.target.value})} className="w-full bg-[#0C0A12] border border-white/10 rounded-lg px-4 py-2 outline-none focus:border-[#9B72EF]" />
                 </div>
               </div>
@@ -151,14 +143,27 @@ const ExperiencesAdmin = () => {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm text-gray-400 mb-1">Start Date</label>
-                  <input type="date" value={formData.start_date} onChange={e => setFormData({...formData, start_date: e.target.value})} className="w-full bg-[#0C0A12] border border-white/10 rounded-lg px-4 py-2 outline-none focus:border-[#9B72EF]" />
+                  <label className="block text-sm text-gray-400 mb-1">Duration / Level</label>
+                  <input type="text" value={formData.duration} onChange={e => setFormData({...formData, duration: e.target.value})} placeholder="Tertiary (2023 - Present)" className={inputCls} />
                 </div>
                 <div>
-                  <label className="block text-sm text-gray-400 mb-1">End Date (Leave blank if Present)</label>
-                  <input type="date" value={formData.end_date} onChange={e => setFormData({...formData, end_date: e.target.value})} className="w-full bg-[#0C0A12] border border-white/10 rounded-lg px-4 py-2 outline-none focus:border-[#9B72EF]" />
+                  <label className="block text-sm text-gray-400 mb-1">Sort order (lower = first)</label>
+                  <input type="number" value={formData.sort_order} onChange={e => setFormData({...formData, sort_order: e.target.value})} className={inputCls} />
                 </div>
               </div>
+
+              {formData.type === 'Education' && (
+                <>
+                  <div>
+                    <label className="block text-sm text-gray-400 mb-1">Short title (big heading, e.g. QCU)</label>
+                    <input type="text" value={formData.short_title} onChange={e => setFormData({...formData, short_title: e.target.value})} className={inputCls} />
+                  </div>
+                  <div>
+                    <label className="block text-sm text-gray-400 mb-1">School logo</label>
+                    <input type="file" accept="image/*" onChange={e => setLogoFile(e.target.files[0] || null)} className={`${inputCls} text-sm`} />
+                  </div>
+                </>
+              )}
 
               <div>
                 <label className="block text-sm text-gray-400 mb-1">Description</label>
@@ -170,9 +175,7 @@ const ExperiencesAdmin = () => {
                 <button type="submit" disabled={saving} className="bg-[#9B72EF] hover:bg-[#8A5FD0] px-6 py-2 rounded-lg text-white font-medium">{saving ? 'Saving...' : 'Save'}</button>
               </div>
             </form>
-          </div>
-        </div>
-      )}
+      </AdminModal>
     </div>
   );
 };
