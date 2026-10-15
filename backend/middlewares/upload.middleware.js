@@ -23,3 +23,6 @@ export const projectUpload = upload.fields([
 
 export const certificateUpload = upload.single('image')
 export const skillUpload = upload.single('icon')
+export const experienceUpload = upload.single('logo')
+export const testimonialUpload = upload.single('profile')
+export const achievementUpload = upload.single('image')
