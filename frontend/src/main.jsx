@@ -107,6 +107,24 @@ const CertificationsPage = lazyWithMinDelay(() => import('./pages/Certifications
 const CTFArchivePage = lazyWithMinDelay(() => import('./pages/CTFArchivePage.jsx'));
 const NoPage = lazyWithMinDelay(() => import('./pages/NoPage.jsx'));
 
+// Admin pages can load faster
+const Login = lazy(() => import('./pages/Login.jsx'));
+const AdminLayout = lazy(() => import('./layouts/AdminLayout.jsx'));
+const ProjectsAdmin = lazy(() => import('./pages/admin/ProjectsAdmin.jsx'));
+const CertificatesAdmin = lazy(() => import('./pages/admin/CertificatesAdmin.jsx'));
+const SkillsAdmin = lazy(() => import('./pages/admin/SkillsAdmin.jsx'));
+const ExperiencesAdmin = lazy(() => import('./pages/admin/ExperiencesAdmin.jsx'));
+const MessagesAdmin = lazy(() => import('./pages/admin/MessagesAdmin.jsx'));
+import ProtectedRoute from './components/ProtectedRoute.jsx';
+
+const AdminDashboardPlaceholder = ({ title }) => (
+  <div className="text-white animate-fade-in">
+    <h1 className="text-3xl font-bold mb-2">{title}</h1>
+    <p className="text-gray-400">Manage your {title.toLowerCase()} data here.</p>
+  </div>
+);
+
+
 const projects = ProjectOverviewData;
 
 const router = createBrowserRouter([
@@ -133,6 +151,26 @@ const router = createBrowserRouter([
       {
         path: "/ctf-archive",
         element: <CTFArchivePage />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/admin",
+        element: (
+          <ProtectedRoute>
+            <AdminLayout />
+          </ProtectedRoute>
+        ),
+        children: [
+          { index: true, element: <AdminDashboardPlaceholder title="Dashboard Overview" /> },
+          { path: "projects", element: <ProjectsAdmin /> },
+          { path: "certificates", element: <CertificatesAdmin /> },
+          { path: "skills", element: <SkillsAdmin /> },
+          { path: "experiences", element: <ExperiencesAdmin /> },
+          { path: "messages", element: <MessagesAdmin /> },
+        ],
       },
       {
         path: "*",
