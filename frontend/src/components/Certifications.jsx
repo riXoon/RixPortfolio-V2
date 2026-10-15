@@ -3,27 +3,28 @@ import { Link } from 'react-router-dom'
 import Button from './Button'
 import { fade01, glow06 } from '../assets'
 import { ExpertiseData } from '../constants'
+import useCertificates from '../hooks/useCertificates'
 
 const certificates = ExpertiseData[0].certifications[0];
 
-const Certifications = () => {
-  const shuffledImages01 = useMemo(() => {
-    const certs = [...certificates.images01];
-    for (let i = certs.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [certs[i], certs[j]] = [certs[j], certs[i]];
-    }
-    return certs;
-  }, []);
+const shuffle = (list) => {
+  const certs = [...list];
+  for (let i = certs.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [certs[i], certs[j]] = [certs[j], certs[i]];
+  }
+  return certs;
+};
 
-  const shuffledImages02 = useMemo(() => {
-    const certs = [...certificates.images02];
-    for (let i = certs.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [certs[i], certs[j]] = [certs[j], certs[i]];
-    }
-    return certs;
-  }, []);
+const Certifications = () => {
+  const { certificates: all } = useCertificates();
+
+  // Shuffle once the list arrives, then split across the two tickers.
+  const [shuffledImages01, shuffledImages02] = useMemo(() => {
+    const withImage = shuffle(all.filter(c => c.src));
+    const half = Math.ceil(withImage.length / 2);
+    return [withImage.slice(0, half), withImage.slice(half)];
+  }, [all]);
 
   return (
     <div className='flex flex-col md:gap-12 gap-8 items-center py-12 justify-center relative overflow-hidden'>
@@ -34,7 +35,7 @@ const Certifications = () => {
         <p className='text-white text-center px-[2rem]' dangerouslySetInnerHTML={{ __html: certificates.content }}
         ></p>
       </div>
-      <div className='w-full flex flex-col md:gap-4 gap-2 overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]'>
+      {shuffledImages01.length > 0 && <div className='w-full flex flex-col md:gap-4 gap-2 overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]'>
         <div className='w-full inline-flex flex-nowrap overflow-hidden group/ticker1'>
           <div className='flex items-center justify-center md:justify-start flex-none w-max [&_img]:shrink-0 [&_img]:mx-1 md:[&_img]:mx-2 md:h-[10rem] h-[4rem] animate-infinite-scroll-slow group-hover/ticker1:[animation-play-state:paused] z-0'>
             {[...shuffledImages01, ...shuffledImages01, ...shuffledImages01].map((cert, index) => (
@@ -60,7 +61,7 @@ const Certifications = () => {
             ))}
           </div>
         </div>
-      </div>
+      </div>}
       <Link to="/certifications" className='z-20'>
         <Button text={certificates.btnText}>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-4">

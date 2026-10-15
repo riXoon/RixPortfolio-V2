@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import { TestimonialData } from '../constants'
+import useTestimonials from '../hooks/useTestimonials'
 
 const TestimonialCard = ({ item }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -81,6 +81,7 @@ const TestimonialCard = ({ item }) => {
 }
 
 const Testimonials = () => {
+  const { items: TestimonialData } = useTestimonials();
   return (
     <div className='flex flex-col lg:gap-8 gap-6 py-20 lg:py-32 w-full overflow-hidden border-t border-[#3B2B6A]/30 bg-gradient-to-b from-transparent to-[#1A1625]/20'>
       <div className='w-full z-10 flex flex-col items-center justify-center mb-8 px-4'>
@@ -104,7 +105,7 @@ const Testimonials = () => {
         </motion.p>
       </div>
       
-      <motion.div 
+      {TestimonialData.length > 0 && <motion.div 
         initial={{ opacity: 0.1, y: 70 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false, amount: 0.2 }}
@@ -133,7 +134,7 @@ const Testimonials = () => {
           ))}
         </ul>
         </div>
-      </motion.div>
+      </motion.div>}
     </div>
   )
 }

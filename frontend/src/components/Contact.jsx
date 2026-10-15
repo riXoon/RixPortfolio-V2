@@ -4,6 +4,7 @@ import Button from './Button'
 import { glow05, senec4 } from '../assets'
 import { ContactData } from '../constants'
 import emailjs from 'emailjs-com'
+import apiClient from '../api/client'
 
 const Contact = () => {
   const contacts = ContactData[0];
@@ -44,6 +45,7 @@ const Contact = () => {
     message: '',
   });
   const [errors, setErrors] = useState({});
+  const [sending, setSending] = useState(false);
   const [isSuccessOpen, setIsSuccessOpen] = useState(false);
 
 
@@ -68,46 +70,39 @@ const Contact = () => {
     return formErrors;
   };
 
-  // Hnadle form logic
-  const handleSubmit = (e) => {
+  // Saves the message to the admin inbox (primary) and sends the emailjs
+  // notification (best effort). The visitor sees success if either went through.
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if (sending) return;
     const formErrors = validate();
     if (Object.keys(formErrors).length > 0) {
       setErrors(formErrors);
-    } else {
-      console.log('Form data submitted:', formData);
-      setErrors({});
-      setIsOpen(false);
-      emailjs
-        .send(
-          serviceId,
-          templateId,
-          {
-            name: formData.name,
-            email: formData.email,
-            message: formData.message,
-          },
-          publicUser
-        )
-        .then(
-          (result) => {
-            console.log(result.text);
-            // Simulate form submission
-            setTimeout(() => {
-              setFormData({
-                name: '',
-                email: '',
-                message: '',
-              });
-              setIsSuccessOpen(true);
-            }, 1000);
-          },
-          (error) => {
-            console.log(error.text);
-            alert('An error occurred. Please try again.');
-          }
-        );
+      return;
+    }
+    setErrors({});
+    setSending(true);
+    const results = await Promise.allSettled([
+      apiClient.post('/messages', {
+        sender_name: formData.name,
+        sender_email: formData.email,
+        message: formData.message,
+      }),
+      emailjs.send(
+        serviceId,
+        templateId,
+        { name: formData.name, email: formData.email, message: formData.message },
+        publicUser
+      ),
+    ]);
+    setSending(false);
 
+    if (results.some(r => r.status === 'fulfilled')) {
+      setIsOpen(false);
+      setFormData({ name: '', email: '', message: '' });
+      setIsSuccessOpen(true);
+    } else {
+      alert('An error occurred. Please try again.');
     }
   };
 
@@ -268,7 +263,7 @@ const Contact = () => {
             </div>
             <div className='flex justify-center gap-3 pt-8'>
               <Button text={'Close'} onClick={closeModal} type="button"></Button>
-                <Button text={'Submit'} type="submit" styles={`bg-[#7B4FD0] hover:bg-[#6A3FBF]`}></Button>
+                <Button text={sending ? 'Sending…' : 'Submit'} type="submit" disabled={sending} styles={`bg-[#7B4FD0] hover:bg-[#6A3FBF]`}></Button>
             </div>
           </form>
         </div>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { AchievementData } from '../constants';
+import useAchievements from '../hooks/useAchievements';
 
 // ─── Slide variants (horizontal slide) ──────────────────────────────────────
 const slideVariants = {
@@ -135,6 +135,7 @@ const AchievementSlide = ({ item }) => (
 
 // ─── Main Component ──────────────────────────────────────────────────────────
 const Achievement = () => {
+  const { items: AchievementData } = useAchievements();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(1);
   const [isHovered, setIsHovered] = useState(false);
@@ -169,6 +170,7 @@ const Achievement = () => {
   }, [isHovered, currentIndex, total]);
 
   const current = AchievementData[currentIndex];
+  if (!current) return null; // still loading, or no achievements yet
 
   return (
     <div className="flex flex-col items-center py-14 lg:py-24 w-full relative border-t border-[#3B2B6A]/30 overflow-hidden">

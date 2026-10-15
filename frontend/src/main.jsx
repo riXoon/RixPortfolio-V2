@@ -2,7 +2,6 @@ import React, { Suspense, lazy } from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
-import { ProjectOverviewData } from './constants/index.js';
 import App from './App.jsx'
 import './index.css'
 
@@ -107,7 +106,25 @@ const CertificationsPage = lazyWithMinDelay(() => import('./pages/Certifications
 const CTFArchivePage = lazyWithMinDelay(() => import('./pages/CTFArchivePage.jsx'));
 const NoPage = lazyWithMinDelay(() => import('./pages/NoPage.jsx'));
 
-const projects = ProjectOverviewData;
+// Admin pages can load faster
+const Login = lazy(() => import('./pages/Login.jsx'));
+const AdminLayout = lazy(() => import('./layouts/AdminLayout.jsx'));
+const ProjectsAdmin = lazy(() => import('./pages/admin/ProjectsAdmin.jsx'));
+const CertificatesAdmin = lazy(() => import('./pages/admin/CertificatesAdmin.jsx'));
+const SkillsAdmin = lazy(() => import('./pages/admin/SkillsAdmin.jsx'));
+const ExperiencesAdmin = lazy(() => import('./pages/admin/ExperiencesAdmin.jsx'));
+const MessagesAdmin = lazy(() => import('./pages/admin/MessagesAdmin.jsx'));
+const TestimonialsAdmin = lazy(() => import('./pages/admin/TestimonialsAdmin.jsx'));
+const AchievementsAdmin = lazy(() => import('./pages/admin/AchievementsAdmin.jsx'));
+import ProtectedRoute from './components/ProtectedRoute.jsx';
+
+const AdminDashboardPlaceholder = ({ title }) => (
+  <div className="text-white animate-fade-in">
+    <h1 className="text-3xl font-bold mb-2">{title}</h1>
+    <p className="text-gray-400">Manage your {title.toLowerCase()} data here.</p>
+  </div>
+);
+
 
 const router = createBrowserRouter([
   {
@@ -120,11 +137,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/all-projects",
-        element: <AllProjects projects={projects} />,
+        element: <AllProjects />,
       },
       {
         path: "/all-projects/:projectId",
-        element: <ProjectOverview projects={projects} />,
+        element: <ProjectOverview />,
       },
       {
         path: "/certifications",
@@ -133,6 +150,28 @@ const router = createBrowserRouter([
       {
         path: "/ctf-archive",
         element: <CTFArchivePage />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/admin",
+        element: (
+          <ProtectedRoute>
+            <AdminLayout />
+          </ProtectedRoute>
+        ),
+        children: [
+          { index: true, element: <AdminDashboardPlaceholder title="Dashboard Overview" /> },
+          { path: "projects", element: <ProjectsAdmin /> },
+          { path: "certificates", element: <CertificatesAdmin /> },
+          { path: "skills", element: <SkillsAdmin /> },
+          { path: "experiences", element: <ExperiencesAdmin /> },
+          { path: "testimonials", element: <TestimonialsAdmin /> },
+          { path: "achievements", element: <AchievementsAdmin /> },
+          { path: "messages", element: <MessagesAdmin /> },
+        ],
       },
       {
         path: "*",

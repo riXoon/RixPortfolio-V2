@@ -8,9 +8,11 @@ import Footer from '../components/Footer';
 import SEO from '../components/SEO';
 import { Link } from 'react-router-dom';
 import useScrollToTop from '../hooks/useScrollToTop';
+import useProjects from '../hooks/useProjects';
 
-const AllProjects = ({ projects }) => {
+const AllProjects = () => {
   useScrollToTop();
+  const { projects, loading } = useProjects();
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 1000], [0, 250]);
   const opacity = useTransform(scrollY, [0, 1000], [0.4, 0.1]);
@@ -44,6 +46,8 @@ const AllProjects = ({ projects }) => {
           <p className='text-white text-center w-full lg:max-w-3xl max-w-[40rem]'>This section showcases my innovative web development and collaborative projects. Each one reflects <br className='md:block hidden' /> my passion for creating designs that are both visually appealing and functional.</p>
         </div>
         <div className='grid grid-cols-1 lg:grid-cols-2 mt-[4rem] gap-6 md:px-24'>
+          {loading && <p role="status" className='text-white/60 text-center col-span-full'>Loading projects…</p>}
+          {!loading && projects.length === 0 && <p className='text-white/60 text-center col-span-full'>No projects yet.</p>}
           {projects.map(project => (
             <Link key={project.id} to={`/all-projects/${project.id}`}>
               <Card

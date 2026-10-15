@@ -20,3 +20,9 @@ export const projectUpload = upload.fields([
     {name: 'poster', maxCount: 1},
     {name: 'graphics', maxCount: 10}
 ])
+
+export const certificateUpload = upload.single('image')
+export const skillUpload = upload.single('icon')
+export const experienceUpload = upload.single('logo')
+export const testimonialUpload = upload.single('profile')
+export const achievementUpload = upload.single('image')
