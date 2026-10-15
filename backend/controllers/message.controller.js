@@ -24,8 +24,12 @@ export const getMessage = async (req, res) => {
 
 export const createMessage = async (req, res) => {
     try {
-        const fields = { ...req.body }
-        const message = await MessageModel.create(fields)
+        // public endpoint: accept only the visitor-supplied columns
+        const { sender_name, sender_email, message: text } = req.body
+        if (!sender_name || !sender_email || !text) {
+            return res.status(400).json({ message: 'sender_name, sender_email and message are required' })
+        }
+        const message = await MessageModel.create({ sender_name, sender_email, message: text })
         res.status(201).json(message)
     } catch (error) {
         console.error('Create Message Error:', error)

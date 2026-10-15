@@ -1,4 +1,18 @@
 import * as ExperienceModel from '../models/experience.model.js'
+import { uploadImage } from '../utils/storage.js'
+
+// only these columns can be written from the request body
+const buildFields = async (req) => {
+    const fields = {}
+    const textKeys = ['type', 'short_title', 'company_school', 'role', 'duration', 'description']
+    textKeys.forEach(k => { if (req.body[k] !== undefined) fields[k] = req.body[k] })
+    if (req.body.sort_order !== undefined) {
+        // multipart sends '' for an empty number input
+        fields.sort_order = req.body.sort_order === '' ? null : Number(req.body.sort_order)
+    }
+    if (req.file) fields.logo_url = await uploadImage(req.file, 'experiences')
+    return fields
+}
 
 export const getExperiences = async (req, res) => {
     try {
@@ -24,7 +38,10 @@ export const getExperience = async (req, res) => {
 
 export const createExperience = async (req, res) => {
     try {
-        const fields = { ...req.body }
+        const fields = await buildFields(req)
+        if (!fields.type || !fields.company_school || !fields.role) {
+            return res.status(400).json({ message: 'type, company_school and role are required' })
+        }
         const experience = await ExperienceModel.create(fields)
         res.status(201).json(experience)
     } catch (error) {
@@ -35,7 +52,7 @@ export const createExperience = async (req, res) => {
 
 export const updateExperience = async (req, res) => {
     try {
-        const fields = { ...req.body }
+        const fields = await buildFields(req)
 
         if (Object.keys(fields).length === 0) {
             return res.status(400).json({ message: 'No fields to update' })

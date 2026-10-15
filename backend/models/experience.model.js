@@ -6,6 +6,7 @@ export const getAll = async() => {
     const {data, error} = await supabase
         .from(TABLE)
         .select('*')
+        .order('sort_order', {ascending: true, nullsFirst: false})
         .order('created_at', {ascending: false})
 
     if(error) throw error

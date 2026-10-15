@@ -23,9 +23,24 @@ export const getCertificate = async (req, res) => {
     }
 }
 
+// only these columns can be written from the request body
+const buildFields = (body) => {
+    const fields = {}
+    const textKeys = ['title', 'issuer', 'date', 'category', 'description', 'link']
+    textKeys.forEach(k => { if (body[k] !== undefined) fields[k] = body[k] })
+    if (body.sort_order !== undefined) {
+        // multipart sends '' for an empty number input
+        fields.sort_order = body.sort_order === '' ? null : Number(body.sort_order)
+    }
+    return fields
+}
+
 export const createCertificate = async (req, res) => {
     try {
-        const fields = { ...req.body }
+        const fields = buildFields(req.body)
+        if (!fields.title || !fields.issuer) {
+            return res.status(400).json({ message: 'title and issuer are required' })
+        }
         if (req.file) {
             fields.image_url = await uploadImage(req.file, 'certificates')
         }
@@ -40,7 +55,7 @@ export const createCertificate = async (req, res) => {
 
 export const updateCertificate = async (req, res) => {
     try {
-        const fields = { ...req.body }
+        const fields = buildFields(req.body)
         if (req.file) {
             fields.image_url = await uploadImage(req.file, 'certificates')
         }

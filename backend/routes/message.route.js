@@ -6,8 +6,9 @@ import { protect } from '../middlewares/auth.middleware.js'
 
 const router = express.Router()
 
-router.get('/', getMessages) // typically protected, but leaving as is for consistency or later modification
-router.get('/:id', getMessage)
+// messages contain visitors' emails, so reading them is admin-only
+router.get('/', protect, getMessages)
+router.get('/:id', protect, getMessage)
 
 // Creating a message shouldn't be protected (public contact form)
 router.post('/', createMessage)

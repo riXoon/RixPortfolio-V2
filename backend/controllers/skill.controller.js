@@ -23,13 +23,24 @@ export const getSkill = async (req, res) => {
     }
 }
 
+// only these columns can be written from the request body
+const buildFields = async (req) => {
+    const fields = {}
+    const textKeys = ['name', 'category']
+    textKeys.forEach(k => { if (req.body[k] !== undefined) fields[k] = req.body[k] })
+    // multipart sends '' for an empty number input
+    if (req.body.sort_order !== undefined) {
+        fields.sort_order = req.body.sort_order === '' ? null : Number(req.body.sort_order)
+    }
+    if (req.file) fields.icon_url = await uploadImage(req.file, 'skills')
+    return fields
+}
+
 export const createSkill = async (req, res) => {
     try {
-        const fields = { ...req.body }
-        if (req.file) {
-            fields.icon_url = await uploadImage(req.file, 'skills')
-        }
+        const fields = await buildFields(req)
 
+        if (!fields.name) return res.status(400).json({ message: 'name is required' })
         const skill = await SkillModel.create(fields)
         res.status(201).json(skill)
     } catch (error) {
@@ -40,10 +51,7 @@ export const createSkill = async (req, res) => {
 
 export const updateSkill = async (req, res) => {
     try {
-        const fields = { ...req.body }
-        if (req.file) {
-            fields.icon_url = await uploadImage(req.file, 'skills')
-        }
+        const fields = await buildFields(req)
 
         if (Object.keys(fields).length === 0) {
             return res.status(400).json({ message: 'No fields to update' })
