@@ -1,7 +1,7 @@
 import React, { useMemo, useState, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { FMlogo, grid01, glow07 } from '../assets';
-import { ExpertiseData } from '../constants';
+import useCertificates from '../hooks/useCertificates';
 import Footer from '../components/Footer';
 import SEO from '../components/SEO';
 import { Link } from 'react-router-dom';
@@ -183,15 +183,13 @@ const BackgroundAnimations = () => {
 
 const CertificationsPage = () => {
   useScrollToTop();
-  const certificates = ExpertiseData[0].certifications[0];
-  
+  const { certificates: certs, loading } = useCertificates();
+
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 1000], [0, 250]);
   const opacity = useTransform(scrollY, [0, 1000], [0.4, 0.1]);
   
   const groupedCerts = useMemo(() => {
-    const certs = [...certificates.images01, ...certificates.images02];
-    
     // Sort certs to ensure specific order
     const grouped = {
       'Cybersecurity': [],
@@ -212,7 +210,7 @@ const CertificationsPage = () => {
     
     // Remove empty categories
     return Object.fromEntries(Object.entries(grouped).filter(([_, arr]) => arr.length > 0));
-  }, [certificates]);
+  }, [certs]);
 
   const renderLink = (link) => (
     <Link
@@ -267,6 +265,8 @@ const CertificationsPage = () => {
 
         {/* Categories Grid */}
         <div className="mt-[5rem]">
+          {loading && <p role="status" className="text-center text-gray-400">Loading certifications…</p>}
+          {!loading && certs.length === 0 && <p className="text-center text-gray-400">No certifications yet.</p>}
           {Object.entries(groupedCerts).map(([category, certs]) => (
             <div key={category} className="mb-20">
               {/* Sticky Header */}

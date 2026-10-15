@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
-import { AboutData } from '../constants';
+import useEducation from '../hooks/useEducation';
 import Badge from './Badge';
 import TerminalPrompt from './TerminalPrompt';
 import TerminalOutput from './TerminalOutput';
 import useGsapAnimations from '../hooks/useGsapAnimations';
 
-// Destructure the specific education data, because i have different styles in each
-const { education } = AboutData[0];
-const sfhsSeniorHigh = education.find(ed => ed.title === 'SFHS');
-const qcuTertiary = education.find(ed => ed.title === 'QCU');
-
+// Fetch first, then mount the animated content: the GSAP hook binds to
+// `.scroll-animation-12` once on mount, so the entries must already exist.
 const Education = () => {
+  const { items, loading } = useEducation();
+  if (loading) return <div className='min-h-[40rem]' aria-busy="true" />;
+  return <EducationContent entries={items} />;
+};
+
+const EducationContent = ({ entries }) => {
   const [headerDone, setHeaderDone] = useState(false);
   useGsapAnimations();
   return (
@@ -49,8 +52,9 @@ const Education = () => {
                   <h1 className='uppercase text-white font-black text-[2.8rem] lg:text-[6rem] whitespace-nowrap leading-none text-center' id='scroll-animation-11'>Education</h1>
                 </TerminalOutput>
                 <TerminalOutput visible={headerDone} delay={200}>
-                  <QcuEducation />
-                  <SfhsEducation />
+                  {entries.map((entry, index) => (
+                    <EducationEntry key={entry.id ?? entry.title} entry={entry} first={index === 0} />
+                  ))}
                 </TerminalOutput>
               </div>
             </div>
@@ -61,57 +65,27 @@ const Education = () => {
   )
 }
 
-const SfhsEducation = () => {
+const EducationEntry = ({ entry, first }) => {
   const [done, setDone] = useState(false);
+  const file = `${String(entry.title).toLowerCase().replace(/[^a-z0-9]+/g, '-')}.json`;
   return (
-    <div className='flex flex-col gap-4 md:mt-[6rem] mt-[3rem] scroll-animation-12'>
-      {/* ZSH prompt for SFHS */}
+    <div className={`flex flex-col gap-4 mt-[3rem] ${first ? '' : 'md:mt-[6rem]'} scroll-animation-12`}>
       <TerminalPrompt
-        command={<>cat <span>sfhs.json</span></>}
-        commandStr="cat sfhs.json"
+        command={<>cat <span>{file}</span></>}
+        commandStr={`cat ${file}`}
         onComplete={() => setDone(true)}
       />
-      {/* SFHS content reveals after cat sfhs.json */}
       <TerminalOutput visible={done}>
         <div className='flex lg:gap-12 gap-5'>
-          {/* Logo container */}
-          <img src={sfhsSeniorHigh.logo} alt="SFHS Logo" loading='lazy' decoding='async' className='w-auto h-[3.5rem] lg:h-[14rem]' />
-          <div className='lg:space-y-4 space-y-3'>
-            <h1 className='uppercase bg-gradient-to-r from-[#B8B7FF] via-[#9B72EF] to-[#7B4FD0] text-transparent bg-clip-text font-black text-[2rem] lg:text-[5rem] whitespace-nowrap leading-none'>
-              {sfhsSeniorHigh.title}
-            </h1>
-            <div className='flex flex-wrap gap-6'>
-              {/* SFHS Secondary */}
-              <Content container={'text-wrap lg:space-y-3 space-y-2'} name={sfhsSeniorHigh.name} level={sfhsSeniorHigh.level} course={sfhsSeniorHigh.course} />
-            </div>
-          </div>
-        </div>
-      </TerminalOutput>
-    </div>
-  )
-}
-
-const QcuEducation = () => {
-  const [done, setDone] = useState(false);
-  return (
-    <div className='flex flex-col gap-4 lg:mt-[3rem] mt-[3rem] scroll-animation-12'>
-      {/* ZSH prompt for QCU */}
-      <TerminalPrompt
-        command={<>cat <span>qcu.json</span></>}
-        commandStr="cat qcu.json"
-        onComplete={() => setDone(true)}
-      />
-      {/* QCU content reveals after cat qcu.json */}
-      <TerminalOutput visible={done}>
-        <div className='flex lg:gap-12 gap-5'>
-          <img src={qcuTertiary.logo} alt="QCU Logo" loading='lazy' decoding='async' className='w-auto h-[3.5rem] lg:h-[12rem]' />
+          {entry.logo && (
+            <img src={entry.logo} alt={`${entry.title} Logo`} loading='lazy' decoding='async' className='w-auto h-[3.5rem] lg:h-[12rem]' />
+          )}
           <div className='lg:space-y-4 space-y-3'>
             <h1 className='uppercase bg-gradient-to-r from-[#B8B7FF] via-[#9B72EF] to-[#7B4FD0] text-transparent bg-clip-text font-black text-[2rem] lg:text-[4rem] whitespace-nowrap leading-none'>
-              {qcuTertiary.title}
+              {entry.title}
             </h1>
             <div className='flex flex-wrap gap-6'>
-              {/* QCU Tertiary */}
-              <Content container={'text-wrap lg:space-y-3 space-y-2'} name={qcuTertiary.name} level={qcuTertiary.level} course={qcuTertiary.course} />
+              <Content container={'text-wrap lg:space-y-3 space-y-2'} name={entry.name} level={entry.level} course={entry.course} />
             </div>
           </div>
         </div>

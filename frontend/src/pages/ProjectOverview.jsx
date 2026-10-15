@@ -12,11 +12,13 @@ import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import SEO from '../components/SEO';
 import useScrollToTop from '../hooks/useScrollToTop';
+import useProjects from '../hooks/useProjects';
 
 
 
-const ProjectOverview = ({ projects }) => {
+const ProjectOverview = () => {
   useScrollToTop();
+  const { projects, loading } = useProjects();
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 1000], [0, -250]);
   const opacity = useTransform(scrollY, [0, 1000], [0.5, 0.1]);
@@ -97,6 +99,10 @@ const ProjectOverview = ({ projects }) => {
       {link.title}
     </Link>
   );
+
+  if (loading) {
+    return <p role="status" className='text-white/60 text-center pt-[30vh]'>Loading project…</p>;
+  }
 
   if (!project) {
     return <NoPage />;
@@ -222,7 +228,11 @@ const ProjectOverview = ({ projects }) => {
                     <div className="relative flex items-center" key={index}>
                       <div className="group relative flex items-center">
                         <Badge styles={'lg:p-2 p-1.5 relative group hover:shadow-xl hover:shadow-[#412F84] transition-all duration-300 ease-in-out hover:border-[#6C59B9] hover:bg-[#221D36] cursor-help'}>
-                          <img src={icon.icon} alt={icon.tooltip} loading='lazy' decoding='async' className='w-6 h-6 lg:w-8 lg:h-8' />
+                          {icon.icon ? (
+                            <img src={icon.icon} alt={icon.tooltip} loading='lazy' decoding='async' className='w-6 h-6 lg:w-8 lg:h-8' />
+                          ) : (
+                            <span className='text-xs px-1 text-nowrap'>{icon.tooltip}</span>
+                          )}
                         </Badge>
                         <div className={`absolute text-xs bg-[#221c38] text-white lg:px-2 px-1.5 lg:py-1.5 py-1 z-50 rounded-md opacity-0 group-hover:opacity-100 text-nowrap transition-opacity duration-300 ease-in-out top-[120%] left-[50%] transform  translate-x-[-50%] pointer-events-none border border-violet-500/20`}>
                           {icon.tooltip}
